@@ -1,0 +1,21 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerJumpingState : PlayerBaseState
+{
+    public override void EnterState(PlayerController player)
+    {
+        //set sprite here
+    }
+
+    public override void OnCollisionEnter(PlayerController player)
+    {
+        player.TransitionToState(player.IdleState);
+    }
+
+    public override void Update(PlayerController player)
+    {
+        
+    }
+}
