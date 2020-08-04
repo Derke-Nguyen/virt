@@ -24,13 +24,16 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
     public readonly PlayerDashingState DashingState = new PlayerDashingState();
 
+
     public Vector3 velocity;
     
     public float dashSpeed;
     private float dashTime;
     public float startDashTime;
     public Vector3 direction;
+
     public float jumpForce = 8;
+    private bool dashState = false;
 
     void Start()
     {
@@ -75,8 +78,6 @@ public class PlayerController : MonoBehaviour
             Rigidbody.MovePosition(Rigidbody.position + velocity * Time.fixedDeltaTime);
         }
         currentState.FixedStateUpdate(this);
-
-        
-        
     }   
+
 }
