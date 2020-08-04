@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public float speed = 8;
+
+    //bullet prefab
+    public GameObject smokeBombPrefab;
 
     PlayerController controller;
     Camera viewCamera;
@@ -36,6 +40,22 @@ public class Player : MonoBehaviour
             controller.LookAt(point);
         }
 
+        //ranged attack if e is pressed
+        if (Input.GetKeyDown("e"))
+        {
+            SmokeBomb();
+        }
+
         
+    }
+
+    //spawn a smoke
+    void SmokeBomb()
+    {
+        Vector3 spawnsmokeloc = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z - 1);
+
+        GameObject clone;
+        clone = Instantiate(smokeBombPrefab, spawnsmokeloc, Quaternion.identity);
+        Destroy(clone, 2.0f);
     }
 }
