@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class PlayerDashingState : PlayerBaseState
 {
-    Vector3 dashDirection;
+    Vector3 dashDirection; //Maps the direction of the dash
 
-    public float startingTime;
-    public float dashTime;
-    public float dashSpeed;
+    public float startingTime = 0.2f; //Length of the dash in seconds per frame
+    public float dashTime; //Counter of dash length
+    public float dashSpeed = 20; //Dash speed
 
-    public bool dashFinished;
+    public bool dashFinished; //Checks if currently dashing, used to transition back to idle
     
-
+    //Calculates the direction and speed of the dash, marks the player as dashing
     public override void EnterState(PlayerController player)
     {
         dashDirection = player.direction;
-        startingTime = 0.2f;
         dashTime = startingTime;
-        dashSpeed = 20;
-
         dashFinished = false;
     }
 
+
+    //Moves the player if dash is occuring, otherwise transition back to idle
     public override void FixedStateUpdate(PlayerController player)
     {
         if (!dashFinished && dashTime > 0)
@@ -37,22 +36,26 @@ public class PlayerDashingState : PlayerBaseState
         }
     }
 
+
+    //TODO: dash should end on collision with object in game world
     public override void OnCollisionEnter(PlayerController player)
     {
         
     }
 
+
+    //Previous iteration of jump dash, currently unneeded
     public override void Update(PlayerController player)
     {
-        if (dashFinished)
-        {
-            //temp
-            //if (player.Rigidbody.position.y - 1 < 0.1)
-            //{
-            //    player.TransitionToState(player.IdleState);
-            //}
-            //else
-            //    player.TransitionToState(player.JumpingState);
-        }
+        //if (dashFinished)
+        //{
+        //    temp
+        //    if (player.Rigidbody.position.y - 1 < 0.1)
+        //    {
+        //        player.TransitionToState(player.IdleState);
+        //    }
+        //    else
+        //        player.TransitionToState(player.JumpingState);
+        //}
     }
 }

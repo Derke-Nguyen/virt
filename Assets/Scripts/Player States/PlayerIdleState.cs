@@ -4,23 +4,30 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
-    public static int dashCD = 0;
+    public static int dashCD = 0; //Global variable since Idle state and Jump state should share the same dash cooldown
 
+
+    //TODO: Add idling animations
     public override void EnterState(PlayerController player)
     {
         //set sprite here
     }
 
+    //Nothing should go here
     public override void FixedStateUpdate(PlayerController player)
     {
         
     }
 
+    //Nothing should go here
     public override void OnCollisionEnter(PlayerController player)
     {
         
     }
 
+
+    //Checks for input in order to change state
+    //TODO: Add melee attack state
     public override void Update(PlayerController player)
     {
         if (Input.GetKeyDown(KeyCode.Space))
