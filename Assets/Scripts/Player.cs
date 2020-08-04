@@ -25,6 +25,11 @@ public class Player : MonoBehaviour
         Vector3 velocity = direction * speed;
         controller.Move(velocity);
 
+
+    }
+
+    private void FixedUpdate()
+    {
         Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
         Plane groundPlane = new Plane(Vector3.up, transform.position);
         float rayDistance;
@@ -35,7 +40,5 @@ public class Player : MonoBehaviour
             //Debug.DrawLine(ray.origin, point, Color.red);
             controller.LookAt(point);
         }
-
-        
     }
 }
