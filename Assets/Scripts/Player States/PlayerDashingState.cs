@@ -33,6 +33,7 @@ public class PlayerDashingState : PlayerBaseState
         else
         {
             dashFinished = true;
+            player.TransitionToState(player.IdleState);
         }
     }
 
@@ -46,12 +47,12 @@ public class PlayerDashingState : PlayerBaseState
         if (dashFinished)
         {
             //temp
-            if (player.Rigidbody.position.y == 1)
-            {
-                player.TransitionToState(player.IdleState);
-            }
-            else
-                player.TransitionToState(player.JumpingState);
+            //if (player.Rigidbody.position.y - 1 < 0.1)
+            //{
+            //    player.TransitionToState(player.IdleState);
+            //}
+            //else
+            //    player.TransitionToState(player.JumpingState);
         }
     }
 }

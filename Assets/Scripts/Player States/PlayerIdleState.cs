@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
+    public int dashCD = 0;
+
     public override void EnterState(PlayerController player)
     {
         //set sprite here
@@ -28,7 +30,16 @@ public class PlayerIdleState : PlayerBaseState
         }
         else if (Input.GetMouseButton(1))
         {
-            player.TransitionToState(player.DashingState);
+            Debug.Log(dashCD);
+            if (dashCD == 0)
+            {
+                dashCD = 100;
+                player.TransitionToState(player.DashingState);
+            }
+        }
+        if(dashCD > 0)
+        {
+            --dashCD;
         }
     }
 }
