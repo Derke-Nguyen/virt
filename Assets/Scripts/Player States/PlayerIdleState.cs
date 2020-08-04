@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
-    public int dashCD = 0;
+    public static int dashCD = 0;
 
     public override void EnterState(PlayerController player)
     {
@@ -25,7 +25,7 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            player.Rigidbody.AddForce(Vector3.up * 250);
+            player.Rigidbody.AddForce(Vector3.up * 500);
             player.TransitionToState(player.JumpingState);
         }
         else if (Input.GetMouseButton(1))
