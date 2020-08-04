@@ -24,18 +24,12 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
     public readonly PlayerDashingState DashingState = new PlayerDashingState();
 
-    Vector3 velocity;
-<<<<<<< Updated upstream
-    Rigidbody myRigidbody;
-    void Start()
-    {
-        myRigidbody = GetComponent<Rigidbody>();
-=======
+    public Vector3 velocity;
     
     public float dashSpeed;
     private float dashTime;
     public float startDashTime;
-    private int direction;
+    public Vector3 direction;
     public float jumpForce = 8;
 
     void Start()
@@ -60,7 +54,6 @@ public class PlayerController : MonoBehaviour
     {
         currentState = state;
         currentState.EnterState(this);
->>>>>>> Stashed changes
     }
 
     public void Move(Vector3 _velocity) 
@@ -71,42 +64,19 @@ public class PlayerController : MonoBehaviour
     public void LookAt(Vector3 lookPoint)
     {
         transform.LookAt(lookPoint);
+        direction = transform.forward;
     }
 
     // Update is called once per frame
     public void FixedUpdate()
     {
-<<<<<<< Updated upstream
-        myRigidbody.MovePosition(myRigidbody.position + velocity * Time.fixedDeltaTime);
-=======
-        if(direction == 0)
+        if (!CurrentState.Equals(DashingState))
         {
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                direction = 1;
-            }
-            else if(Input.GetKeyDown(KeyCode.D))
-            {
-                direction = 2;
-            }
-            else if(Input.GetKeyDown(KeyCode.W))
-            {
-                direction = 3;
-            }
-            else if(Input.GetKeyDown(KeyCode.S))
-            {
-                direction = 4;
-            }
-            else
-            {
-                dashTime -= Time.deltaTime;
-                if(direction == 1)
-                {
-                    playerRigidBody.velocity = Vector2.left * dashSpeed;
-                }
-            }
+            Rigidbody.MovePosition(Rigidbody.position + velocity * Time.fixedDeltaTime);
         }
-        playerRigidBody.MovePosition(playerRigidBody.position + velocity * Time.fixedDeltaTime);
->>>>>>> Stashed changes
+        currentState.FixedStateUpdate(this);
+
+        
+        
     }   
 }

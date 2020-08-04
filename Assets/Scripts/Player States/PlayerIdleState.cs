@@ -7,7 +7,12 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState(PlayerController player)
     {
         //set sprite here
-    }   
+    }
+
+    public override void FixedStateUpdate(PlayerController player)
+    {
+        
+    }
 
     public override void OnCollisionEnter(PlayerController player)
     {
@@ -18,9 +23,12 @@ public class PlayerIdleState : PlayerBaseState
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-              
-            player.Rigidbody.AddForce(Vector3.up * player.jumpForce);
+            player.Rigidbody.AddForce(Vector3.up * 250);
             player.TransitionToState(player.JumpingState);
+        }
+        else if (Input.GetMouseButton(1))
+        {
+            player.TransitionToState(player.DashingState);
         }
     }
 }

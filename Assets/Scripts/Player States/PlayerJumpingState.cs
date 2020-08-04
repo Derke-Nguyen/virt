@@ -9,6 +9,11 @@ public class PlayerJumpingState : PlayerBaseState
         //set sprite here
     }
 
+    public override void FixedStateUpdate(PlayerController player)
+    {
+        
+    }
+
     public override void OnCollisionEnter(PlayerController player)
     {
         player.TransitionToState(player.IdleState);
