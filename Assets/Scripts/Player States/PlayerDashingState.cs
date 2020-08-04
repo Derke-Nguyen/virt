@@ -45,7 +45,13 @@ public class PlayerDashingState : PlayerBaseState
     {
         if (dashFinished)
         {
-            player.TransitionToState(player.IdleState);
+            //temp
+            if (player.Rigidbody.position.y == 1)
+            {
+                player.TransitionToState(player.IdleState);
+            }
+            else
+                player.TransitionToState(player.JumpingState);
         }
     }
 }

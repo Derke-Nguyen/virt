@@ -21,6 +21,9 @@ public class PlayerJumpingState : PlayerBaseState
 
     public override void Update(PlayerController player)
     {
-        
+        if (Input.GetMouseButton(1))
+        {
+            player.TransitionToState(player.DashingState);
+        }
     }
 }
