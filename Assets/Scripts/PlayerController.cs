@@ -25,18 +25,12 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerDashingState DashingState = new PlayerDashingState();
 
     Vector3 velocity;
-<<<<<<< Updated upstream
-    Rigidbody myRigidbody;
-    void Start()
-    {
-        myRigidbody = GetComponent<Rigidbody>();
-=======
-    
     public float dashSpeed;
     private float dashTime;
     public float startDashTime;
-    private int direction;
+    private Vector3 direction;
     public float jumpForce = 8;
+    private bool dashState = false;
 
     void Start()
     {
@@ -49,6 +43,30 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         currentState.Update(this);
+        float inputAxisX = Input.GetAxis("Vertical");
+        float inputAxisY = Input.GetAxis("Horizontal");
+        Vector3 directionVector = new Vector3(-inputAxisX, 0, inputAxisY);
+        directionVector.Normalize();
+        direction = directionVector;
+        if (directionVector == Vector3.zero)
+        {
+            //Do if user inputs nothing;
+
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            dashState = true;
+            dashTime = startDashTime;
+        }
+        if (dashState)
+        {
+            transform.Translate(directionVector * dashSpeed * Time.deltaTime);
+            dashTime -= Time.deltaTime;
+            if(dashTime <= 0)
+            {
+                dashState = false;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -60,7 +78,6 @@ public class PlayerController : MonoBehaviour
     {
         currentState = state;
         currentState.EnterState(this);
->>>>>>> Stashed changes
     }
 
     public void Move(Vector3 _velocity) 
@@ -76,37 +93,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void FixedUpdate()
     {
-<<<<<<< Updated upstream
-        myRigidbody.MovePosition(myRigidbody.position + velocity * Time.fixedDeltaTime);
-=======
-        if(direction == 0)
+        if (!dashState)
         {
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                direction = 1;
-            }
-            else if(Input.GetKeyDown(KeyCode.D))
-            {
-                direction = 2;
-            }
-            else if(Input.GetKeyDown(KeyCode.W))
-            {
-                direction = 3;
-            }
-            else if(Input.GetKeyDown(KeyCode.S))
-            {
-                direction = 4;
-            }
-            else
-            {
-                dashTime -= Time.deltaTime;
-                if(direction == 1)
-                {
-                    playerRigidBody.velocity = Vector2.left * dashSpeed;
-                }
-            }
+            Rigidbody.MovePosition(Rigidbody.position + velocity * Time.fixedDeltaTime);
         }
-        playerRigidBody.MovePosition(playerRigidBody.position + velocity * Time.fixedDeltaTime);
->>>>>>> Stashed changes
-    }   
+    } 
 }
