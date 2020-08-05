@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMeleeState : PlayerBaseState
 {
+    //Same format as Dash State
     public bool swingFinished = false;
     public float swingDuration = 0.4f;
     public float swingTime = 0;
@@ -15,14 +16,16 @@ public class PlayerMeleeState : PlayerBaseState
 
     public override void EnterState(PlayerController player)
     {
-        player.Rigidbody.isKinematic = true;
+        player.Rigidbody.isKinematic = true; //Makes rotation not instantaneous
         swingTime = swingDuration;
         swingFinished = false;
 
-        EulerAngleVelocityFirstHalf = new Vector3(0, -swingArc, 0);
-        EulerAngleVelocitySecondHalf = new Vector3(0, swingArc, 0);
+        EulerAngleVelocityFirstHalf = new Vector3(0, -swingArc, 0); //Calculates arc for first swing
+        EulerAngleVelocitySecondHalf = new Vector3(0, swingArc, 0); //Calculates arc for second swing
     }
 
+    //Changes sword color to red when swinging
+    //NOTE: In order to implement this, I had to create a new "Resource" folder and put the two sword materials in that folder
     public override void Update(PlayerController player)
     {
         if(player.GetComponent<WeaponController>().currentWeapon != null)
@@ -40,6 +43,7 @@ public class PlayerMeleeState : PlayerBaseState
 
     public override void FixedStateUpdate(PlayerController player)
     {
+        //Swings forward for first half
         if(!swingFinished && swingTime > swingDuration / 2)
         {
             Quaternion swordSwing = Quaternion.Euler(EulerAngleVelocityFirstHalf * Time.deltaTime);
@@ -47,6 +51,7 @@ public class PlayerMeleeState : PlayerBaseState
 
             swingTime -= Time.deltaTime;
         }
+        //Then backwards for second half
         else if (!swingFinished && swingTime > 0)
         {
             Quaternion swordSwing = Quaternion.Euler(EulerAngleVelocitySecondHalf * Time.deltaTime);
@@ -54,6 +59,7 @@ public class PlayerMeleeState : PlayerBaseState
 
             swingTime -= Time.deltaTime;
         }
+        //When finished, change sword color back and return to idle
         else
         {
             swingFinished = true;

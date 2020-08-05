@@ -32,7 +32,6 @@ public class PlayerIdleState : PlayerBaseState
 
 
     //Checks for input in order to change state
-    //TODO: Add melee attack state
     public override void Update(PlayerController player)
     {
         if (Input.GetKeyDown(KeyCode.Space))
