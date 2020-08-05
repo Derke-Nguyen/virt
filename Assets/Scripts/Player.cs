@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
 
     PlayerController controller;
     Camera viewCamera;
-    
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +22,7 @@ public class Player : MonoBehaviour
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 direction = input.normalized;
         Vector3 velocity = direction * speed;
+        controller.setDirection(direction);
         controller.Move(velocity);
 
 

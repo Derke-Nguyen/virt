@@ -37,10 +37,10 @@ public class PlayerIdleState : PlayerBaseState
         }
         else if (Input.GetMouseButton(1))
         {
-            Debug.Log(dashCD);
+            //Debug.Log(dashCD);
             if (dashCD == 0)
             {
-                dashCD = 100;
+                dashCD = 20;
                 player.TransitionToState(player.DashingState);
             }
         }
@@ -48,5 +48,6 @@ public class PlayerIdleState : PlayerBaseState
         {
             --dashCD;
         }
+        //if (
     }
 }
