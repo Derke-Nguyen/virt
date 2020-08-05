@@ -34,7 +34,6 @@ public class PlayerController : MonoBehaviour
     public Vector3 direction;
 
     public float jumpForce = 8;
-    private bool dashState = false;
 
     void Start()
     {

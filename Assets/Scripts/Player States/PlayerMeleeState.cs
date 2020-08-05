@@ -13,8 +13,6 @@ public class PlayerMeleeState : PlayerBaseState
     Vector3 EulerAngleVelocityFirstHalf;
     Vector3 EulerAngleVelocitySecondHalf;
 
-    
-
     public override void EnterState(PlayerController player)
     {
         player.Rigidbody.isKinematic = true;
@@ -27,11 +25,11 @@ public class PlayerMeleeState : PlayerBaseState
 
     public override void Update(PlayerController player)
     {
-        //TODO: Make sword change color when swinging
         if(player.GetComponent<WeaponController>().currentWeapon != null)
         {
             //Debug.Log("WE GOT HERE");
-            //player.GetComponent<WeaponController>().currentWeapon.GetComponentInChildren<Material>().color = Color.blue;
+            player.GetComponent<WeaponController>().currentWeapon.GetComponentInChildren<Renderer>().material 
+                = Resources.Load("SwordSwing", typeof(Material)) as Material;
         }
     }
 
@@ -60,6 +58,10 @@ public class PlayerMeleeState : PlayerBaseState
         {
             swingFinished = true;
             player.Rigidbody.isKinematic = false;
+
+            player.GetComponent<WeaponController>().currentWeapon.GetComponentInChildren<Renderer>().material
+                = Resources.Load("SwordIdle", typeof(Material)) as Material;
+
             player.TransitionToState(player.IdleState);
         }
     }
