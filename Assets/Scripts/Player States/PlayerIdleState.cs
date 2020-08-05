@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
-    public static int dashCD = 0; //Global variable since Idle state and Jump state should share the same dash cooldown
+    public static float dashCD_value = 1;
+    public static float swingCD_value = 0.7f;
+
+    public static float dashCD = 0; //Global variable since Idle state and Jump state should share the same dash cooldown
+    public static float swingCD = 0; //Global variable for melee swing cooldown
+
 
 
     //TODO: Add idling animations
@@ -27,7 +32,6 @@ public class PlayerIdleState : PlayerBaseState
 
 
     //Checks for input in order to change state
-    //TODO: Add melee attack state
     public override void Update(PlayerController player)
     {
         if (Input.GetKeyDown(KeyCode.Space))
@@ -37,16 +41,33 @@ public class PlayerIdleState : PlayerBaseState
         }
         else if (Input.GetMouseButton(1))
         {
-            Debug.Log(dashCD);
-            if (dashCD == 0)
+            //Debug.Log(dashCD);
+            if (dashCD <= 0)
             {
-                dashCD = 100;
+                dashCD = dashCD_value;
                 player.TransitionToState(player.DashingState);
             }
         }
+        else if (Input.GetMouseButton(0))
+        {
+            //Debug.Log(swingCD);
+            if(swingCD <= 0)
+            {
+                swingCD = swingCD_value;
+                player.TransitionToState(player.MeleeState);
+            }
+        }
+
+
+        //Reducing CD of dash and swing if on CD
         if(dashCD > 0)
         {
-            --dashCD;
+            dashCD -= Time.deltaTime;
         }
+        if(swingCD > 0)
+        {
+            swingCD -= Time.deltaTime;
+        }
+
     }
 }

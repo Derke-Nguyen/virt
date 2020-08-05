@@ -30,15 +30,18 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
-        Plane groundPlane = new Plane(Vector3.up, transform.position);
-        float rayDistance;
-
-        if (groundPlane.Raycast(ray, out rayDistance))
+        if (!controller.CurrentState.Equals(controller.MeleeState))
         {
-            Vector3 point = ray.GetPoint(rayDistance);
-            //Debug.DrawLine(ray.origin, point, Color.red);
-            controller.LookAt(point);
+            Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
+            Plane groundPlane = new Plane(Vector3.up, transform.position);
+            float rayDistance;
+
+            if (groundPlane.Raycast(ray, out rayDistance))
+            {
+                Vector3 point = ray.GetPoint(rayDistance);
+                //Debug.DrawLine(ray.origin, point, Color.red);
+                controller.LookAt(point);
+            }
         }
     }
 }

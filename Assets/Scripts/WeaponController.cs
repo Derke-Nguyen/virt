@@ -8,7 +8,7 @@ public class WeaponController : MonoBehaviour
 
     public Transform weaponHold;
     public Weapon startingWeapon;
-    Weapon currentWeapon;
+    public Weapon currentWeapon;
     void Start()
     {
         currentWeapon = Instantiate(startingWeapon, weaponHold.position, weaponHold.rotation);

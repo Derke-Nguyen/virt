@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class WeaponHold : MonoBehaviour
 {
-    Transform parentPosition;
+    // Transform parentPosition;
     // Start is called before the first frame update
     void Start()
     {
         //parentPosition = gameObject.GetComponentInParent<Transform>();
-        
     }
 
     // Update is called once per frame
