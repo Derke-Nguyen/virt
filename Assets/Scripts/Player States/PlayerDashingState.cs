@@ -6,7 +6,7 @@ public class PlayerDashingState : PlayerBaseState
 {
     Vector3 dashDirection; //Maps the direction of the dash
 
-    public float startingTime = 0.2f; //Length of the dash in seconds per frame
+    public float dashDuration = 0.2f; //Length of the dash in seconds per frame
     public float dashTime; //Counter of dash length
     public float dashSpeed = 20; //Dash speed
 
@@ -16,7 +16,7 @@ public class PlayerDashingState : PlayerBaseState
     public override void EnterState(PlayerController player)
     {
         dashDirection = player.direction;
-        dashTime = startingTime;
+        dashTime = dashDuration;
         dashFinished = false;
     }
 

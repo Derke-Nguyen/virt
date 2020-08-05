@@ -31,14 +31,14 @@ public class PlayerJumpingState : PlayerBaseState
     public override void Update(PlayerController player)
     {
         //Debug.Log(PlayerIdleState.dashCD);
-        if (Input.GetMouseButton(1) && PlayerIdleState.dashCD == 0)
+        if (Input.GetMouseButton(1) && PlayerIdleState.dashCD <= 0)
         {
-            PlayerIdleState.dashCD= 100;
+            PlayerIdleState.dashCD = PlayerIdleState.dashCD_value;
             player.TransitionToState(player.DashingState);
         }
         if(PlayerIdleState.dashCD > 0)
         {
-            --PlayerIdleState.dashCD;
+            PlayerIdleState.dashCD -= Time.deltaTime;
         }
     }
 }

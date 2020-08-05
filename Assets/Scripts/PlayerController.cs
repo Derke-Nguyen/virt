@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerIdleState IdleState = new PlayerIdleState();
     public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
     public readonly PlayerDashingState DashingState = new PlayerDashingState();
+    public readonly PlayerMeleeState MeleeState = new PlayerMeleeState();
 
 
     public Vector3 velocity;
