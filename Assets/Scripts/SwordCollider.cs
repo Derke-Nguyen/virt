@@ -10,9 +10,9 @@ public class SwordCollider : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy")
         {
             Debug.Log("Enemy Hit");
         }
