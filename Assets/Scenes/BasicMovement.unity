@@ -133,8 +133,9 @@ GameObject:
   - component: {fileID: 121680402}
   - component: {fileID: 121680401}
   - component: {fileID: 121680400}
+  - component: {fileID: 121680404}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Target Dummy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +149,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 121680399}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
@@ -215,6 +216,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &121680404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121680399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ae4f9950f7c7e40a13b4e2f7100a84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 100
 --- !u!1 &693305582
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +527,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4289807099134938946, guid: 2892b4d331240754885d44b92d23e86b,
+        type: 3}
+      propertyPath: startingHealth
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4289807099134938947, guid: 2892b4d331240754885d44b92d23e86b,
         type: 3}

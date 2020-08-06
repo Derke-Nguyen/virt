@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : LivingEntity
 {
     public float speed = 8;
 
@@ -11,8 +11,9 @@ public class Player : MonoBehaviour
     
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         controller = FindObjectOfType<PlayerController>();
         viewCamera = Camera.main;
     }
