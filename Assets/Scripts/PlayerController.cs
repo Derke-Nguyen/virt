@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
     public void LookAt(Vector3 lookPoint)
     {
         transform.LookAt(lookPoint);
-        direction = transform.forward;
+        //direction = transform.forward;
     }
 
     // Update is called once per frame
@@ -80,4 +80,8 @@ public class PlayerController : MonoBehaviour
         currentState.FixedStateUpdate(this);
     }   
 
+    public void setDirection(Vector3 _direction)
+    {
+        direction = _direction;
+    }
 }
