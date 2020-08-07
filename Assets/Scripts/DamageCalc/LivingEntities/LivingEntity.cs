@@ -16,8 +16,8 @@ public class LivingEntity : MonoBehaviour, Damagable
 
     public virtual void takeHit(float damage)
     {
-        Debug.Log("Hit Taken: " + health + " health left, " + damage + " damage taken.");
         health -= damage;
+        Debug.Log("Hit Taken: " + health + " health left, " + damage + " damage taken.");
         if(health <= 0 && !dead)
         {
             DIE(); //Dies when health reaches 0

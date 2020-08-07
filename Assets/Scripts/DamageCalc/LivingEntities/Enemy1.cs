@@ -41,6 +41,7 @@ public class Enemy1 : LivingEntity
     public Transform playerTransform;
 
     public Image Health;
+    float damage = 20;
 
     //Coroutine currentCoroutine;
 
@@ -120,6 +121,15 @@ public class Enemy1 : LivingEntity
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.tag == "Player") //Enemy damages player when in contact
+        {
+            Damagable damagableObject = collision.gameObject.GetComponent<Damagable>();
+            if (damagableObject != null)
+            {
+                //Debug.Log("Dealt Damage: " + damage);
+                damagableObject.takeHit(damage);
+            }
+        }
         currentState.OnCollisionEnter(this);
     }
 
