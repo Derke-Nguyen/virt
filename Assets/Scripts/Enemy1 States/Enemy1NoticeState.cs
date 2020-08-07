@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,7 +23,7 @@ public class Enemy1NoticeState : Enemy1BaseState
     {
         enemy.lightControl();
         enemy.NavMove();
-        Debug.Log(((enemy.playerTransform.position - enemy.transform.position).magnitude));
+        //Debug.Log(((enemy.playerTransform.position - enemy.transform.position).magnitude));
         if (enemy.changeToChase())
         {
             enemy.TransitionToState(enemy.ChaseState);

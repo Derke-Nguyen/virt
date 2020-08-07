@@ -41,7 +41,7 @@ public class Enemy1PatrolState : Enemy1BaseState
     {
         if (enemy.canSeePlayer())
         {
-            enemy.StopCoroutine(currentCoroutine);
+            enemy.StopAllCoroutines();
             enemy.TransitionToState(enemy.NoticeState);
         }
     }

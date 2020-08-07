@@ -10,6 +10,8 @@ public class Player : LivingEntity
     PlayerController controller; //Reference to player's transform
     Camera viewCamera; //Reference to main camera
 
+    public TimeManager timeManager;
+
     public Image Health; //Reference to image for healthbar
 
     // Start is called before the first frame update
@@ -26,6 +28,10 @@ public class Player : LivingEntity
     //Possible solution: make a coroutine that doesn't trigger every frame (refresh rate > 1 frame)
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            timeManager.bulletTime();
+        }
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 direction = input.normalized;
         Vector3 velocity = direction * speed;
