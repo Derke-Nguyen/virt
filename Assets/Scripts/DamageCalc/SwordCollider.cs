@@ -5,11 +5,13 @@ using UnityEngine;
 public class SwordCollider : MonoBehaviour
 {
     PlayerController player;
+    float damage = 10;
 
     //Allows for access to the player when this script is run
     void Start()
     {
         player = FindObjectOfType<PlayerController>();
+        //Debug.Log("Current Damage: " + damage);
     }
 
     //If sword collides with enemy, log "Enemy Hit"
@@ -19,10 +21,14 @@ public class SwordCollider : MonoBehaviour
     //Can change if needed
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy"
-            && player.CurrentState.Equals(player.MeleeState))
+        if (other.gameObject.tag == "Enemy" && player.CurrentState.Equals(player.MeleeState))
         {
-            //Debug.Log("Enemy Hit");
+            Damagable damagableObject = other.GetComponent<Damagable>(); //Deals damage by calling takeHit on other object
+            if(damagableObject != null)
+            {
+                //Debug.Log("Current Damage: " + damage);
+                damagableObject.takeHit(damage);
+            }
         }
     }
 

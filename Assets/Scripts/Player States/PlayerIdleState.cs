@@ -8,7 +8,7 @@ public class PlayerIdleState : PlayerBaseState
     public static float swingCD_value = 0.7f;
 
     public static float dashCD = 0; //Global variable since Idle state and Jump state should share the same dash cooldown
-    public static float swingCD = 0; //Global variable for melee swing cooldown
+    public static float swingCD = 0; //Global variable since Idle state and Dash state should share the same dash coodown
 
 
 
