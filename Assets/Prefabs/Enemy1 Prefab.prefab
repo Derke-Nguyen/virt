@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 191689362}
   - component: {fileID: 191689361}
   m_Layer: 5
-  m_Name: HealthBGEnemy
+  m_Name: HealthBGEnemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 1651420120}
   - component: {fileID: 1651420119}
   m_Layer: 5
-  m_Name: Current Health Enemy
+  m_Name: Current Health Enemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -177,7 +177,7 @@ RectTransform:
   m_GameObject: {fileID: 1858776446}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.03, y: 0.015, z: 0.03}
   m_Children:
   - {fileID: 191689360}
   m_Father: {fileID: 1839614009292223385}
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 1839614009292223381}
   - component: {fileID: 1839614009292223384}
   m_Layer: 0
-  m_Name: Enemy1
+  m_Name: Enemy1 Model
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -493,7 +493,7 @@ MonoBehaviour:
   playerVisibleTimer: 0
   waypoints: []
   playerTransform: {fileID: 0}
-  Health: {fileID: 191689361}
+  Health: {fileID: 1651420119}
 --- !u!195 &1839614009292223384
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -526,7 +526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1839614009800676664}
   m_Layer: 0
-  m_Name: EnemyPath
+  m_Name: Enemy1 Path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
