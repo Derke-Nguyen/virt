@@ -23,29 +23,38 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerIdleState IdleState = new PlayerIdleState();
     public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
     public readonly PlayerDashingState DashingState = new PlayerDashingState();
-    public readonly PlayerMeleeState MeleeState = new PlayerMeleeState();
 
 
     public Vector3 velocity;
+    Enemy1 enemy1;
     
-    public float dashSpeed;
-    private float dashTime;
-    public float startDashTime;
+    //public float dashSpeed;
+    //private float dashTime;
+    //public float startDashTime;
     public Vector3 direction;
 
     public float jumpForce = 8;
 
+    bool assassinate = false;
+
     void Start()
     {
+        //enemy1 = (Enemy1)GameObject.FindGameObjectWithTag("Enemy1");
         playerRigidBody = GetComponent<Rigidbody>();
-        dashTime = startDashTime;
+        //dashTime = startDashTime;
 
         TransitionToState(IdleState);
+
     }
 
     private void Update()
     {
         currentState.Update(this);
+    }
+
+    public void assassinateReady()
+    {
+        assassinate = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -64,10 +73,15 @@ public class PlayerController : MonoBehaviour
         velocity = _velocity;
     }
 
+    public void setDirection(Vector3 _direction)
+    {
+        direction = _direction;
+    }
+
     public void LookAt(Vector3 lookPoint)
     {
         transform.LookAt(lookPoint);
-        direction = transform.forward;
+        //direction = transform.forward;
     }
 
     // Update is called once per frame

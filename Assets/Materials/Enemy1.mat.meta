@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 5d94c98e5166923449fe0c25988542cc
-=======
-guid: 791c6601b4e34d5448c0a8eb8ceb4adf
->>>>>>> feature/basic-enemy1-ai
+guid: ab064a3e9d78a65489455a70468047ac
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 0
