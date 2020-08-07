@@ -30,6 +30,7 @@ public class Player : LivingEntity
         Vector3 direction = input.normalized;
         Vector3 velocity = direction * speed;
         controller.Move(velocity);
+        controller.setDirection(direction);
     }
 
     //Points player at mouse
