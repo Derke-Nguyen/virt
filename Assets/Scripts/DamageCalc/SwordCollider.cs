@@ -23,7 +23,7 @@ public class SwordCollider : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy" && player.CurrentState.Equals(player.MeleeState))
         {
-            Damagable damagableObject = other.GetComponent<Damagable>();
+            Damagable damagableObject = other.GetComponent<Damagable>(); //Deals damage by calling takeHit on other object
             if(damagableObject != null)
             {
                 //Debug.Log("Current Damage: " + damage);

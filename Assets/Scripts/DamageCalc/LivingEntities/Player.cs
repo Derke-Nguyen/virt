@@ -7,10 +7,10 @@ public class Player : LivingEntity
 {
     public float speed = 8;
 
-    PlayerController controller;
-    Camera viewCamera;
+    PlayerController controller; //Reference to player's transform
+    Camera viewCamera; //Reference to main camera
 
-    public Image Health;
+    public Image Health; //Reference to image for healthbar
 
     // Start is called before the first frame update
     public override void Start()
@@ -21,16 +21,18 @@ public class Player : LivingEntity
     }
 
     // Update is called once per frame
+    //Each frame, recalculate direction and velocity based on input
+    //Note: might be very computationally heavy
+    //Possible solution: make a coroutine that doesn't trigger every frame (refresh rate > 1 frame)
     void Update()
     {
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 direction = input.normalized;
         Vector3 velocity = direction * speed;
         controller.Move(velocity);
-
-
     }
 
+    //Points player at mouse
     private void FixedUpdate()
     {
         if (!controller.CurrentState.Equals(controller.MeleeState))
@@ -48,6 +50,7 @@ public class Player : LivingEntity
         }
     }
 
+    //Used to update healthbar in real time
     public override void takeHit(float damage)
     {
         base.takeHit(damage);

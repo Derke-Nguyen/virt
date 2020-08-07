@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 1031612147}
   - component: {fileID: 1031612146}
   m_Layer: 5
-  m_Name: HealthBG
+  m_Name: HealthBGPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1161738437}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5133a47197306a5449717f2d64141702, type: 3}
   m_Name: 
@@ -572,7 +572,7 @@ GameObject:
   - component: {fileID: 1667563782}
   - component: {fileID: 1667563781}
   m_Layer: 5
-  m_Name: Health Bars
+  m_Name: Health Bars Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -778,6 +778,11 @@ PrefabInstance:
       propertyPath: Health
       value: 
       objectReference: {fileID: 2044941419}
+    - target: {fileID: 4289807099134938946, guid: 2892b4d331240754885d44b92d23e86b,
+        type: 3}
+      propertyPath: HealthBG
+      value: 
+      objectReference: {fileID: 1031612146}
     - target: {fileID: 4289807099134938947, guid: 2892b4d331240754885d44b92d23e86b,
         type: 3}
       propertyPath: m_Constraints
