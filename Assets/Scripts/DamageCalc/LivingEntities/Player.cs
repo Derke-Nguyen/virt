@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : LivingEntity
 {
@@ -8,7 +9,8 @@ public class Player : LivingEntity
 
     PlayerController controller;
     Camera viewCamera;
-    
+
+    public Image Health;
 
     // Start is called before the first frame update
     public override void Start()
@@ -44,5 +46,11 @@ public class Player : LivingEntity
                 controller.LookAt(point);
             }
         }
+    }
+
+    public override void takeHit(float damage)
+    {
+        base.takeHit(damage);
+        Health.fillAmount = health / startingHealth;
     }
 }

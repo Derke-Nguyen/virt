@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class LivingEntity : MonoBehaviour, Damagable
 {
@@ -11,7 +12,7 @@ public class LivingEntity : MonoBehaviour, Damagable
         health = startingHealth;
     }
 
-    public void takeHit(float damage)
+    public virtual void takeHit(float damage)
     {
         Debug.Log("Hit Taken: " + health + " health left, " + damage + " damage taken.");
         health -= damage;
