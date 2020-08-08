@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
+
+
     public static float dashCD_value = 1;
     public static float swingCD_value = 0.7f;
 
@@ -62,6 +64,10 @@ public class PlayerIdleState : PlayerBaseState
             //We create a ray
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
+        else if (Input.GetKeyDown("e"))
+        {
+            player.TransitionToState(player.SmokeState);
+        }
 
             //If the ray hits
             if(Physics.Raycast(ray, out hit, 100))

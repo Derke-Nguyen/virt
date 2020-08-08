@@ -24,7 +24,9 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerJumpingState JumpingState = new PlayerJumpingState();
     public readonly PlayerDashingState DashingState = new PlayerDashingState();
     public readonly PlayerMeleeState MeleeState = new PlayerMeleeState();
+    public readonly PlayerSmokeState SmokeState = new PlayerSmokeState();
 
+    public GameObject SmokePrefab;
 
     public Vector3 velocity;
     
