@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerDashingState : PlayerBaseState
@@ -62,11 +63,10 @@ public class PlayerDashingState : PlayerBaseState
         {
             PlayerIdleState.swingCD = PlayerIdleState.swingCD_value;
             player.TransitionToState(player.MeleeState);
-
-            if(PlayerIdleState.swingCD > 0)
-            {
-                PlayerIdleState.swingCD -= Time.deltaTime;
-            }
+        }
+        if (PlayerIdleState.swingCD > 0)
+        {
+            PlayerIdleState.swingCD -= Time.deltaTime;
         }
     }
 }
