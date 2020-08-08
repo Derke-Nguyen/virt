@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
+
+
     public static float dashCD_value = 1;
     public static float swingCD_value = 0.7f;
 
@@ -56,6 +58,10 @@ public class PlayerIdleState : PlayerBaseState
                 swingCD = swingCD_value;
                 player.TransitionToState(player.MeleeState);
             }
+        }
+        else if (Input.GetKeyDown("e"))
+        {
+            player.TransitionToState(player.SmokeState);
         }
 
 
