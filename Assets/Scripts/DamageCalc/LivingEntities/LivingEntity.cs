@@ -17,7 +17,7 @@ public class LivingEntity : MonoBehaviour, Damagable
     public virtual void takeHit(float damage)
     {
         health -= damage;
-        Debug.Log("Hit Taken: " + health + " health left, " + damage + " damage taken.");
+        //Debug.Log("Hit Taken: " + health + " health left, " + damage + " damage taken.");
         if(health <= 0 && !dead)
         {
             DIE(); //Dies when health reaches 0
@@ -30,7 +30,7 @@ public class LivingEntity : MonoBehaviour, Damagable
     public void DIE()
     {
         dead = true;
-        Debug.Log(this.name + " is dead");
+        //Debug.Log(this.name + " is dead");
         GameObject.Destroy(gameObject); //Destroys object when dead
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SwordCollider : MonoBehaviour
 {
     PlayerController player;
-    float damage = 10;
+    float damage = 100;
 
     //Allows for access to the player when this script is run
     void Start()

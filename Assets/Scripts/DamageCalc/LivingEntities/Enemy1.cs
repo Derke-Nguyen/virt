@@ -161,7 +161,7 @@ public class Enemy1 : LivingEntity
             pathfinder.SetDestination(targetWayPoint);
             if (transform.position.x == targetWayPoint.x && transform.position.z == targetWayPoint.z)
             {
-                Debug.Log("Works");
+                //Debug.Log("Works");
                 targetWayPointIndex = (targetWayPointIndex + 1) % waypoints.Length;
                 targetWayPoint = waypoints[targetWayPointIndex];
                 yield return new WaitForSeconds(waitTime);

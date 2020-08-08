@@ -12,7 +12,7 @@ public class PlayerIdleState : PlayerBaseState
     public static float dashCD = 0; //Global variable since Idle state and Jump state should share the same dash cooldown
     public static float swingCD = 0; //Global variable since Idle state and Dash state should share the same dash coodown
 
-
+    Interactable interactable;
 
     //TODO: Add idling animations
     public override void EnterState(PlayerController player)
@@ -36,12 +36,12 @@ public class PlayerIdleState : PlayerBaseState
     //Checks for input in order to change state
     public override void Update(PlayerController player)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space)) //Jumps when space is pressed
         {
             player.Rigidbody.AddForce(Vector3.up * 500);
             player.TransitionToState(player.JumpingState);
         }
-        else if (Input.GetMouseButton(1))
+        else if (Input.GetMouseButton(1)) //Dashes when right mouse button is pressed
         {
             //Debug.Log(dashCD);
             if (dashCD <= 0)
@@ -50,7 +50,7 @@ public class PlayerIdleState : PlayerBaseState
                 player.TransitionToState(player.DashingState);
             }
         }
-        else if (Input.GetMouseButton(0))
+        else if (Input.GetMouseButton(0)) //Swings when left mouse button is pressed
         {
             //Debug.Log(swingCD);
             if(swingCD <= 0)
@@ -59,11 +59,26 @@ public class PlayerIdleState : PlayerBaseState
                 player.TransitionToState(player.MeleeState);
             }
         }
+        else if (Input.GetKey("z")) //Interacts with objects when z is pressed
+        {
+            //We create a ray
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
         else if (Input.GetKeyDown("e"))
         {
             player.TransitionToState(player.SmokeState);
         }
 
+            //If the ray hits
+            if(Physics.Raycast(ray, out hit, 100))
+            {
+                interactable = hit.collider.GetComponent<Interactable>();
+                if(interactable != null)
+                {
+                    interactable.Interact(); //Object should light up if pointed to
+                }
+            }
+        }
 
         //Reducing CD of dash and swing if on CD
         if(dashCD > 0)
