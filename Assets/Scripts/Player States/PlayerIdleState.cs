@@ -78,6 +78,10 @@ public class PlayerIdleState : PlayerBaseState
         {
             player.TransitionToState(player.SmokeState);
         }
+        else if (Input.GetKeyDown("q"))
+        {
+            player.TransitionToState(player.RangedState);
+        }
 
         //Reducing CD of dash and swing if on CD
         if(dashCD > 0)
