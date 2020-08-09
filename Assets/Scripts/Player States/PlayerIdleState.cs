@@ -53,7 +53,7 @@ public class PlayerIdleState : PlayerBaseState
         else if (Input.GetMouseButton(0)) //Swings when left mouse button is pressed
         {
             //Debug.Log(swingCD);
-            if(swingCD <= 0)
+            if (swingCD <= 0)
             {
                 swingCD = swingCD_value;
                 player.TransitionToState(player.MeleeState);
@@ -64,20 +64,19 @@ public class PlayerIdleState : PlayerBaseState
             //We create a ray
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-        else if (Input.GetKeyDown("e"))
-        {
-            player.TransitionToState(player.SmokeState);
-        }
-
             //If the ray hits
-            if(Physics.Raycast(ray, out hit, 100))
+            if (Physics.Raycast(ray, out hit, 100))
             {
                 interactable = hit.collider.GetComponent<Interactable>();
-                if(interactable != null)
+                if (interactable != null)
                 {
                     interactable.Interact(); //Object should light up if pointed to
                 }
             }
+        }
+        else if (Input.GetKeyDown("e"))
+        {
+            player.TransitionToState(player.SmokeState);
         }
 
         //Reducing CD of dash and swing if on CD
