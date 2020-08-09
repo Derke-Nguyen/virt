@@ -25,8 +25,11 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerDashingState DashingState = new PlayerDashingState();
     public readonly PlayerMeleeState MeleeState = new PlayerMeleeState();
     public readonly PlayerSmokeState SmokeState = new PlayerSmokeState();
+    public readonly PlayerRangedState RangedState = new PlayerRangedState();
 
     public GameObject SmokePrefab;
+
+    public GameObject bulletPrefab;
 
     public Vector3 velocity;
     
