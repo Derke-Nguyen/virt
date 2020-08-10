@@ -59,11 +59,11 @@ public class PlayerDashingState : PlayerBaseState
         //        player.TransitionToState(player.JumpingState);
         //}
 
-        if (Input.GetMouseButton(0) && PlayerIdleState.swingCD <= 0)
-        {
-            PlayerIdleState.swingCD = PlayerIdleState.swingCD_value;
-            player.TransitionToState(player.MeleeState);
-        }
+        //if (Input.GetMouseButton(0) && PlayerIdleState.swingCD <= 0)
+        //{
+        //    PlayerIdleState.swingCD = PlayerIdleState.swingCD_value;
+        //    player.TransitionToState(player.MeleeState);
+        //}
         if (PlayerIdleState.swingCD > 0)
         {
             PlayerIdleState.swingCD -= Time.deltaTime;

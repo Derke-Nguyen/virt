@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class PlayerIdleState : PlayerBaseState
 {
-
-
     public static float dashCD_value = 1;
     public static float swingCD_value = 0.7f;
 
@@ -18,6 +16,7 @@ public class PlayerIdleState : PlayerBaseState
     public override void EnterState(PlayerController player)
     {
         //set sprite here
+        player.velocity = Vector3.zero;
     }
 
     //Nothing should go here

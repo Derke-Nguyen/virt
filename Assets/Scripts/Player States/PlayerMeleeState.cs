@@ -68,6 +68,8 @@ public class PlayerMeleeState : PlayerBaseState
             player.GetComponent<WeaponController>().currentWeapon.GetComponentInChildren<Renderer>().material
                 = Resources.Load("SwordIdle", typeof(Material)) as Material;
 
+
+            //player.velocity = new Vector3(0, 0, 0);
             player.TransitionToState(player.IdleState);
         }
     }
