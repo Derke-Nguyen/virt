@@ -27,6 +27,10 @@ public class SceneTransition : MonoBehaviour
     //animation event that will actually load the next scene
     public void OnFadeComplete()
     {
+        if(m_LevelToLoad == 4)
+        {
+            Application.Quit();
+        }
         SceneManager.LoadScene(m_LevelToLoad);
     }
 }
