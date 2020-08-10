@@ -1,0 +1,7 @@
+List of Settings to Implement:
+1. Able to toggle between types of dashing
+2. Mouse Sensitivity
+3. Control Configuration
+4. Volume Slider
+5. Pause Button/Main Menu Button/Quit Button
+6. Brightness Slider
