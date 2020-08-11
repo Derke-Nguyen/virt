@@ -16,15 +16,25 @@ public class Enemy1 : LivingEntity
     public readonly Enemy1NoticeState NoticeState = new Enemy1NoticeState();
     public readonly Enemy1ChaseState ChaseState = new Enemy1ChaseState();
 
-    public static event System.Action Enemy1Assassinate;
+    //HiddenState
+    public readonly Enemy1SwingState SwingState = new Enemy1SwingState();
+    public readonly Enemy1SummonState SummonState = new Enemy1SummonState();
+
+
+    //public static event System.Action Enemy1Assassinate;
 
     public Transform pathHolder;
     Transform player;
 
+    public Transform weaponHold;
+    public Ruler equippedRuler;
+    public Ruler ruler;
+
+    public Transform centralAxis;
+
     public float speed = 5;
     public float waitTime = 0.3f;
     public float turnSpeed = 90;
-    
 
     public Light spotlight;
     public float viewDistance;
@@ -33,12 +43,14 @@ public class Enemy1 : LivingEntity
 
     float viewAngle;
 
-    float timeToSpotPlayer = 2f;
+    float timeToSpotPlayer = 1f;
     public float playerVisibleTimer;
     public Vector3[] waypoints;
 
-    NavMeshAgent pathfinder;
+    public NavMeshAgent pathfinder;
     public Transform playerTransform;
+    public Vector3 unpausedSpeed = Vector3.zero;
+    public bool pausePathFinder;
 
     public Image Health;
     float damage = 20;
@@ -49,9 +61,11 @@ public class Enemy1 : LivingEntity
     public override void Start()
     {
         base.Start();
+        pausePathFinder = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
+        
         player = GameObject.FindGameObjectWithTag("Player").transform;
         viewAngle = spotlight.spotAngle;
         originalSpotLightColor = spotlight.color;
@@ -70,16 +84,33 @@ public class Enemy1 : LivingEntity
     void Update()
     {
         currentState.Update(this);
-        if (playerVisibleTimer >= 1.75 && playerVisibleTimer <= 2)
-        {
-            if (Enemy1Assassinate != null)
-                Enemy1Assassinate();
-        }
+        inTheRed();
     }
 
-    public void NavMove()
+    public void FixedUpdate()
     {
-        pathfinder.SetDestination(playerTransform.position);
+        currentState.FixedStateUpdate(this);
+    }
+
+    public bool inTheRed()
+    {
+        if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)
+        {
+            return true;
+        }
+        else
+            return false;
+
+    }
+
+    public void equipWeapon()
+    {
+        if (!ruler)
+        {
+            ruler = Instantiate(equippedRuler, weaponHold.position, weaponHold.rotation);
+            ruler.transform.parent = weaponHold;
+        }
+        
     }
 
     public void changeSpeed(float changedSpeed)
@@ -158,6 +189,7 @@ public class Enemy1 : LivingEntity
         while (true)
         {
             //transform.position = Vector3.MoveTowards(transform.position, targetWayPoint, speed * Time.deltaTime);
+
             pathfinder.SetDestination(targetWayPoint);
             if (transform.position.x == targetWayPoint.x && transform.position.z == targetWayPoint.z)
             {
@@ -187,15 +219,37 @@ public class Enemy1 : LivingEntity
     public IEnumerator UpdatePath()
     {
         float refreshRate = 0.1f;
-
+        Vector3 targetPosition;
         while (playerTransform != null)
         {
-            Vector3 targetPosition = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
-            pathfinder.SetDestination(targetPosition);
+            if (pausePathFinder) {
+                pathfinder.velocity = Vector3.zero;
+                pathfinder.isStopped = true;
+            }
+            else {
+                targetPosition = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+                if (pathfinder.isStopped)
+                {
+                    pathfinder.isStopped = false;
+                    pathfinder.velocity = unpausedSpeed;
+                }
+                pathfinder.SetDestination(targetPosition);
+                unpausedSpeed = pathfinder.velocity;
+            }
             yield return new WaitForSeconds(refreshRate);
 
         }
 
+    }
+
+    public IEnumerator Summon()
+    {
+        if (!ruler)
+        {
+            ruler = Instantiate(equippedRuler, weaponHold.position, weaponHold.rotation);
+            ruler.transform.parent = weaponHold;
+            yield return new WaitForSeconds(5);
+        }
     }
 
     private void OnDrawGizmos()

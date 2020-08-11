@@ -50,7 +50,11 @@ public class PlayerIdleState : PlayerBaseState
                 player.TransitionToState(player.DashingState);
             }
         }
-        else if (Input.GetMouseButton(0)) //Swings when left mouse button is pressed
+        else if (player.canAssassinate && Input.GetMouseButton(0))
+        {
+            player.TransitionToState(player.AssassinateState);
+        }
+        else if (Input.GetMouseButton(0))
         {
             //Debug.Log(swingCD);
             if (swingCD <= 0)
@@ -82,7 +86,6 @@ public class PlayerIdleState : PlayerBaseState
         {
             player.TransitionToState(player.RangedState);
         }
-
         //Reducing CD of dash and swing if on CD
         if(dashCD > 0)
         {

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Enemy1NoticeState : Enemy1BaseState
 {
+    Coroutine currentCoroutine;
     public override void EnterState(Enemy1 enemy)
     {
-        
+        currentCoroutine = enemy.StartCoroutine(enemy.UpdatePath());
     }
 
     public override void FixedStateUpdate(Enemy1 enemy)
@@ -22,15 +23,16 @@ public class Enemy1NoticeState : Enemy1BaseState
     public override void Update(Enemy1 enemy)
     {
         enemy.lightControl();
-        enemy.NavMove();
+        //enemy.NavMove();
         //Debug.Log(((enemy.playerTransform.position - enemy.transform.position).magnitude));
         if (enemy.changeToChase())
         {
+            enemy.StopAllCoroutines();
             enemy.TransitionToState(enemy.ChaseState);
         }
         else if ((enemy.playerTransform.position - enemy.transform.position).magnitude >= 20f)
         {
-            
+            enemy.StopAllCoroutines();
             enemy.TransitionToState(enemy.PatrolState);
         }
     }

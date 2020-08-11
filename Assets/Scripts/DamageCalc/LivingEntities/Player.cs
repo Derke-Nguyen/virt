@@ -7,10 +7,12 @@ public class Player : LivingEntity
 {
     public float speed = 8;
 
+    float minDistance;
+
     PlayerController controller; //Reference to player's transform
     Camera viewCamera; //Reference to main camera
 
-    public TimeManager timeManager;
+    
 
     public Image Health; //Reference to image for healthbar
 
@@ -28,15 +30,19 @@ public class Player : LivingEntity
     //Possible solution: make a coroutine that doesn't trigger every frame (refresh rate > 1 frame)
     void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            timeManager.bulletTime();
+            
         }
         Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         Vector3 direction = input.normalized;
         Vector3 velocity = direction * speed;
         controller.Move(velocity);
         controller.setDirection(direction);
+
+
     }
 
     //Points player at mouse
@@ -51,11 +57,14 @@ public class Player : LivingEntity
             if (groundPlane.Raycast(ray, out rayDistance))
             {
                 Vector3 point = ray.GetPoint(rayDistance);
+                controller.findNearestEnemy(point);
                 //Debug.DrawLine(ray.origin, point, Color.red);
                 controller.LookAt(point);
             }
         }
     }
+
+    
 
     //Used to update healthbar in real time
     public override void takeHit(float damage)
