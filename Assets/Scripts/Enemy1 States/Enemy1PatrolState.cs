@@ -12,6 +12,7 @@ public class Enemy1PatrolState : Enemy1BaseState
 
     public override void EnterState(Enemy1 enemy)
     {
+        //finds nearest waypoint based on distance from enemy1
         startingIndex = 0;
         enemy1Transform = enemy.transform;
         minDistance = (enemy1Transform.position - enemy.waypoints[0]).magnitude;
@@ -23,7 +24,7 @@ public class Enemy1PatrolState : Enemy1BaseState
                 startingIndex = i;
             }
         }
-        currentCoroutine = enemy.StartCoroutine(enemy.FollowPath(enemy.waypoints, startingIndex));
+        currentCoroutine = enemy.StartCoroutine(enemy.FollowPath(enemy.waypoints, startingIndex)); //starts patrolling
     }
 
     public override void FixedStateUpdate(Enemy1 enemy)
@@ -38,7 +39,8 @@ public class Enemy1PatrolState : Enemy1BaseState
 
     public override void Update(Enemy1 enemy)
     {
-        enemy.lightControl();
+        enemy.lightControl(); //changes color of light
+
         if (enemy.canSeePlayer())
         {
             enemy.StopAllCoroutines();

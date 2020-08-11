@@ -9,11 +9,13 @@ public class Enemy1ChaseState : Enemy1BaseState
     Vector3 originalVelocity = Vector3.zero;
     public override void EnterState(Enemy1 enemy)
     {
+        //TBD
         maxTimeSpentInState = 3f;
         enemy.playerVisibleTimer = 0;
+
         enemy.spotlight.color = Color.blue;
         enemy.changeSpeed(2f);
-        currentCoroutine = enemy.StartCoroutine(enemy.UpdatePath());
+        currentCoroutine = enemy.StartCoroutine(enemy.UpdatePath()); // pathfinds towards player
     }
 
     public override void FixedStateUpdate(Enemy1 enemy)

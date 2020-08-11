@@ -38,7 +38,6 @@ public class Enemy1 : LivingEntity
     public NavMeshAgent pathfinder;
     public Transform playerTransform;
     public Vector3 unpausedSpeed = Vector3.zero;
-    public bool pausePathFinder;
 
     public Image Health;
     float damage = 20;
@@ -49,13 +48,13 @@ public class Enemy1 : LivingEntity
     public override void Start()
     {
         base.Start();
-        pausePathFinder = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         viewAngle = spotlight.spotAngle;
         originalSpotLightColor = spotlight.color;
 
+        //put all waypoints in an array
         waypoints = new Vector3[pathHolder.childCount];
         for (int i = 0; i < waypoints.Length; ++i)
         {
@@ -69,17 +68,18 @@ public class Enemy1 : LivingEntity
     // Update is called once per frame
     void Update()
     {
-        currentState.Update(this);
-        inTheRed();
+        currentState.Update(this); //do action based on state
+        inTheRed(); //checks if spotlight is red
     }
 
     public void FixedUpdate()
     {
-        currentState.FixedStateUpdate(this);
+        currentState.FixedStateUpdate(this); //do action based on state
     }
 
     public bool inTheRed()
     {
+        //based on how red spotlight is, return true
         if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)
         {
             return true;
@@ -91,9 +91,10 @@ public class Enemy1 : LivingEntity
 
     public void changeSpeed(float changedSpeed)
     {
-        pathfinder.speed += changedSpeed;
+        pathfinder.speed += changedSpeed; //increase or decrease pathfinding speed
     }
 
+    //changes color of spotlight if player is in spotlight
     public void lightControl()
     {
         if (canSeePlayer())
@@ -104,12 +105,13 @@ public class Enemy1 : LivingEntity
         {
             playerVisibleTimer -= Time.deltaTime;
         }
-        
+        //clamps value to timeToSpotPlayer
         playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer);
-        
+        //changes color gradually based on a fractional value of playerVisibleTimer / timeToSpotPlayer
         spotlight.color = Color.Lerp(originalSpotLightColor, Color.red, playerVisibleTimer / timeToSpotPlayer);
     }
 
+    //can chase player is spotlight is completely red
     public bool changeToChase()
     {
         if (playerVisibleTimer == timeToSpotPlayer)
@@ -120,6 +122,7 @@ public class Enemy1 : LivingEntity
             return false;
     }
 
+    //in charge of changing states
     public void TransitionToState(Enemy1BaseState state)
     {
         currentState = state;
@@ -140,6 +143,7 @@ public class Enemy1 : LivingEntity
         currentState.OnCollisionEnter(this);
     }
 
+    //checks if enemy1 can see player based on: distance, angle, and obstacles
     public bool canSeePlayer()
     {
         if (Vector3.Distance(transform.position, playerTransform.position) < viewDistance) {
@@ -156,6 +160,7 @@ public class Enemy1 : LivingEntity
         return false;
     }
 
+    //checks if there is obstacle between enemy1 and player
     public bool obstacleInFront()
     {
         if (Physics.Linecast(transform.position, playerTransform.position, viewMask))
@@ -167,15 +172,17 @@ public class Enemy1 : LivingEntity
 
     }
 
+    //patrolstate - follows array of waypoints when patrolling
     public IEnumerator FollowPath(Vector3[] waypoints, int startingIndex)
     {
         int targetWayPointIndex = startingIndex;
         Vector3 targetWayPoint = waypoints[targetWayPointIndex];
-        //transform.LookAt(targetWayPoint);
 
         while (true)
         {
             //transform.position = Vector3.MoveTowards(transform.position, targetWayPoint, speed * Time.deltaTime);
+
+            //Start pathfinding again if it was stopped
             if (pathfinder.isStopped)
             {
                 pathfinder.isStopped = false;
@@ -184,23 +191,29 @@ public class Enemy1 : LivingEntity
             pathfinder.SetDestination(targetWayPoint);
             unpausedSpeed = pathfinder.velocity;
             
+            //if enemy1 arrives at target waypoint, set the destination to the next waypoint
             if (transform.position.x == targetWayPoint.x && transform.position.z == targetWayPoint.z)
             {
                 targetWayPointIndex = (targetWayPointIndex + 1) % waypoints.Length;
                 targetWayPoint = waypoints[targetWayPointIndex];
-                yield return new WaitForSeconds(waitTime);
-                yield return StartCoroutine(TurnToFace(targetWayPoint));  
+                yield return new WaitForSeconds(waitTime); //wait a few seconds
+                yield return StartCoroutine(TurnToFace(targetWayPoint)); //turn around towards next waypoint
             }
             yield return null;
             }
     }
 
+    //patrolstate - nested inside FollowPath - turn around towards next waypoint
     public IEnumerator TurnToFace(Vector3 lookTarget)
     {
+        //pauses navmesh agent to prevent tracking to waypoint
         pauseNavMesh();
+
+        //finds angle towards next waypoint
         Vector3 dirToLookTarget = (lookTarget - transform.position).normalized;
         float targetAngle = Mathf.Atan2(dirToLookTarget.x, dirToLookTarget.z) * Mathf.Rad2Deg;
 
+        //changes angle every frame
         while (Mathf.Abs(Mathf.DeltaAngle(transform.eulerAngles.y, targetAngle)) > 0.05f)
         {
             float angle = Mathf.MoveTowardsAngle(transform.eulerAngles.y, targetAngle, turnSpeed * Time.deltaTime);
@@ -215,6 +228,7 @@ public class Enemy1 : LivingEntity
         pathfinder.isStopped = true;
     }
 
+    //pathfinds towards player every 0.1s
     public IEnumerator UpdatePath()
     {
         float refreshRate = 0.1f;
@@ -222,6 +236,8 @@ public class Enemy1 : LivingEntity
         while (playerTransform != null)
         {
             targetPosition = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+
+            //Start pathfinding again if it was stopped
             if (pathfinder.isStopped)
             {
                 pathfinder.isStopped = false;
@@ -234,6 +250,7 @@ public class Enemy1 : LivingEntity
         }
     }
 
+    //draws waypoints and ray in front of enemy1 (shows how far it can see) - turn on by clicking Gizmos in Scene window
     private void OnDrawGizmos()
     {
         Vector3 startPosition = pathHolder.GetChild(0).position;

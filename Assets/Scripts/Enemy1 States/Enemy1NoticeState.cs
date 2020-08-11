@@ -22,8 +22,9 @@ public class Enemy1NoticeState : Enemy1BaseState
 
     public override void Update(Enemy1 enemy)
     {
-        enemy.lightControl();
-        if (enemy.changeToChase())
+        enemy.lightControl(); //changes color of light
+
+        if (enemy.changeToChase()) //if light is completely red
         {
             enemy.StopAllCoroutines();
             enemy.TransitionToState(enemy.ChaseState);
