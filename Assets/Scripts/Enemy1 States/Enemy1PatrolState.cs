@@ -23,7 +23,6 @@ public class Enemy1PatrolState : Enemy1BaseState
                 startingIndex = i;
             }
         }
-        //enemy1Transform.position = enemy.waypoints[startingIndex];
         currentCoroutine = enemy.StartCoroutine(enemy.FollowPath(enemy.waypoints, startingIndex));
     }
 
@@ -39,9 +38,11 @@ public class Enemy1PatrolState : Enemy1BaseState
 
     public override void Update(Enemy1 enemy)
     {
+        enemy.lightControl();
         if (enemy.canSeePlayer())
         {
             enemy.StopAllCoroutines();
+            enemy.pauseNavMesh();
             enemy.TransitionToState(enemy.NoticeState);
         }
     }

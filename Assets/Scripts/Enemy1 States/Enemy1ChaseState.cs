@@ -5,10 +5,14 @@ using UnityEngine;
 public class Enemy1ChaseState : Enemy1BaseState
 {
     Coroutine currentCoroutine;
+    float maxTimeSpentInState;
+    Vector3 originalVelocity = Vector3.zero;
     public override void EnterState(Enemy1 enemy)
     {
+        maxTimeSpentInState = 3f;
+        enemy.playerVisibleTimer = 0;
         enemy.spotlight.color = Color.blue;
-        enemy.changeSpeed(2);
+        enemy.changeSpeed(2f);
         currentCoroutine = enemy.StartCoroutine(enemy.UpdatePath());
     }
 
@@ -25,6 +29,12 @@ public class Enemy1ChaseState : Enemy1BaseState
 
     public override void Update(Enemy1 enemy)
     {
-        //enemy.NavMove();
+        //maxTimeSpentInState -= Time.deltaTime;
+        //maxTimeSpentInState = Mathf.Clamp(maxTimeSpentInState, 0, 10);
+        //if (maxTimeSpentInState == 0)
+        //{
+        //    enemy.changeSpeed(-2f);
+        //    enemy.TransitionToState(enemy.SwingState);
+        //}
     }
 }

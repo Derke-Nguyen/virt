@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.AI;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Diagnostics;
 
 public class Enemy1 : LivingEntity
 {
@@ -16,10 +17,7 @@ public class Enemy1 : LivingEntity
     public readonly Enemy1NoticeState NoticeState = new Enemy1NoticeState();
     public readonly Enemy1ChaseState ChaseState = new Enemy1ChaseState();
 
-    public static event System.Action Enemy1Assassinate;
-
     public Transform pathHolder;
-    Transform player;
 
     public float speed = 5;
     public float waitTime = 0.3f;
@@ -37,8 +35,10 @@ public class Enemy1 : LivingEntity
     public float playerVisibleTimer;
     public Vector3[] waypoints;
 
-    NavMeshAgent pathfinder;
+    public NavMeshAgent pathfinder;
     public Transform playerTransform;
+    public Vector3 unpausedSpeed = Vector3.zero;
+    public bool pausePathFinder;
 
     public Image Health;
     float damage = 20;
@@ -49,10 +49,10 @@ public class Enemy1 : LivingEntity
     public override void Start()
     {
         base.Start();
+        pausePathFinder = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         viewAngle = spotlight.spotAngle;
         originalSpotLightColor = spotlight.color;
 
@@ -70,16 +70,23 @@ public class Enemy1 : LivingEntity
     void Update()
     {
         currentState.Update(this);
-        if (playerVisibleTimer >= 1.75 && playerVisibleTimer <= 2)
-        {
-            if (Enemy1Assassinate != null)
-                Enemy1Assassinate();
-        }
+        inTheRed();
     }
 
-    public void NavMove()
+    public void FixedUpdate()
     {
-        pathfinder.SetDestination(playerTransform.position);
+        currentState.FixedStateUpdate(this);
+    }
+
+    public bool inTheRed()
+    {
+        if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)
+        {
+            return true;
+        }
+        else
+            return false;
+
     }
 
     public void changeSpeed(float changedSpeed)
@@ -135,12 +142,12 @@ public class Enemy1 : LivingEntity
 
     public bool canSeePlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) < viewDistance) {
-            Vector3 dirToPlayer = (player.position - transform.position).normalized;
+        if (Vector3.Distance(transform.position, playerTransform.position) < viewDistance) {
+            Vector3 dirToPlayer = (playerTransform.position - transform.position).normalized;
             float angleBetweenEnemy1AndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
             if (angleBetweenEnemy1AndPlayer < viewAngle / 2f)
             {
-                if (!Physics.Linecast(transform.position, player.position, viewMask))
+                if (!Physics.Linecast(transform.position, playerTransform.position, viewMask))
                 {
                     return true;
                 }
@@ -151,7 +158,7 @@ public class Enemy1 : LivingEntity
 
     public bool obstacleInFront()
     {
-        if (Physics.Linecast(transform.position, player.position, viewMask))
+        if (Physics.Linecast(transform.position, playerTransform.position, viewMask))
         {
             return true;
         }
@@ -164,15 +171,21 @@ public class Enemy1 : LivingEntity
     {
         int targetWayPointIndex = startingIndex;
         Vector3 targetWayPoint = waypoints[targetWayPointIndex];
-        transform.LookAt(targetWayPoint);
+        //transform.LookAt(targetWayPoint);
 
         while (true)
         {
             //transform.position = Vector3.MoveTowards(transform.position, targetWayPoint, speed * Time.deltaTime);
+            if (pathfinder.isStopped)
+            {
+                pathfinder.isStopped = false;
+                pathfinder.velocity = unpausedSpeed;
+            }
             pathfinder.SetDestination(targetWayPoint);
+            unpausedSpeed = pathfinder.velocity;
+            
             if (transform.position.x == targetWayPoint.x && transform.position.z == targetWayPoint.z)
             {
-                //Debug.Log("Works");
                 targetWayPointIndex = (targetWayPointIndex + 1) % waypoints.Length;
                 targetWayPoint = waypoints[targetWayPointIndex];
                 yield return new WaitForSeconds(waitTime);
@@ -184,6 +197,7 @@ public class Enemy1 : LivingEntity
 
     public IEnumerator TurnToFace(Vector3 lookTarget)
     {
+        pauseNavMesh();
         Vector3 dirToLookTarget = (lookTarget - transform.position).normalized;
         float targetAngle = Mathf.Atan2(dirToLookTarget.x, dirToLookTarget.z) * Mathf.Rad2Deg;
 
@@ -195,18 +209,29 @@ public class Enemy1 : LivingEntity
         }
     }
 
+    public void pauseNavMesh()
+    {
+        pathfinder.velocity = Vector3.zero;
+        pathfinder.isStopped = true;
+    }
+
     public IEnumerator UpdatePath()
     {
         float refreshRate = 0.1f;
-
+        Vector3 targetPosition;
         while (playerTransform != null)
         {
-            Vector3 targetPosition = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+            targetPosition = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+            if (pathfinder.isStopped)
+            {
+                pathfinder.isStopped = false;
+                pathfinder.velocity = unpausedSpeed;
+            }
             pathfinder.SetDestination(targetPosition);
+            unpausedSpeed = pathfinder.velocity;
             yield return new WaitForSeconds(refreshRate);
 
         }
-
     }
 
     private void OnDrawGizmos()
