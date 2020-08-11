@@ -23,12 +23,11 @@ public class Enemy1NoticeState : Enemy1BaseState
     {
         enemy.lightControl();
         enemy.NavMove();
-        //Debug.Log(((enemy.playerTransform.position - enemy.transform.position).magnitude));
         if (enemy.changeToChase())
         {
             enemy.TransitionToState(enemy.ChaseState);
         }
-        else if ((enemy.playerTransform.position - enemy.transform.position).magnitude >= 20f)
+        else if ((enemy.playerTransform.position - enemy.transform.position).magnitude >= 10f || enemy.obstacleInFront())
         {
             
             enemy.TransitionToState(enemy.PatrolState);

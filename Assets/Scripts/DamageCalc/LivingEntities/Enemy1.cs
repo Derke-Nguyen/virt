@@ -149,6 +149,17 @@ public class Enemy1 : LivingEntity
         return false;
     }
 
+    public bool obstacleInFront()
+    {
+        if (Physics.Linecast(transform.position, player.position, viewMask))
+        {
+            return true;
+        }
+        else
+            return false;
+
+    }
+
     public IEnumerator FollowPath(Vector3[] waypoints, int startingIndex)
     {
         int targetWayPointIndex = startingIndex;
