@@ -153,7 +153,7 @@ public class Enemy1 : LivingEntity
     {
         int targetWayPointIndex = startingIndex;
         Vector3 targetWayPoint = waypoints[targetWayPointIndex];
-        transform.LookAt(targetWayPoint);
+        //transform.LookAt(targetWayPoint);
 
         while (true)
         {
