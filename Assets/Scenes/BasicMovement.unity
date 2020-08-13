@@ -572,6 +572,7 @@ MonoBehaviour:
   waypoints: []
   playerTransform: {fileID: 2055464198}
   Health: {fileID: 1658531804}
+  stunTime: 0
 --- !u!136 &506826459
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1530,6 +1531,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.015
       objectReference: {fileID: 0}
+    - target: {fileID: 1839614009292223380, guid: 3e796dc4ab25b744c861f5356988decb,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1839614009292223381, guid: 3e796dc4ab25b744c861f5356988decb,
         type: 3}
       propertyPath: playerTransform
@@ -1540,6 +1546,11 @@ PrefabInstance:
       propertyPath: Health
       value: 
       objectReference: {fileID: 1651420119}
+    - target: {fileID: 1839614009292223381, guid: 3e796dc4ab25b744c861f5356988decb,
+        type: 3}
+      propertyPath: stunTime
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 1841999112580047648, guid: 3e796dc4ab25b744c861f5356988decb,
         type: 3}
       propertyPath: m_Name
@@ -2083,6 +2094,7 @@ MonoBehaviour:
   waypoints: []
   playerTransform: {fileID: 2055464198}
   Health: {fileID: 127746366}
+  stunTime: 0
 --- !u!136 &1558226405
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2321,6 +2333,7 @@ MonoBehaviour:
   waypoints: []
   playerTransform: {fileID: 2055464198}
   Health: {fileID: 2137713062}
+  stunTime: 0
 --- !u!136 &1759142970
 CapsuleCollider:
   m_ObjectHideFlags: 0

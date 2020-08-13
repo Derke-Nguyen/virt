@@ -133,8 +133,14 @@ public class Enemy1 : LivingEntity
             }
         }
         currentState.OnCollisionEnter(this);
-        if(collision.gameObject.name == "bullet")
+        
+    }
+    private void OnTriggerEnter(Collider collision)
+    {
+        Debug.Log("CollisionStun");
+        if (collision.gameObject.name == "bullet")
         {
+            Debug.Log("Transitioning!");
             TransitionToState(StunState);
         }
     }
@@ -204,6 +210,10 @@ public class Enemy1 : LivingEntity
 
     }
 
+    public IEnumerator StunEnemy()
+    {
+        yield return new WaitForSeconds(stunTime);
+    }
     private void OnDrawGizmos()
     {
         Vector3 startPosition = pathHolder.GetChild(0).position;
