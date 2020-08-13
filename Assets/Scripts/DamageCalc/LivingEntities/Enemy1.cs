@@ -135,7 +135,7 @@ public class Enemy1 : LivingEntity
         currentState.OnCollisionEnter(this);
         if(collision.gameObject.name == "bullet")
         {
-            TransitionToState(Enemy1StunState);
+            TransitionToState(StunState);
         }
     }
 
