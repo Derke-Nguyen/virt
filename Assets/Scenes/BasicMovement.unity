@@ -1104,6 +1104,11 @@ MonoBehaviour:
   equippedBlade: {fileID: 1967142244758665110, guid: b47b29c6a952d404492953d7fa4ef16f,
     type: 3}
   blade: {fileID: 0}
+  backstabDistance: 0
+  backstabAngle: 0
+  viewMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!195 &1443832605
 NavMeshAgent:
   m_ObjectHideFlags: 0

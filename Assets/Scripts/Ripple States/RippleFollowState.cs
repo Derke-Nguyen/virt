@@ -26,11 +26,17 @@ public class RippleFollowState : RippleBaseState
     {
         maxTimeSpentInState -= Time.deltaTime;
         maxTimeSpentInState = Mathf.Clamp(maxTimeSpentInState, 0, 10);
-        if (maxTimeSpentInState == 0)
+        if (maxTimeSpentInState == -1)
         {
             ripple.StopAllCoroutines();
             ripple.pauseNavMesh();
             ripple.TransitionToState(ripple.SwingState);
+        }
+        else if (ripple.playerCanBackStab())
+        {
+            ripple.StopAllCoroutines();
+            ripple.pauseNavMesh();
+            ripple.TransitionToState(ripple.DodgeState);
         }
     }
 }

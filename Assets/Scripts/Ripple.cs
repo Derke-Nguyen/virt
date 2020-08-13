@@ -27,10 +27,18 @@ public class Ripple : LivingEntity
     public Transform centralAxis;
     public Blade equippedBlade;
     public Blade blade;
+
+    public float backstabDistance;
+    public float backstabAngle;
+
+    public LayerMask viewMask;
+
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
+        backstabDistance = 11f;
+        backstabAngle = 92.3f;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         TransitionToState(FollowState);
@@ -40,6 +48,10 @@ public class Ripple : LivingEntity
     void Update()
     {
         currentState.Update(this); //do action based on state
+        if (playerCanBackStab())
+        {
+            Debug.Log("Behind");
+        }
     }
 
     public void FixedUpdate()
@@ -51,6 +63,23 @@ public class Ripple : LivingEntity
     {
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public bool playerCanBackStab()
+    {
+        if (Vector3.Distance(transform.position, playerTransform.position) < backstabDistance)
+        {
+            Vector3 dirToPlayer = (playerTransform.position - transform.position).normalized;
+            float angleBetweenEnemy1AndPlayer = Vector3.Angle(-transform.forward, dirToPlayer);
+            if (angleBetweenEnemy1AndPlayer < backstabAngle / 2f)
+            {
+                if (!Physics.Linecast(transform.position, playerTransform.position, viewMask))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public void equipWeapon()

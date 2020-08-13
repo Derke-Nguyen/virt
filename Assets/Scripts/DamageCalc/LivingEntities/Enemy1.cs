@@ -29,7 +29,7 @@ public class Enemy1 : LivingEntity
     public LayerMask viewMask;
     Color originalSpotLightColor;
 
-    float viewAngle;
+    public float viewAngle;
 
     float timeToSpotPlayer = 2f;
     public float playerVisibleTimer;
