@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void FixedUpdate()
     {
-        if (!CurrentState.Equals(DashingState))
+        if (!CurrentState.Equals(DashingState) && !CurrentState.Equals(MeleeState))
         {
             Rigidbody.MovePosition(Rigidbody.position + velocity * Time.fixedDeltaTime);
         }
