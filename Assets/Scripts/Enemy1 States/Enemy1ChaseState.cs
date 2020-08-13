@@ -6,7 +6,6 @@ public class Enemy1ChaseState : Enemy1BaseState
 {
     Coroutine currentCoroutine;
     float maxTimeSpentInState;
-    Vector3 originalVelocity = Vector3.zero;
     public override void EnterState(Enemy1 enemy)
     {
         //TBD
