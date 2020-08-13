@@ -15,7 +15,6 @@ public class PlayerIdleState : PlayerBaseState
     //TODO: Add idling animations
     public override void EnterState(PlayerController player)
     {
-        //set sprite here
         player.velocity = Vector3.zero;
     }
 
@@ -48,6 +47,10 @@ public class PlayerIdleState : PlayerBaseState
                 dashCD = dashCD_value;
                 player.TransitionToState(player.DashingState);
             }
+        }
+        else if (player.canAssassinate && Input.GetMouseButton(0))
+        {
+            player.TransitionToState(player.AssassinState);
         }
         else if (Input.GetMouseButton(0)) //Swings when left mouse button is pressed
         {
