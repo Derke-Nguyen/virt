@@ -15,7 +15,7 @@ public class Enemy1 : LivingEntity
     public readonly Enemy1PatrolState PatrolState = new Enemy1PatrolState();
     public readonly Enemy1NoticeState NoticeState = new Enemy1NoticeState();
     public readonly Enemy1ChaseState ChaseState = new Enemy1ChaseState();
-
+    public readonly Enemy1StunState StunState = new Enemy1StunState();
     public static event System.Action Enemy1Assassinate;
 
     public Transform pathHolder;
@@ -42,6 +42,8 @@ public class Enemy1 : LivingEntity
 
     public Image Health;
     float damage = 20;
+
+    public float stunTime;
 
     //Coroutine currentCoroutine;
 
@@ -131,6 +133,10 @@ public class Enemy1 : LivingEntity
             }
         }
         currentState.OnCollisionEnter(this);
+        if(collision.gameObject.name == "bullet")
+        {
+            TransitionToState(Enemy1StunState);
+        }
     }
 
     public bool canSeePlayer()
