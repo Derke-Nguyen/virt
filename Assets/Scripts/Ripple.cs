@@ -18,6 +18,7 @@ public class Ripple : LivingEntity
     public readonly RippleDarkKnivesState DarkKnivesState = new RippleDarkKnivesState();
     public readonly RippleAssassinState AssassinState = new RippleAssassinState();
     public readonly RippleDodgeState DodgeState = new RippleDodgeState();
+    public readonly RippleDashState DashState = new RippleDashState();
 
     public NavMeshAgent pathfinder;
     public Transform playerTransform;
@@ -48,10 +49,6 @@ public class Ripple : LivingEntity
     void Update()
     {
         currentState.Update(this); //do action based on state
-        if (playerCanBackStab())
-        {
-            Debug.Log("Behind");
-        }
     }
 
     public void FixedUpdate()
