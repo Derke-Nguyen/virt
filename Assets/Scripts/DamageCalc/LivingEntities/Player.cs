@@ -7,6 +7,12 @@ public class Player : LivingEntity
 {
     public float speed = 8;
 
+    public float invincibility = 0; //Tracks if the player has mercy invincibility
+    float invincibilityTime = 1.2f;
+    int flickerTimes = 5;
+    float flickOn = 0.2f;
+    float flickOff = 0.2f; //Time spent on player object flicker
+
     PlayerController controller; //Reference to player's transform
     Camera viewCamera; //Reference to main camera
 
@@ -55,12 +61,42 @@ public class Player : LivingEntity
                 controller.LookAt(point);
             }
         }
+        if(invincibility > 0)
+        {
+            invincibility -= Time.deltaTime;
+        }
+        if(invincibility < 0)
+        {
+            invincibility = 0;
+            StopCoroutine(Blink(flickerTimes, flickOn, flickOff)); //Ends flickering when invincibility ends
+        }
     }
 
     //Used to update healthbar in real time
     public override void takeHit(float damage)
     {
+        if(invincibility > 0)
+        {
+            //Debug.Log(invincibility);
+            return;
+        }
         base.takeHit(damage);
-        Health.fillAmount = health / startingHealth;
+        Health.fillAmount = health / startingHealth; //Changes proportion of healthbar that is green
+        invincibility = invincibilityTime;
+        StartCoroutine(Blink(flickerTimes, flickOn, flickOff)); //Start flicker Coroutine
+    }
+
+    //Coroutine to cause player to flicker when damaged
+    IEnumerator Blink(int nTimes, float timeOn, float timeOff)
+    {
+        while (nTimes > 0)
+        {
+            this.transform.Find("player_model").gameObject.SetActive(false);
+            yield return new WaitForSeconds(timeOn);
+            this.transform.Find("player_model").gameObject.SetActive(true);
+            yield return new WaitForSeconds(timeOff);
+            nTimes--;
+        }
+        GetComponent<Renderer>().enabled = true;
     }
 }
