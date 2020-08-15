@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/level3mockup.unity
     guid: 66e6a62158b3c124e9fb955730d50ca7
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: 58ec56828cae0064980cd92260550b5e
   m_configObjects: {}
