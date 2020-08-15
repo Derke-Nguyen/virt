@@ -43,6 +43,9 @@ public class Enemy1 : LivingEntity
     public Image Health;
     float damage = 20;
 
+    bool contactWithPlayer = false; //Checks if enemy should be doing contact damage to the player
+    Collision curCollision;
+
     //Coroutine currentCoroutine;
 
     // Start is called before the first frame update
@@ -74,6 +77,21 @@ public class Enemy1 : LivingEntity
         {
             if (Enemy1Assassinate != null)
                 Enemy1Assassinate();
+        }
+
+        //DAMAGE CHECKING
+        if (contactWithPlayer)
+        {
+            if (curCollision?.gameObject.tag == "Player") //Enemy damages player when in contact
+            {
+                Damagable damagableObject = curCollision.gameObject.GetComponent<Damagable>();
+                if (damagableObject != null)
+                {
+                    //Debug.Log("Dealt Damage: " + damage);
+                    damagableObject.takeHit(damage);
+                }
+            }
+            currentState.OnCollisionEnter(this);
         }
     }
 
@@ -121,16 +139,20 @@ public class Enemy1 : LivingEntity
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player") //Enemy damages player when in contact
+        if (collision.gameObject.tag == "Player")
         {
-            Damagable damagableObject = collision.gameObject.GetComponent<Damagable>();
-            if (damagableObject != null)
-            {
-                //Debug.Log("Dealt Damage: " + damage);
-                damagableObject.takeHit(damage);
-            }
+            contactWithPlayer = true;
+            curCollision = collision;
         }
-        currentState.OnCollisionEnter(this);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            contactWithPlayer = false;
+            curCollision = null;
+        }
     }
 
     public bool canSeePlayer()

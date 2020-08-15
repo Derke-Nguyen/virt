@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-
-
     Rigidbody playerRigidBody;
     public Rigidbody Rigidbody
     {
