@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 //Superclass of all Living Entities (Player, Target Dummies, etc.)
@@ -20,6 +20,10 @@ public class LivingEntity : MonoBehaviour, Damagable
         //Debug.Log("Hit Taken: " + health + " health left, " + damage + " damage taken.");
         if(health <= 0 && !dead)
         {
+            if(this.tag == "Player")
+            {
+                SceneManager.LoadScene("Game Over"); //Transitions to game over when player dies
+            }
             DIE(); //Dies when health reaches 0
         }
     }

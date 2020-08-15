@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : LivingEntity
@@ -43,6 +44,12 @@ public class Player : LivingEntity
         Vector3 velocity = direction * speed;
         controller.Move(velocity);
         controller.setDirection(direction);
+
+        //Game over if player falls off
+        if(this.transform.position.y < -10)
+        {
+            SceneManager.LoadScene("Game Over");
+        }
     }
 
     //Points player at mouse
