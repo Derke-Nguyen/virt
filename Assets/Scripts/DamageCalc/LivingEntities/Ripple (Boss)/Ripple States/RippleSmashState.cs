@@ -22,7 +22,7 @@ public class RippleSmashState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        if (ripple.endPillar)
+        if (ripple.endPillar || ripple.checkIfNoProjectiles())
         {
             ripple.StopAllCoroutines();
             ripple.destroyPillars();

@@ -72,7 +72,7 @@ public class RippleFollowState : RippleBaseState
                 ripple.TransitionToState(ripple.SwingState);
             }
         }
-        else if (ripple.playerCanBackStab())
+        else if (ripple.playerCanBackStab() && enteredStateCount % 2 == 0)
         {
             ripple.StopAllCoroutines();
             ripple.pauseNavMesh();
