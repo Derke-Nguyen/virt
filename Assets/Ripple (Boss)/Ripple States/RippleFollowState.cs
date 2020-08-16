@@ -6,12 +6,12 @@ public class RippleFollowState : RippleBaseState
 {
     Coroutine currentCoroutine;
     float maxTimeSpentInState;
-    float moveCount;
+    //float moveCount;
     float enteredStateCount = 0;
     float movesInTheDark = 0;
     public override void EnterState(Ripple ripple)
     {
-        moveCount = 0;
+        //moveCount = 0;
         ++enteredStateCount;
         maxTimeSpentInState = 2f;
         if (ripple.isDark)

@@ -1,0 +1,4 @@
+1. Added new tags: Boss and EnemyProjectile
+2. Add collider to RippleProjectile prefab
+3. Added new type of healthbar: HealthBarRipple, made HealthBarRipple a child of Ripple
+4. Moved everything relating to Ripple to Ripple folder

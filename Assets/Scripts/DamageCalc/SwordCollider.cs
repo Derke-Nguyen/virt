@@ -21,12 +21,12 @@ public class SwordCollider : MonoBehaviour
     //Can change if needed
     private void OnTriggerEnter(Collider other)
     {
-        if ((other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss") && player.CurrentState.Equals(player.MeleeState))
+        if ((other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss" || other.gameObject.tag == "EnemyProjectile") && player.CurrentState.Equals(player.MeleeState))
         {
             Damagable damagableObject = other.GetComponent<Damagable>(); //Deals damage by calling takeHit on other object
             if(damagableObject != null)
             {
-                Debug.Log(other.gameObject.tag + " has taken " + damage + " damage.");
+                //Debug.Log(other.gameObject.tag + " has taken " + damage + " damage.");
                 damagableObject.takeHit(damage);
             }
         }

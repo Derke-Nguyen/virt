@@ -8,6 +8,7 @@ TagManager:
   - Blade
   - Pillar
   - Boss
+  - EnemyProjectile
   layers:
   - Default
   - TransparentFX

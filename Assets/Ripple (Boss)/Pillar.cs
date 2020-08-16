@@ -13,6 +13,8 @@ public class Pillar : MonoBehaviour
     Vector3 destination = Vector3.one;
     float maxTimeSpentInState;
 
+    float damage = 10;
+
     public LayerMask collisionMask;
 
     //public NavMeshSurface surface;
@@ -55,8 +57,17 @@ public class Pillar : MonoBehaviour
         {
             Destroy(collision.gameObject);
             Destroy(this.gameObject);
-        }   
-        
+        }
+
+        if (collision.gameObject.tag == "Player" && move) //Enemy damages player when in contact and in motion
+        {
+            Damagable damagableObject = collision.gameObject.GetComponent<Damagable>();
+            if (damagableObject != null)
+            {
+                //Debug.Log("Dealt Damage: " + damage);
+                damagableObject.takeHit(damage);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)

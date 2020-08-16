@@ -305,10 +305,23 @@ public class Ripple : LivingEntity
         }
     }
 
-
+    //DAMAGE CALCULATIONS
     public override void takeHit(float damage)
     {
         base.takeHit(damage);
         Health.fillAmount = health / startingHealth;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player") //Enemy damages player when in contact
+        {
+            Damagable damagableObject = collision.gameObject.GetComponent<Damagable>();
+            if (damagableObject != null)
+            {
+                //Debug.Log("Dealt Damage: " + damage);
+                damagableObject.takeHit(damage);
+            }
+        }
     }
 }

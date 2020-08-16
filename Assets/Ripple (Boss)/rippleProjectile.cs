@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class rippleProjectile : MonoBehaviour
+public class rippleProjectile : LivingEntity
 {
     public NavMeshAgent pathfinder;
     public Transform playerTransform;
     public Vector3 unpausedSpeed = Vector3.zero;
-    float speed;
+    //float speed;
 
     public float wanderRadius;
     public float wanderTimer;
@@ -16,16 +17,18 @@ public class rippleProjectile : MonoBehaviour
     private Transform target;
     private float timer;
 
+    float damage = 5;
+
     Coroutine currentCoroutine;
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
         wanderTimer = 0.8f;
         timer = wanderTimer;
         wanderRadius = 20f;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        speed = 11f;
+        //speed = 11f;
         pathfinder.updateRotation = false;
         
         //currentCoroutine = StartCoroutine(UpdatePath());
@@ -85,7 +88,7 @@ public class rippleProjectile : MonoBehaviour
         Vector3 targetPosition;
         while (playerTransform != null)
         {
-            targetPosition = new Vector3(playerTransform.position.x, 0, playerTransform.position.z);
+            targetPosition = new Vector3(playerTransform.position.x, 1, playerTransform.position.z);
 
             //Start pathfinding again if it was stopped
             if (pathfinder.isStopped)
@@ -102,6 +105,25 @@ public class rippleProjectile : MonoBehaviour
             unpausedSpeed = pathfinder.velocity;
             yield return new WaitForSeconds(refreshRate);
 
+        }
+    }
+
+    public override void takeHit(float damage)
+    {
+        base.takeHit(damage);
+        //Debug.Log("WE GOT HERE");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player") //Enemy damages player when in contact
+        {
+            Damagable damagableObject = other.GetComponent<Damagable>();
+            if (damagableObject != null)
+            {
+                //Debug.Log("Dealt Damage: " + damage);
+                damagableObject.takeHit(damage);
+            }
         }
     }
 }
