@@ -49,7 +49,7 @@ public class rippleProjectile : MonoBehaviour
             
             Vector3 newPos = RandomNavSphere(transform.position, wanderRadius, -1);
             pathfinder.SetDestination(newPos);
-            Debug.Log(newPos);
+            //Debug.Log(newPos);
             if (pathfinder.velocity.sqrMagnitude > Mathf.Epsilon)
             {
                 transform.rotation = Quaternion.LookRotation(pathfinder.velocity.normalized);

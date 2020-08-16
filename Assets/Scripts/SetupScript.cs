@@ -5,6 +5,7 @@ using UnityEngine;
 public class SetupScript : MonoBehaviour
 {
     GameObject[] Enemies;
+    GameObject[] Bosses;
 
     public Transform here;
     public GameObject QuestItem;
@@ -21,8 +22,9 @@ public class SetupScript : MonoBehaviour
     void Update()
     {
         Enemies = GameObject.FindGameObjectsWithTag("Enemy"); //Checks if any enemies are remaining
+        Bosses = GameObject.FindGameObjectsWithTag("Boss"); //Checks if any bosses are remaining
 
-        if (Enemies.Length == 0 && !generated)
+        if (Enemies.Length == 0 && Bosses.Length == 0 && !generated)
         {
             generated = true;
             Debug.Log("All Enemies Defeated");

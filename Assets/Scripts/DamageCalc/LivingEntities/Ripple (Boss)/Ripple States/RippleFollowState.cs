@@ -33,7 +33,7 @@ public class RippleFollowState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        Debug.Log(enteredStateCount);
+        //Debug.Log(enteredStateCount);
         maxTimeSpentInState -= Time.deltaTime;
         maxTimeSpentInState = Mathf.Clamp(maxTimeSpentInState, 0, 10);
         if (ripple.isDark && movesInTheDark >= 5)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
+using UnityEngine.UI; //Image
 using UnityEngine;
 using System;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -12,6 +13,10 @@ public class Ripple : LivingEntity
     {
         get { return currentState; }
     }
+
+    public Image Health; //Health Bar Renderer
+    float damage = 10; //damage per hit
+
 
     public readonly RippleFollowState FollowState = new RippleFollowState();
     public readonly RippleSwingState SwingState = new RippleSwingState();
@@ -300,4 +305,10 @@ public class Ripple : LivingEntity
         }
     }
 
+
+    public override void takeHit(float damage)
+    {
+        base.takeHit(damage);
+        Health.fillAmount = health / startingHealth;
+    }
 }
