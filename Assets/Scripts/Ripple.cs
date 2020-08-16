@@ -166,7 +166,7 @@ public class Ripple : LivingEntity
 
     void OnValidate()
     {
-        points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
+        //points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
     }
 
     void OnDrawGizmos()
@@ -184,6 +184,7 @@ public class Ripple : LivingEntity
 
     public IEnumerator SummonPillars()
     {
+        points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
         foreach (Vector2 point in points)
         {
             Vector3 newPillar = new Vector3(point.x - (50 - 7), -10, point.y - (50 - 7));
@@ -232,7 +233,7 @@ public class Ripple : LivingEntity
     {
         while (true)
         {
-            if (pillars.Count <= 3)
+            if (pillars.Count <= 6)
             {
                 endPillar = true;
                 while(pillars.Count > 0)

@@ -11,6 +11,7 @@ public class Pillar : MonoBehaviour
     float followSpeed;
     bool move;
     Vector3 destination = Vector3.one;
+    float maxTimeSpentInState;
 
     public LayerMask collisionMask;
 
@@ -21,6 +22,7 @@ public class Pillar : MonoBehaviour
         fastSpeed = 30;
         followSpeed = 7;
         move = false;
+        maxTimeSpentInState = 5f;
         //surface.BuildNavMesh();
     }
 
@@ -29,6 +31,11 @@ public class Pillar : MonoBehaviour
     {
         if (move)
         {
+            maxTimeSpentInState -= Time.deltaTime;
+            if (maxTimeSpentInState <= 0)
+            {
+                destroy();
+            }
             float moveDistance = followSpeed * Time.deltaTime;
             moveToPlayer(moveDistance);
         }
@@ -59,7 +66,6 @@ public class Pillar : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
 
     public void destroy()
     {

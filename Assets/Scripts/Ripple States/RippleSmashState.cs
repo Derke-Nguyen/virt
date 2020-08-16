@@ -25,8 +25,10 @@ public class RippleSmashState : RippleBaseState
         if (ripple.endPillar)
         {
             ripple.StopAllCoroutines();
-            ripple.TransitionToState(ripple.FollowState);
+            ripple.destroyPillars();
             ripple.endPillar = false;
+            ripple.TransitionToState(ripple.FollowState);
+            
         }
     }
 }

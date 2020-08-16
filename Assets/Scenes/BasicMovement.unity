@@ -270,13 +270,14 @@ GameObject:
   m_Component:
   - component: {fileID: 374273379}
   - component: {fileID: 374273380}
+  - component: {fileID: 374273381}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &374273379
 Transform:
   m_ObjectHideFlags: 0
@@ -352,6 +353,18 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &374273381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374273378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d87c2b385c7a064bb9d15b0b972afe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &394165092 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 958109698, guid: 04526808a9720c64885f8fc9614d9895,

@@ -56,7 +56,7 @@ public class RippleFollowState : RippleBaseState
         }
         if (enteredStateCount % 3 == 0)
         {
-            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 15f)
+            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 25f)
             {
                 ripple.StopAllCoroutines();
                 ripple.pauseNavMesh();
@@ -65,7 +65,7 @@ public class RippleFollowState : RippleBaseState
         }
         if (maxTimeSpentInState == 0)
         {
-            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 15f)
+            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 25f)
             {
                 ripple.StopAllCoroutines();
                 ripple.pauseNavMesh();
