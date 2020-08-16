@@ -32,6 +32,11 @@ public class LivingEntity : MonoBehaviour, Damagable
                 {
                     GameObject.Destroy(pillars[i]);
                 }
+                GameObject[] projectiles = GameObject.FindGameObjectsWithTag("EnemyProjectile");
+                for(int i = 0; i < projectiles.Length; ++i)
+                {
+                    GameObject.Destroy(projectiles[i]);
+                }
             }
             DIE(); //Dies when health reaches 0
         }
