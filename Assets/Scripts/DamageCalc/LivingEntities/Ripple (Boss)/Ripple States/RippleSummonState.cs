@@ -32,7 +32,7 @@ public class RippleSummonState : RippleBaseState
         {
             ripple.StopAllCoroutines();
             ripple.pillarsDone = false;
-            if (enteredStateCount % 2 != 0)
+            if (enteredStateCount % 2 == 0)
                 ripple.TransitionToState(ripple.SmashState);
             else
                 ripple.TransitionToState(ripple.DarkKnivesState);
