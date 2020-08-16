@@ -65,7 +65,7 @@ public class RippleFollowState : RippleBaseState
         }
         if (maxTimeSpentInState == 0)
         {
-            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 25f)
+            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 10f)
             {
                 ripple.StopAllCoroutines();
                 ripple.pauseNavMesh();
