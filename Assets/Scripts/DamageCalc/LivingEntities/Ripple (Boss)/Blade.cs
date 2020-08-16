@@ -19,15 +19,16 @@ public class Blade : MonoBehaviour
         
     }
 
+    //Damage calculation for Ripple's Blade
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("HERE?");
+        //Debug.Log("HERE?");
         if (other.gameObject.tag == "Player") //Enemy damages player when in contact
         {
             Damagable damagableObject = other.GetComponent<Damagable>();
             if (damagableObject != null)
             {
-                Debug.Log("Dealt Damage: " + damage);
+                //Debug.Log("Dealt Damage: " + damage);
                 damagableObject.takeHit(damage);
             }
         }

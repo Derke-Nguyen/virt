@@ -17,7 +17,12 @@ public class rippleProjectile : LivingEntity
     private Transform target;
     private float timer;
 
+
+    //DAMAGE CALCULATION
     float damage = 5;
+    bool contactWithPlayer = false; //Checks if enemy should be doing contact damage to the player
+    Collision curCollision;
+    //END DAMAGE CALCULATION
 
     Coroutine currentCoroutine;
     // Start is called before the first frame update
@@ -58,6 +63,20 @@ public class rippleProjectile : LivingEntity
                 transform.rotation = Quaternion.LookRotation(pathfinder.velocity.normalized);
             }
             timer = 0;
+        }
+
+        //DAMAGE CHECKING
+        if (contactWithPlayer)
+        {
+            if (curCollision?.gameObject.tag == "Player") //Enemy damages player when in contact
+            {
+                Damagable damagableObject = curCollision.gameObject.GetComponent<Damagable>();
+                if (damagableObject != null)
+                {
+                    //Debug.Log("Dealt Damage: " + damage);
+                    damagableObject.takeHit(damage);
+                }
+            }
         }
 
     }
@@ -114,16 +133,21 @@ public class rippleProjectile : LivingEntity
         //Debug.Log("WE GOT HERE");
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag == "Player") //Enemy damages player when in contact
+        if (collision.gameObject.tag == "Player")
         {
-            Damagable damagableObject = other.GetComponent<Damagable>();
-            if (damagableObject != null)
-            {
-                //Debug.Log("Dealt Damage: " + damage);
-                damagableObject.takeHit(damage);
-            }
+            contactWithPlayer = true;
+            curCollision = collision;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            contactWithPlayer = false;
+            curCollision = null;
         }
     }
 }

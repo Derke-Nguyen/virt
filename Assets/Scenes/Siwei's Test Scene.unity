@@ -476,7 +476,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Health
       value: 
-      objectReference: {fileID: 856971181}
+      objectReference: {fileID: 251292301}
     - target: {fileID: 6821159778364753968, guid: 6eb7e95366cc7794d8f415c7e476101f,
         type: 3}
       propertyPath: startingHealth

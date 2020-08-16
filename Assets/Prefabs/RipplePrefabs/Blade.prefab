@@ -91,8 +91,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5877838, y: 1, z: 1}
+  m_Center: {x: -0.34481588, y: 0, z: 0}
 --- !u!1 &2129985294685090423
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ TrailRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129985294685090423}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -333,7 +333,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5978337843189657187}
   - component: {fileID: 1967142244758665110}
-  - component: {fileID: 4280753643610590318}
+  - component: {fileID: 6011256593727074435}
+  - component: {fileID: -1807154406316852541}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Blade
@@ -371,7 +372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb3bea27fb2357a4480eabf3ad6b1b22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &4280753643610590318
+--- !u!65 &6011256593727074435
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -382,8 +383,24 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 2, y: 2.5, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-1807154406316852541
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6023945558484693582}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7569080566493087448
 GameObject:
   m_ObjectHideFlags: 0

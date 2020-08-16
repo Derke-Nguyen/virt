@@ -16,8 +16,13 @@ public class Ripple : LivingEntity
 
 
     //DAMAGE CALCULATION
+    //NOTE: STARTING HEALTH SHOULD BE SET FROM UNITY
     public Image Health; //Health Bar Renderer
     float damage = 10; //contact damage from Ripple
+
+    //TODO: SWTICH TO MORE EFFECTIVE FORM OF DAMAGE HANDLING
+
+    //END DAMAGE CALCULATION
 
     public readonly RippleFollowState FollowState = new RippleFollowState();
     public readonly RippleSwingState SwingState = new RippleSwingState();
