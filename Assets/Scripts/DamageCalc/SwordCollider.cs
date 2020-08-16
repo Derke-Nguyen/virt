@@ -5,7 +5,7 @@ using UnityEngine;
 public class SwordCollider : MonoBehaviour
 {
     PlayerController player;
-    float damage = 100;
+    public float damage = 10;
 
     //Allows for access to the player when this script is run
     void Start()
@@ -21,7 +21,7 @@ public class SwordCollider : MonoBehaviour
     //Can change if needed
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" && player.CurrentState.Equals(player.MeleeState))
+        if ((other.gameObject.tag == "Enemy" || other.gameObject.tag == "Boss" || other.gameObject.tag == "EnemyProjectile") && player.CurrentState.Equals(player.MeleeState))
         {
             Damagable damagableObject = other.GetComponent<Damagable>(); //Deals damage by calling takeHit on other object
             if(damagableObject != null)

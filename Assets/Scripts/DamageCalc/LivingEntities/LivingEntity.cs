@@ -23,6 +23,15 @@ public class LivingEntity : MonoBehaviour, Damagable
             if(this.tag == "Player")
             {
                 SceneManager.LoadScene("Game Over"); //Transitions to game over when player dies
+                return;
+            }
+            else if(this.tag == "Boss")
+            {
+                GameObject[] pillars = GameObject.FindGameObjectsWithTag("Pillar");
+                for(int i = 0; i < pillars.Length; ++i)
+                {
+                    GameObject.Destroy(pillars[i]);
+                }
             }
             DIE(); //Dies when health reaches 0
         }
