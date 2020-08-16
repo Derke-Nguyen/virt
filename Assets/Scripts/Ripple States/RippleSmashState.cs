@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RippleDarkKnivesState : RippleBaseState
+public class RippleSmashState : RippleBaseState
 {
+    Coroutine currentCoroutine;
     public override void EnterState(Ripple ripple)
     {
-        ripple.turnOffLights();
+        currentCoroutine = ripple.StartCoroutine(ripple.findSmashablePillars());
     }
 
     public override void FixedStateUpdate(Ripple ripple)
@@ -21,6 +22,11 @@ public class RippleDarkKnivesState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        ripple.TransitionToState(ripple.FollowState);
+        if (ripple.endPillar)
+        {
+            ripple.StopAllCoroutines();
+            ripple.TransitionToState(ripple.FollowState);
+            ripple.endPillar = false;
+        }
     }
 }

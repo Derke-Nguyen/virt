@@ -5,11 +5,11 @@ using UnityEngine;
 public class Enemy1ChaseState : Enemy1BaseState
 {
     Coroutine currentCoroutine;
-    float maxTimeSpentInState;
+    //float maxTimeSpentInState;
     public override void EnterState(Enemy1 enemy)
     {
         //TBD
-        maxTimeSpentInState = 3f;
+        //maxTimeSpentInState = 3f;
         enemy.playerVisibleTimer = 0;
 
         enemy.spotlight.color = Color.blue;

@@ -61,6 +61,7 @@ public class PlayerController : MonoBehaviour
         currentState.Update(this);
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
         currentState.OnCollisionEnter(this);

@@ -41,8 +41,6 @@ public class RippleDashState : RippleBaseState
             ripple.transform.Translate(direction * Time.deltaTime * speed, Space.World);
         else
         {
-            
-            
             if (ripple.blade && Vector3.Distance(ripple.blade.transform.position, ripple.transform.position) >= 3f)
             {
                 ripple.blade.transform.Rotate(Vector3.up * Time.deltaTime * 720, Space.World);
@@ -50,8 +48,8 @@ public class RippleDashState : RippleBaseState
             }
             else if (ripple.blade)
             {
-                Debug.Log("works");
-                GameObject.Destroy(ripple.blade);
+                GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
+                ripple.TransitionToState(ripple.FollowState);
             }
             //ripple.blade.transform.Translate(direction * Time.deltaTime * speed, Space.World);
             rotationAmount += Time.deltaTime * 360;

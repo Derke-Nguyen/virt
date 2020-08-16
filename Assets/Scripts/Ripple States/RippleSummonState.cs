@@ -4,23 +4,36 @@ using UnityEngine;
 
 public class RippleSummonState : RippleBaseState
 {
+    Coroutine currentCoroutine;
+    float enteredStateCount = 0;
     public override void EnterState(Ripple ripple)
     {
-        throw new System.NotImplementedException();
+        ++enteredStateCount;
+        currentCoroutine = ripple.StartCoroutine(ripple.SummonPillars());
+        ripple.transform.position = new Vector3(0, ripple.transform.position.y, 0);
+        ripple.summonProjectiles();
     }
 
     public override void FixedStateUpdate(Ripple ripple)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void OnCollisionEnter(Ripple ripple)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void Update(Ripple ripple)
     {
-        throw new System.NotImplementedException();
+        if (ripple.pillarsDone)
+        {
+            ripple.StopAllCoroutines();
+            ripple.pillarsDone = false;
+            if (enteredStateCount % 2 != 0)
+                ripple.TransitionToState(ripple.SmashState);
+            else
+                ripple.TransitionToState(ripple.DarkKnivesState);
+        }
     }
 }
