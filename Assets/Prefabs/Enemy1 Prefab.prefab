@@ -399,7 +399,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839614009292223378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.963489, y: -11.6484375, z: 13.660767}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1839614007929147232}
@@ -493,6 +493,7 @@ MonoBehaviour:
   playerVisibleTimer: 0
   waypoints: []
   playerTransform: {fileID: 0}
+  unpausedSpeed: {x: 0, y: 0, z: 0}
   Health: {fileID: 1651420119}
 --- !u!195 &1839614009292223384
 NavMeshAgent:
@@ -540,7 +541,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1839614009800676665}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.3634882, y: -12.6484375, z: -2.8092327}
+  m_LocalPosition: {x: 11.13, y: 1, z: -2.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1839614008005251752}

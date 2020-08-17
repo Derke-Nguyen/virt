@@ -57,7 +57,7 @@ public class Ripple : LivingEntity
 
     public Pillar pillarPrefab;
     public List<Pillar> pillars;
-    //GameObject pill;
+    public List<rippleProjectile> projectiles;
 
     public rippleProjectile projectilePrefab;
 
@@ -72,6 +72,11 @@ public class Ripple : LivingEntity
 
     public lightControl lightController;
 
+    public Light spotlight;
+    Color originalSpotLightColor;
+
+    float lightViewAngle;
+
     public bool isDark;
 
     public bool endPillar;
@@ -81,6 +86,7 @@ public class Ripple : LivingEntity
     {
         base.Start();
         pillars = new List<Pillar>();
+        projectiles = new List<rippleProjectile>();
         backstabDistance = 11f;
         backstabAngle = 92.3f;
         pillarsDone = false;
@@ -88,6 +94,10 @@ public class Ripple : LivingEntity
         isDark = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        //lightViewAngle = spotlight.spotAngle;
+        //originalSpotLightColor = spotlight.color;
+
         TransitionToState(FollowState);
     }
 
@@ -95,7 +105,6 @@ public class Ripple : LivingEntity
     void Update()
     {
         currentState.Update(this); //do action based on state
-        //surface.BuildNavMesh();
     }
 
     public void FixedUpdate()
@@ -175,11 +184,6 @@ public class Ripple : LivingEntity
         }
     }
 
-    void OnValidate()
-    {
-        //points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
-    }
-
     void OnDrawGizmos()
     {
         //Gizmos.DrawWireCube(regionSize / 2, regionSize);
@@ -207,16 +211,27 @@ public class Ripple : LivingEntity
             pillars.Add(pill);
             yield return new WaitForSeconds(1f);
         }
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(2.5f);
         pillarsDone = true;
     }
     public void summonProjectiles()
     {
+        projectiles.Clear();
         for (int i = 0; i < 8; ++i)
         {
             Vector3 dir = Quaternion.Euler(0, i*45, 0) * transform.forward;
-            Instantiate(projectilePrefab, (dir - transform.position) * 1.25f, Quaternion.identity);
+            rippleProjectile proj = Instantiate(projectilePrefab, (dir - transform.position) * 1.25f, Quaternion.identity);
+            projectiles.Add(proj);
         }
+    }
+    public bool checkIfNoProjectiles()
+    {
+        if (GameObject.FindGameObjectWithTag("EnemyProjectile") == null)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
     public static float AngleInRad(Vector3 vec1, Vector3 vec2)
@@ -314,8 +329,11 @@ public class Ripple : LivingEntity
     //DAMAGE CALCULATIONS
     public override void takeHit(float damage)
     {
-        base.takeHit(damage);
-        Health.fillAmount = health / startingHealth;
+        if ((currentState != SmashState && currentState != SummonState) || (currentState == SummonState && isDark == true))
+        {
+            base.takeHit(damage);
+            Health.fillAmount = health / startingHealth;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

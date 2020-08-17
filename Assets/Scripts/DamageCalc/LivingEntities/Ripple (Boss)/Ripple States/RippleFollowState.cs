@@ -65,14 +65,14 @@ public class RippleFollowState : RippleBaseState
         }
         if (maxTimeSpentInState == 0)
         {
-            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 25f)
+            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 15f)
             {
                 ripple.StopAllCoroutines();
                 ripple.pauseNavMesh();
                 ripple.TransitionToState(ripple.SwingState);
             }
         }
-        else if (ripple.playerCanBackStab())
+        else if (ripple.playerCanBackStab() && enteredStateCount % 2 == 0)
         {
             ripple.StopAllCoroutines();
             ripple.pauseNavMesh();

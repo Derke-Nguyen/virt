@@ -64,6 +64,7 @@ public class Player : LivingEntity
             if (groundPlane.Raycast(ray, out rayDistance))
             {
                 Vector3 point = ray.GetPoint(rayDistance);
+                controller.findNearestEnemy(point);
                 //Debug.DrawLine(ray.origin, point, Color.red);
                 controller.LookAt(point);
             }
