@@ -6,9 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Game Over.unity
-    guid: 58ec56828cae0064980cd92260550b5e
+    path: Assets/Scenes/TitleScreen.unity
+    guid: 10767ab5c97f1d94399f2c02769a52ef
+  - enabled: 1
+    path: Assets/Scenes/Level_1.unity
+    guid: d947bc4014c3b6845a3567e2e32375d8
+  - enabled: 1
+    path: Assets/Scenes/Level_2.unity
+    guid: 0056bfd23b368a94f82c078e3eea450b
+  - enabled: 1
+    path: Assets/Scenes/Level_3.unity
+    guid: 66e6a62158b3c124e9fb955730d50ca7
+  - enabled: 1
+    path: Assets/Scenes/Level_4.unity
+    guid: 1c2c8a5c875148f4eaeacc608432125c
   - enabled: 1
     path: Assets/Scenes/Siwei's Test Scene.unity
     guid: 1f130cb409953f441b774ff062925d6b
+  - enabled: 1
+    path: Assets/Scenes/Level_2/Game Over.unity
+    guid: 58ec56828cae0064980cd92260550b5e
   m_configObjects: {}

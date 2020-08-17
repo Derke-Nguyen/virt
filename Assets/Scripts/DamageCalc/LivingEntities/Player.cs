@@ -46,7 +46,7 @@ public class Player : LivingEntity
         controller.setDirection(direction);
 
         //Game over if player falls off
-        if(this.transform.position.y < -10)
+        if(this.transform.position.y < -100)
         {
             SceneManager.LoadScene("Game Over");
         }

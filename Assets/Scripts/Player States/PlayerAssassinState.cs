@@ -8,6 +8,7 @@ public class PlayerAssassinState : PlayerBaseState
     {
         player.canAssassinate = false;
         player.assassinate();
+        player.TransitionToState(player.IdleState);
     }
 
     public override void FixedStateUpdate(PlayerController player)
