@@ -72,6 +72,11 @@ public class Ripple : LivingEntity
 
     public lightControl lightController;
 
+    public Light spotlight;
+    Color originalSpotLightColor;
+
+    float lightViewAngle;
+
     public bool isDark;
 
     public bool endPillar;
@@ -89,6 +94,10 @@ public class Ripple : LivingEntity
         isDark = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
+        lightViewAngle = spotlight.spotAngle;
+        originalSpotLightColor = spotlight.color;
+
         TransitionToState(FollowState);
     }
 
@@ -96,7 +105,6 @@ public class Ripple : LivingEntity
     void Update()
     {
         currentState.Update(this); //do action based on state
-        //surface.BuildNavMesh();
     }
 
     public void FixedUpdate()
