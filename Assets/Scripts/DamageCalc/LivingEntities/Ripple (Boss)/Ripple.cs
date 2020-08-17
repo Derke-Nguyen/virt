@@ -95,8 +95,8 @@ public class Ripple : LivingEntity
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
-        lightViewAngle = spotlight.spotAngle;
-        originalSpotLightColor = spotlight.color;
+        //lightViewAngle = spotlight.spotAngle;
+        //originalSpotLightColor = spotlight.color;
 
         TransitionToState(FollowState);
     }
