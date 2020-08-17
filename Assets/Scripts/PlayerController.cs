@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public readonly PlayerMeleeState MeleeState = new PlayerMeleeState();
     public readonly PlayerSmokeState SmokeState = new PlayerSmokeState();
     public readonly PlayerRangedState RangedState = new PlayerRangedState();
-    //public readonly PlayerAssassinState AssassinState = new PlayerAssassinState();
+    public readonly PlayerAssassinState AssassinState = new PlayerAssassinState();
 
     public GameObject SmokePrefab;
 

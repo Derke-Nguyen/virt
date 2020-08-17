@@ -50,6 +50,10 @@ public class PlayerIdleState : PlayerBaseState
                 player.TransitionToState(player.DashingState);
             }
         }
+        else if (player.canAssassinate && Input.GetMouseButton(0))
+        {
+            player.TransitionToState(player.AssassinState);
+        }
         else if (Input.GetMouseButton(0)) //Swings when left mouse button is pressed
         {
             //Debug.Log(swingCD);
