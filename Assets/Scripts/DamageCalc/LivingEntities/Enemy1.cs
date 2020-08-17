@@ -16,7 +16,7 @@ public class Enemy1 : LivingEntity
     public readonly Enemy1NoticeState NoticeState = new Enemy1NoticeState();
     public readonly Enemy1ChaseState ChaseState = new Enemy1ChaseState();
 
-    public static event System.Action Enemy1Assassinate;
+    //public static event System.Action Enemy1Assassinate;
 
     public Transform pathHolder;
     Transform player;
