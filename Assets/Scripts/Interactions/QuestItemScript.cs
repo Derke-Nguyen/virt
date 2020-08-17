@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class QuestItemScript : MonoBehaviour, Interactable
 {
@@ -13,7 +14,8 @@ public class QuestItemScript : MonoBehaviour, Interactable
 
     public virtual void Interact() //Allows the cube to be interacted with
     {
-        Debug.Log("THIS WAS INTERACTED WITH");
+        //Debug.Log("THIS WAS INTERACTED WITH");
+        SceneManager.LoadScene("TitleScreen");
     }
 
     void OnMouseOver()
