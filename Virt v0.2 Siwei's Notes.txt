@@ -1,0 +1,7 @@
+1. "Q" and "E" abilities currently do nothing and lock the player out of inputting other commands
+2. Boss's pillar summoning takes way too long
+3. Boss level should start in darkness
+4. Sword should have some stun/knockback so it feels less clunky to use (or could reduce swing duration)
+5. Assassination opportunities should be visually clearer
+6. Assassinating an enemy should alert all nearby enemies
+7. One of the enemies in level 2 has an invisible spotlight sometimes

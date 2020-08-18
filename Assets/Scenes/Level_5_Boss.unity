@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5133a47197306a5449717f2d64141702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DistanceFromTarget: 10
+  m_DistanceFromTarget: 20
   m_Yaw: 45
   m_Pitch: 45
 --- !u!1 &1461591506 stripped
