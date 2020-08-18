@@ -45,6 +45,8 @@ public class PlayerController : MonoBehaviour
     GameObject target;
     public TimeManager timeManager;
 
+    public Transform CentralAxis;
+
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody>();

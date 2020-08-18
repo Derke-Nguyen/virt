@@ -9,19 +9,23 @@ public class PlayerMeleeState : PlayerBaseState
     public bool swingFinished = false;
     public float swingDuration = 0.4f;
     public float swingTime = 0;
-    public float swingArc = 600;
+    public float swingArc = 400;
 
     Vector3 EulerAngleVelocityFirstHalf;
     Vector3 EulerAngleVelocitySecondHalf;
 
+    Transform curWeapon;
+
     public override void EnterState(PlayerController player)
     {
-        player.Rigidbody.isKinematic = true; //Makes rotation not instantaneous
+        //player.Rigidbody.isKinematic = true; //Makes rotation not instantaneous
         swingTime = swingDuration;
         swingFinished = false;
 
         EulerAngleVelocityFirstHalf = new Vector3(0, -swingArc, 0); //Calculates arc for first swing
         EulerAngleVelocitySecondHalf = new Vector3(0, swingArc, 0); //Calculates arc for second swing
+
+        curWeapon = player.transform.Find("CentralAxis").transform.Find("Weapon Hold");
     }
 
     //Changes sword color to red when swinging
@@ -43,19 +47,26 @@ public class PlayerMeleeState : PlayerBaseState
 
     public override void FixedStateUpdate(PlayerController player)
     {
+        //JUST FOR TESTING
+
+
         //Swings forward for first half
         if(!swingFinished && swingTime > swingDuration / 2)
         {
-            Quaternion swordSwing = Quaternion.Euler(EulerAngleVelocityFirstHalf * Time.deltaTime);
-            player.Rigidbody.MoveRotation(swordSwing * player.Rigidbody.rotation);
+            //Quaternion swordSwing = Quaternion.Euler(EulerAngleVelocityFirstHalf * Time.deltaTime);
+            //curWeapon.Rigidbody.MoveRotation(swordSwing * player.Rigidbody.rotation);
+
+            curWeapon.Rotate(EulerAngleVelocityFirstHalf * Time.deltaTime);
 
             swingTime -= Time.deltaTime;
         }
         //Then backwards for second half
         else if (!swingFinished && swingTime > 0)
         {
-            Quaternion swordSwing = Quaternion.Euler(EulerAngleVelocitySecondHalf * Time.deltaTime);
-            player.Rigidbody.MoveRotation(swordSwing * player.Rigidbody.rotation);
+            //Quaternion swordSwing = Quaternion.Euler(EulerAngleVelocitySecondHalf * Time.deltaTime);
+            //player.Rigidbody.MoveRotation(swordSwing * player.Rigidbody.rotation);
+
+            curWeapon.Rotate(EulerAngleVelocitySecondHalf * Time.deltaTime);
 
             swingTime -= Time.deltaTime;
         }
@@ -63,7 +74,7 @@ public class PlayerMeleeState : PlayerBaseState
         else
         {
             swingFinished = true;
-            player.Rigidbody.isKinematic = false;
+            //player.Rigidbody.isKinematic = false;
 
             player.GetComponent<WeaponController>().currentWeapon.GetComponentInChildren<Renderer>().material
                 = Resources.Load("SwordIdle", typeof(Material)) as Material;
