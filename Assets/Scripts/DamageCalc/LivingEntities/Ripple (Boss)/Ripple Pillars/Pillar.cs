@@ -46,7 +46,7 @@ public class Pillar : MonoBehaviour
             //surface.BuildNavMesh();
             if (transform.position.y < -7)
                 transform.Translate(Vector3.up * Time.deltaTime * speed, Space.World);
-            else if (transform.position.y < 10)
+            else if (transform.position.y < 2)
                 transform.Translate(Vector3.up * Time.deltaTime * fastSpeed, Space.World);
         }
     }

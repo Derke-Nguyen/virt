@@ -108,7 +108,7 @@ RectTransform:
   m_Children:
   - {fileID: 1031612145}
   m_Father: {fileID: 4289807099134938951}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -262,6 +262,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2320395045333855751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7500852319257381553}
+  m_Layer: 0
+  m_Name: CentralAxis
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7500852319257381553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2320395045333855751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4289807099166340518}
+  m_Father: {fileID: 4289807099134938951}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4289807099134938945
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,9 +326,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4289807099166340518}
   - {fileID: 1667563780}
   - {fileID: 7016641226306505163}
+  - {fileID: 7500852319257381553}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -334,6 +365,9 @@ MonoBehaviour:
   startDashTime: 1
   direction: {x: 0, y: 0, z: 0}
   jumpForce: 8
+  canAssassinate: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  timeManager: {fileID: 0}
 --- !u!114 &4289807099134938946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,11 +480,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4289807099166340517}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4289807099134938951}
+  m_Father: {fileID: 7500852319257381553}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1712886947
@@ -465,25 +499,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad5ed5bff9bbc684aa8efe93fdbc29ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &5950869867383037547
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7650435619829322609}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8934606f91ed12649887d27c3243f23d, type: 3}
-  m_Controller: {fileID: 9100000, guid: 4d7fd61fa17f01846bdd236336671cb7, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!23 &6267917389444972182
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -523,6 +538,25 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!95 &5950869867383037547
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650435619829322609}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8934606f91ed12649887d27c3243f23d, type: 3}
+  m_Controller: {fileID: 9100000, guid: 4d7fd61fa17f01846bdd236336671cb7, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &7415923872351989280
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -568,7 +602,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 1e0cffefc5e10c742b7c1ef21f99fc6a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e0cffefc5e10c742b7c1ef21f99fc6a,
         type: 3}
