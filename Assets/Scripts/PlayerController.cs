@@ -47,6 +47,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform CentralAxis;
 
+    public TrailController trailController;
+
     void Start()
     {
         playerRigidBody = GetComponent<Rigidbody>();
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void FixedUpdate()
     {
-        if (!CurrentState.Equals(DashingState) && !CurrentState.Equals(MeleeState))
+        if (!CurrentState.Equals(DashingState))
         {
             Rigidbody.MovePosition(Rigidbody.position + velocity * Time.fixedDeltaTime);
         }
