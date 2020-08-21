@@ -17,7 +17,7 @@ public class Ripple : LivingEntity
 
     //DAMAGE CALCULATION
     //NOTE: STARTING HEALTH SHOULD BE SET FROM UNITY
-    public Image Health; //Health Bar Renderer
+    public Slider Health; //Health Bar Renderer
     float damage = 10; //contact damage from Ripple
 
     //TODO: SWTICH TO MORE EFFECTIVE FORM OF DAMAGE HANDLING
@@ -332,7 +332,7 @@ public class Ripple : LivingEntity
         if ((currentState != SmashState && currentState != SummonState) || (currentState == SummonState && isDark == true))
         {
             base.takeHit(damage);
-            Health.fillAmount = health / startingHealth;
+            Health.value = health / startingHealth;
         }
     }
 
