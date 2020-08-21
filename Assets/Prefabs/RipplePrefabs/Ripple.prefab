@@ -465,7 +465,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e42dd469e9df8284b8ec919df506b746, type: 2}
+  - {fileID: 2100000, guid: ab064a3e9d78a65489455a70468047ac, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  Health: {fileID: 251292301}
+  Health: {fileID: 0}
   pathfinder: {fileID: 0}
   playerTransform: {fileID: 0}
   unpausedSpeed: {x: 0, y: 0, z: 0}
@@ -569,5 +569,6 @@ MonoBehaviour:
     m_Bits: 0
   pillarsDone: 0
   lightController: {fileID: 0}
+  spotlight: {fileID: 0}
   isDark: 0
   endPillar: 0
