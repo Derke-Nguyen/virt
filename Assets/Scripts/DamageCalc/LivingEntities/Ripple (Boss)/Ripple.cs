@@ -81,6 +81,11 @@ public class Ripple : LivingEntity
 
     public bool endPillar;
 
+    float timeToSpotPlayer = 0.5f;
+    public float playerVisibleTimer;
+
+    public float viewDistance;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -94,9 +99,12 @@ public class Ripple : LivingEntity
         isDark = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        viewDistance = 15f;
 
-        //lightViewAngle = spotlight.spotAngle;
-        //originalSpotLightColor = spotlight.color;
+        lightViewAngle = spotlight.spotAngle;
+        originalSpotLightColor = spotlight.color;
+        //var go1 = new GameObject { name = "Circle" };
+        //  go1.DrawCircle(5f, .02f);
 
         TransitionToState(FollowState);
     }
@@ -105,6 +113,8 @@ public class Ripple : LivingEntity
     void Update()
     {
         currentState.Update(this); //do action based on state
+        lightControl();
+        inTheRed(); //checks if spotlight is red
     }
 
     public void FixedUpdate()
@@ -116,6 +126,48 @@ public class Ripple : LivingEntity
     {
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public bool inTheRed()
+    {
+        //based on how red spotlight is, return true
+        if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    public void lightControl()
+    {
+        if (canSeePlayer())
+        {
+            playerVisibleTimer += Time.deltaTime;
+        }
+        else
+        {
+            playerVisibleTimer -= Time.deltaTime;
+        }
+        //clamps value to timeToSpotPlayer
+        playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer);
+        //changes color gradually based on a fractional value of playerVisibleTimer / timeToSpotPlayer
+        spotlight.color = Color.Lerp(originalSpotLightColor, Color.red, playerVisibleTimer / timeToSpotPlayer);
+    }
+    public bool canSeePlayer()
+    {
+        if (Vector3.Distance(transform.position, playerTransform.position) < viewDistance)
+        {
+            Vector3 dirToPlayer = (playerTransform.position - transform.position).normalized;
+            float angleBetweenEnemy1AndPlayer = Vector3.Angle(transform.forward, dirToPlayer);
+            if (angleBetweenEnemy1AndPlayer < lightViewAngle / 2f)
+            {
+                if (!Physics.Linecast(transform.position, playerTransform.position, viewMask))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public bool playerCanBackStab()

@@ -67,7 +67,6 @@ public class Enemy1 : LivingEntity
             waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
         }
         TransitionToState(PatrolState);
-        
     }
 
     // Update is called once per frame
@@ -105,7 +104,6 @@ public class Enemy1 : LivingEntity
         }
         else
             return false;
-
     }
     public void changeSpeed(float changedSpeed)
     {

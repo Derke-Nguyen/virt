@@ -369,6 +369,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   timeManager: {fileID: 0}
   CentralAxis: {fileID: 0}
+  trailController: {fileID: 0}
 --- !u!114 &4289807099134938946
 MonoBehaviour:
   m_ObjectHideFlags: 0
