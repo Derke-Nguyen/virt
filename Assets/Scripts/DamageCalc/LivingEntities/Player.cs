@@ -19,7 +19,7 @@ public class Player : LivingEntity
 
     public TimeManager timeManager;
 
-    public Image Health; //Reference to image for healthbar
+    public Slider Health; //Reference to image for healthbar
 
     // Start is called before the first frame update
     public override void Start()
@@ -89,7 +89,7 @@ public class Player : LivingEntity
             return;
         }
         base.takeHit(damage);
-        Health.fillAmount = health / startingHealth; //Changes proportion of healthbar that is green
+        Health.value = health / startingHealth; //Changes proportion of healthbar that is green
         invincibility = invincibilityTime;
         StartCoroutine(Blink(flickerTimes, flickOn, flickOff)); //Start flicker Coroutine
     }
