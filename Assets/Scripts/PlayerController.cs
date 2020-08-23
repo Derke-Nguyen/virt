@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
         index = -1;
         for (int i = 0; i < enemies.Length; ++i)
         {
-            if (enemies[i].GetComponent<Enemy1>().inTheRed())
+            if (enemies[i].GetComponent<Enemy>().inTheRed())
             {
                 if ((enemies[i].transform.position - mousePoint).magnitude < minDistance)
                 {
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
     {
         //timeManager.bulletTime();	
         transform.position += (targetPosition - transform.position) * 1.25f;
-        GameObject.Destroy(target);
+        //GameObject.Destroy(target);
     }
 
     public void setDirection(Vector3 _direction)

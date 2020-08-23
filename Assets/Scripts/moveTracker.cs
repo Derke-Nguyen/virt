@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class moveTracker : MonoBehaviour
 {
-    public LineRenderer laser;
+    public LineRenderer tracker;
     // Start is called before the first frame update
     void Start()
     {
-        laser = GetComponent<LineRenderer>();
-        laser.useWorldSpace = true;
-        laser.startWidth = 5f;
-        laser.SetWidth(3f, 3f);
+        tracker = GetComponent<LineRenderer>();
+        tracker.useWorldSpace = true;
+        tracker.startWidth = 5f;
+        tracker.SetWidth(3f, 3f);
     }
 
     // Update is called once per frame
@@ -20,13 +20,23 @@ public class moveTracker : MonoBehaviour
         //laser.SetPosition(0, transform.position);
         //transform.position = transform.parent.position;
         //laser.SetPosition(1, transform.position + (transform.forward * 50));
-        laser.SetPosition(0, transform.position);
-        laser.SetPosition(1, transform.position + (transform.forward * 50));
+        //tracker.SetPosition(0, transform.position);
+        //tracker.SetPosition(1, transform.position + (transform.forward * 50));
     }
 
     public void movePosition(Vector3 destination)
     {
-        laser.SetPosition(0, transform.position);
-        laser.SetPosition(1, transform.position + (transform.forward * 5f * Time.deltaTime));
+        tracker.SetPosition(0, transform.position);
+        tracker.SetPosition(1, destination);
+    }
+
+    public void turnTrackerOff()
+    {
+        tracker.enabled = false;
+    }
+
+    public void turnTrackerOn()
+    {
+        tracker.enabled = true;
     }
 }

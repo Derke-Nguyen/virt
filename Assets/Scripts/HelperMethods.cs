@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public static class GameObjectEx
+public static class HelperMethods
 {
     public static void DrawCircle(this GameObject container, float radius, float lineWidth)
     {

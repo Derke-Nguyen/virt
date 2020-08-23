@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy1 : LivingEntity
+public class Enemy1 : Enemy
 {
     private Enemy1BaseState currentState;
     public Enemy1BaseState CurrentState
@@ -95,7 +95,7 @@ public class Enemy1 : LivingEntity
     {
         currentState.FixedStateUpdate(this); //do action based on state
     }
-    public bool inTheRed()
+    public override bool inTheRed()
     {
         //based on how red spotlight is, return true
         if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)

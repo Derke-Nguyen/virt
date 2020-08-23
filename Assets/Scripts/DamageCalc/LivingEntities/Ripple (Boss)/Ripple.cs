@@ -6,7 +6,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class Ripple : LivingEntity
+public class Ripple : Enemy
 {
     private RippleBaseState currentState;
     public RippleBaseState CurrentState
@@ -32,6 +32,7 @@ public class Ripple : LivingEntity
     public readonly RippleDodgeState DodgeState = new RippleDodgeState();
     public readonly RippleDashState DashState = new RippleDashState();
     public readonly RippleSmashState SmashState = new RippleSmashState();
+    public readonly RippleTeleportState TeleportState = new RippleTeleportState();
 
     public NavMeshAgent pathfinder;
     public Transform playerTransform;
@@ -86,6 +87,10 @@ public class Ripple : LivingEntity
 
     public float viewDistance;
 
+    public moveTracker tracker;
+
+    public bool pausedState;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -97,6 +102,7 @@ public class Ripple : LivingEntity
         pillarsDone = false;
         endPillar = false;
         isDark = false;
+        pausedState = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         viewDistance = 15f;
@@ -112,14 +118,20 @@ public class Ripple : LivingEntity
     // Update is called once per frame
     void Update()
     {
-        currentState.Update(this); //do action based on state
+        if (!pausedState)
+        {
+            currentState.Update(this); //do action based on state
+        }
         lightControl();
         inTheRed(); //checks if spotlight is red
     }
 
     public void FixedUpdate()
     {
-        currentState.FixedStateUpdate(this); //do action based on state
+        if (!pausedState)
+        {
+            currentState.FixedStateUpdate(this); //do action based on state
+        }
     }
 
     public void TransitionToState(RippleBaseState state)
@@ -128,7 +140,7 @@ public class Ripple : LivingEntity
         currentState.EnterState(this);
     }
 
-    public bool inTheRed()
+    public override bool inTheRed()
     {
         //based on how red spotlight is, return true
         if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)
@@ -266,6 +278,13 @@ public class Ripple : LivingEntity
         yield return new WaitForSeconds(2.5f);
         pillarsDone = true;
     }
+
+    public IEnumerator PauseState(float seconds)
+    {
+        pausedState = true;
+        yield return new WaitForSeconds(seconds);
+        pausedState = false;
+    }
     public void summonProjectiles()
     {
         projectiles.Clear();
@@ -376,6 +395,23 @@ public class Ripple : LivingEntity
             }
             yield return null;
         }
+    }
+
+    //when finding vector3 desintation on a line with two Vector3 points
+    public Vector3 vectorDestination(Vector3 origin, Vector3 _direction, float distance)
+    {
+        Vector2 direction = new Vector2(_direction.x, _direction.z);
+        Vector2 unitVector;
+        if (direction.magnitude == 0)
+        {
+            unitVector = direction;
+        }
+        else
+        {
+            unitVector = direction / (direction.magnitude);
+        }
+        unitVector *= distance;
+        return (new Vector3 (origin.x + unitVector.x, origin.y, origin.z + unitVector.y));
     }
 
     //DAMAGE CALCULATIONS
