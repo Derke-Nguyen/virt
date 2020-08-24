@@ -72,7 +72,7 @@ public class Pillar : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Blade")
+        if (other.gameObject.tag == "Blade" || other.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
         }

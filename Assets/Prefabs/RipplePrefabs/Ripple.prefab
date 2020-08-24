@@ -371,7 +371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1362920414
 Transform:
   m_ObjectHideFlags: 0
@@ -865,6 +865,7 @@ MonoBehaviour:
   surface: {fileID: 0}
   pillarPrefab: {fileID: 1691630731, guid: b28f57811d26d1f4ab05364440e0ce42, type: 3}
   pillars: []
+  eightPillars: []
   projectiles: []
   lasers: []
   projectilePrefab: {fileID: 566970032142002966, guid: a7a411d12a2505e4f88368cc4374feef,
@@ -872,6 +873,8 @@ MonoBehaviour:
   laserPrefab: {fileID: 657977889892709759, guid: 53e07e7f1ce30a445ae7d9f44aa6c3d5,
     type: 3}
   minePrefab: {fileID: 3093896269749264731, guid: 286e6578634f2d94c8d792214a66174b,
+    type: 3}
+  lightBladePrefab: {fileID: 1501560531285142427, guid: 6bde33f694cf5104c8360af21941c883,
     type: 3}
   viewRadius: 0
   viewAngle: 0
@@ -892,3 +895,4 @@ MonoBehaviour:
   tracker: {fileID: 1995000355}
   pausedState: 0
   lightRatio: 0
+  lightBladeActivated: 0

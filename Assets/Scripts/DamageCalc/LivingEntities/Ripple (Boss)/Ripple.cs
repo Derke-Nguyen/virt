@@ -68,6 +68,7 @@ public class Ripple : Enemy
     public rippleProjectile projectilePrefab;
     public Laser laserPrefab;
     public Mine minePrefab;
+    public LightBlade lightBladePrefab;
 
     public float viewRadius;
     [Range(0, 360)]
@@ -102,6 +103,9 @@ public class Ripple : Enemy
 
     public float lightRatio;
 
+    public bool lightBladeActivated;
+    
+    //float size;
     // Start is called before the first frame update
     public override void Start()
     {
@@ -116,14 +120,17 @@ public class Ripple : Enemy
         endPillar = false;
         isDark = false;
         pausedState = false;
+        lightBladeActivated = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         viewDistance = 15f;
         lightRatio = 0;
         lightViewAngle = spotlight.spotAngle;
         originalSpotLightColor = spotlight.color;
-        //var go1 = new GameObject { name = "Circle" };
-        //  go1.DrawCircle(5f, .02f);
+
+        //size = 5f;
+        
+        
         //TODO Change starting state
         currentState = FollowState;
         TransitionToState(FollowState);
@@ -132,6 +139,10 @@ public class Ripple : Enemy
     // Update is called once per frame
     void Update()
     {
+        //size += 0.1f;
+        //var go1 = new GameObject { name = "Circle" };
+        //go1.DrawCircle(size, 1f);
+        //go1.DrawCircle(size, 1f);
         if (!pausedState)
         {
             currentState.Update(this); //do action based on state
@@ -409,6 +420,17 @@ public class Ripple : Enemy
             pillars.RemoveAt(0);
             tempPill.destroy();
         }
+    }
+    public IEnumerator summonLightBlades()
+    {
+        lightBladeActivated = true;
+        for (int i = 0; i < 15; ++i)
+        {
+            Vector3 destination = vectorDestination(playerTransform.position, Quaternion.Euler(0, UnityEngine.Random.Range(0f, 360f), 0)*transform.forward, 10f);
+            Instantiate(lightBladePrefab, destination, Quaternion.Euler(90,0,0));
+            yield return new WaitForSeconds(0.8f);
+        }
+        lightBladeActivated = false;
     }
 
     public IEnumerator findSmashablePillars()

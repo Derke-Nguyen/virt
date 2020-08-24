@@ -25,16 +25,36 @@ public class RippleTeleportState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        if (teleportNum != 4)
+        if (ripple.isDark)
         {
-            //check edges TODO
-            ripple.transform.position = ripple.vectorDestination(ripple.playerTransform.position, -ripple.playerTransform.forward,15f);
-            ripple.transform.forward = ripple.playerTransform.forward;
-            ripple.TransitionToState(ripple.SwingState);
+            Vector3 dirToPlayer = (ripple.playerTransform.position - ripple.transform.position).normalized;
+            Vector3 destination = ripple.vectorDestination(ripple.playerTransform.position, dirToPlayer, 15f);
+            if (Mathf.Abs(Mathf.Abs(destination.x) - 70) <= 10f || Mathf.Abs(Mathf.Abs(destination.z) - 50) <= 10f)
+            {
+                ripple.TransitionToState(ripple.SwingState);
+            }
+            else
+            {
+                ripple.transform.position = destination;
+                ripple.transform.forward = -dirToPlayer;
+                teleportNum = 0;
+                ripple.TransitionToState(ripple.SwingState);
+            }
         }
         else
         {
-            ripple.TransitionToState(ripple.FollowState);
+            if (teleportNum != 4)
+            {
+                //check edges TODO
+                ripple.transform.position = ripple.vectorDestination(ripple.playerTransform.position, -ripple.playerTransform.forward, 15f);
+                ripple.transform.forward = ripple.playerTransform.forward;
+                ripple.TransitionToState(ripple.SwingState);
+            }
+            else
+            {
+                ripple.TransitionToState(ripple.FollowState);
+                teleportNum = 0;
+            }
         }
     }
 }

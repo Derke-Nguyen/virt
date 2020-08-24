@@ -29,8 +29,29 @@ public class RippleSwingState : RippleBaseState
     }
 
     public override void FixedStateUpdate(Ripple ripple)
-    { 
-        if (Mathf.Abs(ripple.transform.position.x - destination.x) <= 0.1f && Mathf.Abs(ripple.transform.position.z - destination.z) <= 0.1f)
+    {
+        if (Mathf.Abs(Mathf.Abs(ripple.transform.position.x) - 70) <= 2f || Mathf.Abs(Mathf.Abs(ripple.transform.position.z) - 50) <= 2f)
+        {
+            ripple.centralAxis.transform.rotation = startingRotation;
+            ripple.tracker.turnTrackerOff();
+            GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
+            ripple.pauseNavMesh();
+            ripple.StopAllCoroutines();
+            if (ripple.isDark)
+            {
+                if (!ripple.lightBladeActivated)
+                {
+                    ripple.StartCoroutine(ripple.summonLightBlades());
+                }
+                ripple.TransitionToState(ripple.DarkChaseState);
+            }
+            else
+            {
+                //ripple.TransitionToState(ripple.LaserMineState);
+                ripple.TransitionToState(ripple.DarkChaseState);
+            }
+        }
+        if (Mathf.Abs(ripple.transform.position.x - destination.x) <= 0.5f && Mathf.Abs(ripple.transform.position.z - destination.z) <= 0.5f)
         {
             //rotationAmount >= 360
             ripple.centralAxis.transform.rotation = startingRotation;
@@ -43,10 +64,15 @@ public class RippleSwingState : RippleBaseState
             ripple.StopAllCoroutines();
             if (ripple.isDark)
             {
+                if (!ripple.lightBladeActivated)
+                {
+                    ripple.StartCoroutine(ripple.summonLightBlades());
+                }
                 ripple.TransitionToState(ripple.DarkChaseState);
             }
             else
             {
+                //ripple.TransitionToState(ripple.LaserMineState);
                 ripple.TransitionToState(ripple.DarkChaseState);
             }
         }

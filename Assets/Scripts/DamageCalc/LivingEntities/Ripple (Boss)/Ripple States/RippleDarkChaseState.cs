@@ -34,6 +34,7 @@ public class RippleDarkChaseState : RippleBaseState
         
         ripple.transform.position = potentialDestinations[maxIndex];
         currentCoroutine = ripple.StartCoroutine(ripple.UpdatePath());
+        ripple.pathfinder.speed += 5;
     }
 
     public override void FixedStateUpdate(Ripple ripple)
@@ -50,6 +51,7 @@ public class RippleDarkChaseState : RippleBaseState
     {
         if ((ripple.playerTransform.position - ripple.transform.position).magnitude <= 10f)
         {
+            ripple.pathfinder.speed -= 5;
             ripple.StopAllCoroutines();
             ripple.pauseNavMesh();
             ripple.TransitionToState(ripple.TeleportState);
