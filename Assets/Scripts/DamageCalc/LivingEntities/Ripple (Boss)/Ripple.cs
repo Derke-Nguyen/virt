@@ -33,6 +33,8 @@ public class Ripple : Enemy
     public readonly RippleDashState DashState = new RippleDashState();
     public readonly RippleSmashState SmashState = new RippleSmashState();
     public readonly RippleTeleportState TeleportState = new RippleTeleportState();
+    public readonly RippleWideSwingState WideSwingState = new RippleWideSwingState();
+    public readonly RippleLaserMineState LaserMineState = new RippleLaserMineState();
 
     public NavMeshAgent pathfinder;
     public Transform playerTransform;
@@ -59,8 +61,11 @@ public class Ripple : Enemy
     public Pillar pillarPrefab;
     public List<Pillar> pillars;
     public List<rippleProjectile> projectiles;
+    public List<Laser> lasers;
 
     public rippleProjectile projectilePrefab;
+    public Laser laserPrefab;
+    public Mine minePrefab;
 
     public float viewRadius;
     [Range(0, 360)]
@@ -76,7 +81,7 @@ public class Ripple : Enemy
     public Light spotlight;
     Color originalSpotLightColor;
 
-    float lightViewAngle;
+    public float lightViewAngle;
 
     public bool isDark;
 
@@ -91,12 +96,17 @@ public class Ripple : Enemy
 
     public bool pausedState;
 
+    public RippleBaseState previousState;
+
+    public float lightRatio;
+
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         pillars = new List<Pillar>();
         projectiles = new List<rippleProjectile>();
+        lasers = new List<Laser>();
         backstabDistance = 11f;
         backstabAngle = 92.3f;
         pillarsDone = false;
@@ -106,12 +116,13 @@ public class Ripple : Enemy
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         viewDistance = 15f;
-
+        lightRatio = 0;
         lightViewAngle = spotlight.spotAngle;
         originalSpotLightColor = spotlight.color;
         //var go1 = new GameObject { name = "Circle" };
         //  go1.DrawCircle(5f, .02f);
-
+        //TODO Change starting state
+        currentState = FollowState;
         TransitionToState(FollowState);
     }
 
@@ -122,7 +133,11 @@ public class Ripple : Enemy
         {
             currentState.Update(this); //do action based on state
         }
-        lightControl();
+        if (currentState != WideSwingState)
+            lightControl();
+        else
+            forcedLightControl(1f);
+
         inTheRed(); //checks if spotlight is red
     }
 
@@ -136,14 +151,16 @@ public class Ripple : Enemy
 
     public void TransitionToState(RippleBaseState state)
     {
+        previousState = currentState;
         currentState = state;
         currentState.EnterState(this);
     }
 
     public override bool inTheRed()
     {
+        lightRatio = (playerVisibleTimer / timeToSpotPlayer);
         //based on how red spotlight is, return true
-        if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)
+        if (lightRatio > 0.75)
         {
             return true;
         }
@@ -160,6 +177,15 @@ public class Ripple : Enemy
         {
             playerVisibleTimer -= Time.deltaTime;
         }
+        //clamps value to timeToSpotPlayer
+        playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer);
+        //changes color gradually based on a fractional value of playerVisibleTimer / timeToSpotPlayer
+        spotlight.color = Color.Lerp(originalSpotLightColor, Color.red, playerVisibleTimer / timeToSpotPlayer);
+    }
+
+    public void forcedLightControl(float lightSpeed)
+    {
+        playerVisibleTimer += Time.deltaTime * lightSpeed;
         //clamps value to timeToSpotPlayer
         playerVisibleTimer = Mathf.Clamp(playerVisibleTimer, 0, timeToSpotPlayer);
         //changes color gradually based on a fractional value of playerVisibleTimer / timeToSpotPlayer
@@ -261,6 +287,16 @@ public class Ripple : Enemy
         }
     }
 
+    public void summonMines()
+    {
+        points = PoissonDiscSampling.GeneratePoints(10f, regionSize, rejectionSamples);
+        foreach (Vector2 point in points)
+        {
+            //Vector3 newMine = new Vector3(point.x - (50 - 7), -10, point.y - (50 - 7));
+            Instantiate(minePrefab, new Vector3(point.x - (50 - 7), 1, point.y - (50 - 7+5)), Quaternion.identity);
+        }
+    }
+
     public IEnumerator SummonPillars()
     {
         points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
@@ -293,6 +329,16 @@ public class Ripple : Enemy
             Vector3 dir = Quaternion.Euler(0, i*45, 0) * transform.forward;
             rippleProjectile proj = Instantiate(projectilePrefab, (dir - transform.position) * 1.25f, Quaternion.identity);
             projectiles.Add(proj);
+        }
+    }
+    public void summonLasers()
+    {
+        lasers.Clear();
+        for (int i = 0; i < 3; ++i)
+        {
+            Laser ls = Instantiate(laserPrefab, transform.position, Quaternion.Euler(0, -55 - (i*55), 0), centralAxis);
+            ls.transform.parent = centralAxis;
+            lasers.Add(ls);
         }
     }
     public bool checkIfNoProjectiles()

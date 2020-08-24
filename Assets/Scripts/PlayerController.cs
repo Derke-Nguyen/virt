@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     float minDistance;
     int index;
     public bool canAssassinate;
-    public Vector3 targetPosition;
+    public Transform targetTransform;
     GameObject target;
     public TimeManager timeManager;
 
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
         {
             canAssassinate = true;
             target = enemies[index];
-            targetPosition = enemies[index].transform.position;
+            targetTransform = enemies[index].transform;
         }
         else
         {
@@ -126,9 +126,27 @@ public class PlayerController : MonoBehaviour
     public void assassinate()
     {
         //timeManager.bulletTime();	
-        transform.position += (targetPosition - transform.position) * 1.25f;
+        Vector3 dir = (targetTransform.position - transform.position).normalized;
+        transform.position = vectorDestination(targetTransform.position, dir, 5f);
         //GameObject.Destroy(target);
     }
+
+    public Vector3 vectorDestination(Vector3 origin, Vector3 _direction, float distance)
+    {
+        Vector2 direction = new Vector2(_direction.x, _direction.z);
+        Vector2 unitVector;
+        if (direction.magnitude == 0)
+        {
+            unitVector = direction;
+        }
+        else
+        {
+            unitVector = direction / (direction.magnitude);
+        }
+        unitVector *= distance;
+        return (new Vector3(origin.x + unitVector.x, origin.y, origin.z + unitVector.y));
+    }
+
 
     public void setDirection(Vector3 _direction)
     {

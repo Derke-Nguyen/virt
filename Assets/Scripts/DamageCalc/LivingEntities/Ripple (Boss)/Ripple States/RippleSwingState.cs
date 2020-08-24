@@ -34,7 +34,9 @@ public class RippleSwingState : RippleBaseState
             //rotationAmount >= 360
             ripple.centralAxis.transform.rotation = startingRotation;
             ripple.tracker.turnTrackerOff();
-            ripple.TransitionToState(ripple.TeleportState);
+            //ripple.TransitionToState(ripple.TeleportState);
+            //ripple.TransitionToState(ripple.WideSwingState);
+            ripple.TransitionToState(ripple.LaserMineState);
         }
         else
         {

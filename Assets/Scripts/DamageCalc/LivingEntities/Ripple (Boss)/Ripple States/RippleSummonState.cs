@@ -12,7 +12,7 @@ public class RippleSummonState : RippleBaseState
         currentCoroutine = ripple.StartCoroutine(ripple.SummonPillars());
         GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
         ripple.transform.position = new Vector3(0, ripple.transform.position.y, 0);
-        ripple.summonProjectiles();
+        //ripple.summonProjectiles();
     }
 
     public override void FixedStateUpdate(Ripple ripple)

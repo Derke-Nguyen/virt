@@ -15,12 +15,12 @@ public class RippleTeleportState : RippleBaseState
 
     public override void FixedStateUpdate(Ripple ripple)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void OnCollisionEnter(Ripple ripple)
     {
-        throw new System.NotImplementedException();
+
     }
 
     public override void Update(Ripple ripple)
