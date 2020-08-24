@@ -17,6 +17,8 @@ public class RippleWideSwingState : RippleBaseState
 
     public override void EnterState(Ripple ripple)
     {
+        ripple.equipWeapon();
+        ripple.activateLight();
         activated = false;
         ripple.transform.position = new Vector3(0, 2, 0);
         ++turnsInState;

@@ -35,6 +35,7 @@ public class Ripple : Enemy
     public readonly RippleTeleportState TeleportState = new RippleTeleportState();
     public readonly RippleWideSwingState WideSwingState = new RippleWideSwingState();
     public readonly RippleLaserMineState LaserMineState = new RippleLaserMineState();
+    public readonly RippleDarkChaseState DarkChaseState = new RippleDarkChaseState();
 
     public NavMeshAgent pathfinder;
     public Transform playerTransform;
@@ -60,6 +61,7 @@ public class Ripple : Enemy
 
     public Pillar pillarPrefab;
     public List<Pillar> pillars;
+    public List<Pillar> eightPillars;
     public List<rippleProjectile> projectiles;
     public List<Laser> lasers;
 
@@ -105,6 +107,7 @@ public class Ripple : Enemy
     {
         base.Start();
         pillars = new List<Pillar>();
+        eightPillars = new List<Pillar>();
         projectiles = new List<rippleProjectile>();
         lasers = new List<Laser>();
         backstabDistance = 11f;
@@ -133,10 +136,20 @@ public class Ripple : Enemy
         {
             currentState.Update(this); //do action based on state
         }
-        if (currentState != WideSwingState)
-            lightControl();
+        if (isDark)
+        {
+            if ((playerTransform.position - transform.position).magnitude <= 10f)
+            {
+                transform.localScale = new Vector3(2, 2, 2);
+            }
+        }
         else
-            forcedLightControl(1f);
+        {
+            if (currentState != WideSwingState)
+                lightControl();
+            else
+                forcedLightControl(1f);
+        }
 
         inTheRed(); //checks if spotlight is red
     }
@@ -154,6 +167,16 @@ public class Ripple : Enemy
         previousState = currentState;
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public void deactivateLight()
+    {
+        spotlight.enabled = false;
+    }
+
+    public void activateLight()
+    {
+        spotlight.enabled = true;
     }
 
     public override bool inTheRed()
@@ -285,6 +308,22 @@ public class Ripple : Enemy
                 //Gizmos.DrawSphere(new Vector3(point.x - (50 - 7), 0, point.y - (50 - 7)), displayRadius);
             }
         }
+    }
+
+    public void summon8Pillars()
+    {
+        if (eightPillars.Count > 0)
+        {
+            return;
+        }
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(-35f,0, 25f), Quaternion.identity));
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(-35f, 0, 0f), Quaternion.identity));
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(-35f, 0, -25f), Quaternion.identity));
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(0f, 0, 25f), Quaternion.identity));
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(0f, 0, -25f), Quaternion.identity));
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(35f, 0, 25f), Quaternion.identity));
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(35f, 0, 0f), Quaternion.identity));
+        eightPillars.Add(Instantiate(pillarPrefab, new Vector3(35f, 0, -25f), Quaternion.identity));
     }
 
     public void summonMines()

@@ -27,9 +27,6 @@ public class RippleTeleportState : RippleBaseState
     {
         if (teleportNum != 4)
         {
-            Vector3 ripplePosition = ripple.transform.position;
-            Vector3 playerPosition = ripple.playerTransform.position;
-            float magnitude = Mathf.Sqrt(Mathf.Pow(ripplePosition.x - playerPosition.x, 2) + Mathf.Pow(ripplePosition.z - playerPosition.z, 2));
             //check edges TODO
             ripple.transform.position = ripple.vectorDestination(ripple.playerTransform.position, -ripple.playerTransform.forward,15f);
             ripple.transform.forward = ripple.playerTransform.forward;

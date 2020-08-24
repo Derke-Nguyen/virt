@@ -14,6 +14,7 @@ public class RippleSwingState : RippleBaseState
     float rotationAmount;
     public override void EnterState(Ripple ripple)
     {
+        ripple.deactivateLight();
         startingPosition = ripple.transform.position;
         startingRotation = ripple.centralAxis.transform.rotation;
         rotationAmount = 0;
@@ -34,9 +35,20 @@ public class RippleSwingState : RippleBaseState
             //rotationAmount >= 360
             ripple.centralAxis.transform.rotation = startingRotation;
             ripple.tracker.turnTrackerOff();
-            ripple.TransitionToState(ripple.TeleportState);
+            //ripple.TransitionToState(ripple.TeleportState);
             //ripple.TransitionToState(ripple.WideSwingState);
             //ripple.TransitionToState(ripple.LaserMineState);
+            GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
+            ripple.pauseNavMesh();
+            ripple.StopAllCoroutines();
+            if (ripple.isDark)
+            {
+                ripple.TransitionToState(ripple.DarkChaseState);
+            }
+            else
+            {
+                ripple.TransitionToState(ripple.DarkChaseState);
+            }
         }
         else
         {
