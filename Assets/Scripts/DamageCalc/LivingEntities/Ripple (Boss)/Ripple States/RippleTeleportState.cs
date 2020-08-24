@@ -10,7 +10,7 @@ public class RippleTeleportState : RippleBaseState
     {
         teleportNum = (teleportNum % 5) + 1;
         ripple.pausedState = true;
-        pause = ripple.StartCoroutine(ripple.PauseState(0.6f));
+        pause = ripple.StartCoroutine(ripple.PauseState(0.35f));
     }
 
     public override void FixedStateUpdate(Ripple ripple)
