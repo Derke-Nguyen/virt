@@ -11,7 +11,6 @@ public class Laser : MonoBehaviour
         laser = GetComponent<LineRenderer>();
         laser.startWidth = 5f;
         laser.SetWidth(3f, 3f);
-        //DrawCircle(this.GetComponent<GameObject>(), 5f, 2f);
     }
 
     // Update is called once per frame
