@@ -10,6 +10,7 @@ public class RippleLaserMineState : RippleBaseState
     GameObject[] gameObjects;
     public override void EnterState(Ripple ripple)
     {
+        ripple.deactivateLight();
         GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
         ripple.transform.position = new Vector3(0, 2, 45);
         ripple.transform.rotation = Quaternion.Euler(Vector3.left);
@@ -45,6 +46,7 @@ public class RippleLaserMineState : RippleBaseState
             ripple.transform.forward = Vector3.forward;
             //ripple.weaponHold.position = ripple.vectorDestination(ripple.transform.position, ripple.transform.forward, 5f);
             ripple.centralAxis.rotation = Quaternion.Euler(Vector3.zero);
+            ripple.activateLight();
             ripple.TransitionToState(ripple.FollowState);
         }
         if (angle >= 180)

@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     public void findNearestEnemy(Vector3 mousePoint)
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        minDistance = 200;
+        minDistance = 1000;
         index = -1;
         for (int i = 0; i < enemies.Length; ++i)
         {
@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if (minDistance <= 20f && index != -1)
+        if (minDistance <= 1000f && index != -1)
         {
             canAssassinate = true;
             target = enemies[index];

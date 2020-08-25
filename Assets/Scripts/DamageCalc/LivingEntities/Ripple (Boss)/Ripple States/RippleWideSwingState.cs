@@ -7,7 +7,7 @@ public class RippleWideSwingState : RippleBaseState
     Blade blade;
     bool activated;
     float angle;
-    float numOfTimeDirection = -1;
+    float numOfTimeDirection = 1;
     int turnsInState = 0;
 
     float originalSpotLightAngle;
@@ -52,7 +52,7 @@ public class RippleWideSwingState : RippleBaseState
     {
         if (!activated && ripple.lightRatio == 1)
         {
-            if (turnsInState == 1)
+            if (turnsInState == 2)
             {
                 ripple.centralAxis.forward = -ripple.transform.right;
                 ripple.equipWeapon();
@@ -61,7 +61,7 @@ public class RippleWideSwingState : RippleBaseState
                 blade.transform.position = blade.transform.position + Vector3.left * 50;
                 activated = true;
             }
-            else if (turnsInState == 2)
+            else if (turnsInState == 1)
             {
                 ripple.centralAxis.forward = -ripple.transform.right;
                 ripple.equipWeapon();

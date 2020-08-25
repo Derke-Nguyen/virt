@@ -858,8 +858,8 @@ MonoBehaviour:
   viewMask:
     serializedVersion: 2
     m_Bits: 256
-  radius: 15
-  regionSize: {x: 86, y: 86}
+  radius: 12
+  regionSize: {x: 125, y: 85}
   rejectionSamples: 30
   displayRadius: 6
   surface: {fileID: 0}
@@ -868,6 +868,8 @@ MonoBehaviour:
   eightPillars: []
   projectiles: []
   lasers: []
+  shockwaves: []
+  mines: []
   projectilePrefab: {fileID: 566970032142002966, guid: a7a411d12a2505e4f88368cc4374feef,
     type: 3}
   laserPrefab: {fileID: 657977889892709759, guid: 53e07e7f1ce30a445ae7d9f44aa6c3d5,
@@ -875,6 +877,10 @@ MonoBehaviour:
   minePrefab: {fileID: 3093896269749264731, guid: 286e6578634f2d94c8d792214a66174b,
     type: 3}
   lightBladePrefab: {fileID: 1501560531285142427, guid: 6bde33f694cf5104c8360af21941c883,
+    type: 3}
+  pillarDetecterPrefab: {fileID: 4993536927822049707, guid: 41ca62630d0c692418068441051a1150,
+    type: 3}
+  shockWavePrefab: {fileID: 6544764511901411317, guid: 6edf985ec5a5f1646aebd7efa7a0abd4,
     type: 3}
   viewRadius: 0
   viewAngle: 0
@@ -884,7 +890,6 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
-  pillarsDone: 0
   lightController: {fileID: 0}
   spotlight: {fileID: 578461953}
   lightViewAngle: 0
@@ -896,3 +901,4 @@ MonoBehaviour:
   pausedState: 0
   lightRatio: 0
   lightBladeActivated: 0
+  noSpotLight: 0
