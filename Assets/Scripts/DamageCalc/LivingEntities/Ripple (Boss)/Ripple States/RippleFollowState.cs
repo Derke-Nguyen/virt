@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class RippleFollowState : RippleBaseState
 {
+    //float moveCount;
+    //bool isSwinging;
+    //float swingCount;
+    //float movesInTheDark = 0;
+
     Coroutine currentCoroutine;
     float maxTimeSpentInState;
-    //float moveCount;
+   
     float enteredStateCount = 0;
-    float movesInTheDark = 0;
-    bool isSwinging;
-    float swingCount;
+    
     public override void EnterState(Ripple ripple)
     {
-        ripple.activateLight();
         //moveCount = 0;
+        //swingCount = 0;
+        //isSwinging = false;
+
+        ripple.activateLight();
         ++enteredStateCount;
         maxTimeSpentInState = 2f;
-        isSwinging = false;
-        swingCount = 0;
         currentCoroutine = ripple.StartCoroutine(ripple.UpdatePath()); // pathfinds towards player
     }
 
