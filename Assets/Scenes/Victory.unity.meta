@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Scenes/Level_5_Boss.meta
+guid: b8648e3a0d073b446ab58ae40dfbbaf6
+folderAsset: yes
+=======
 guid: 2fb2e78b1f825e14982d7fecd0ed7222
+>>>>>>> master:Assets/Scenes/Victory.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

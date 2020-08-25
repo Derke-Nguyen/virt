@@ -9,6 +9,7 @@ TagManager:
   - Pillar
   - EnemyProjectile
   - Boss
+  - Laser
   layers:
   - Default
   - TransparentFX

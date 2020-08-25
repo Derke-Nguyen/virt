@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/Laser.prefab.meta
+guid: 719845a95ca0a414e8f5b6abcde35246
+PrefabImporter:
+=======
 guid: 959cf0f2141830149a6996c7cdf3345c
 NativeFormatImporter:
+>>>>>>> master:Assets/Materials/alwaysVisible.mat.meta
   externalObjects: {}
   mainObjectFileID: 0
   userData: 

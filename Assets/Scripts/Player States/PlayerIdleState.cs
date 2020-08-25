@@ -6,11 +6,13 @@ public class PlayerIdleState : PlayerBaseState
 {
 
 
-    public static float dashCD_value = 1;
-    public static float swingCD_value = 0.5f;
+    public static float dashCD_value = 0.5f;
+    public static float swingCD_value = 0.1f;
+    public static float assassinateCD_value = 1f;
 
     public static float dashCD = 0; //Global variable since Idle state and Jump state should share the same dash cooldown
     public static float swingCD = 0; //Global variable since Idle state and Dash state should share the same dash coodown
+    public static float assassinateCD = 0;
 
     Interactable interactable;
 
@@ -52,7 +54,11 @@ public class PlayerIdleState : PlayerBaseState
         }
         else if (player.canAssassinate && Input.GetMouseButton(0))
         {
-            player.TransitionToState(player.AssassinState);
+            if (assassinateCD <= 0)
+            {
+                assassinateCD = assassinateCD_value;
+                player.TransitionToState(player.AssassinState);
+            }
         }
         else if (Input.GetMouseButton(0)) //Swings when left mouse button is pressed
         {
@@ -95,6 +101,10 @@ public class PlayerIdleState : PlayerBaseState
         if(swingCD > 0)
         {
             swingCD -= Time.deltaTime;
+        }
+        if (assassinateCD > 0)
+        {
+            assassinateCD -= Time.deltaTime;
         }
 
     }

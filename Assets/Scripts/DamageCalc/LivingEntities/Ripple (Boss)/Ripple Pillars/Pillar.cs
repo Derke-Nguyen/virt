@@ -7,72 +7,66 @@ using UnityEngine.AI;
 public class Pillar : MonoBehaviour
 {
     float speed;
+    float amount;
     float fastSpeed;
     float followSpeed;
-    bool move;
     Vector3 destination = Vector3.one;
     float maxTimeSpentInState;
 
-    float damage = 10;
-
     public LayerMask collisionMask;
+
+    bool pausedState;
+
+    bool goingToGround;
 
     //public NavMeshSurface surface;
     void Start()
     {
         speed = 2;
-        fastSpeed = 30;
+        amount = 1f;
+        fastSpeed = 2.5f;
         followSpeed = 7;
-        move = false;
         maxTimeSpentInState = 5f;
+        pausedState = false;
+        goingToGround = false;
         //surface.BuildNavMesh();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (move)
+        if (transform.position.y >= 1 && !pausedState)
         {
-            maxTimeSpentInState -= Time.deltaTime;
-            if (maxTimeSpentInState <= 0)
+            StartCoroutine(PauseState(7f));
+        }
+        if (goingToGround)
+        {
+            transform.Translate(Vector3.up * Time.deltaTime * -fastSpeed, Space.World);
+            if (transform.position.y <= -3)
             {
-                destroy();
+                Destroy(this.gameObject);
             }
-            float moveDistance = followSpeed * Time.deltaTime;
-            moveToPlayer(moveDistance);
         }
-        else
+        else if (transform.position.y < 1)
         {
-            //surface.BuildNavMesh();
-            if (transform.position.y < -7)
-                transform.Translate(Vector3.up * Time.deltaTime * speed, Space.World);
-            else if (transform.position.y < 2)
-                transform.Translate(Vector3.up * Time.deltaTime * fastSpeed, Space.World);
+            transform.Translate(Vector3.up * Time.deltaTime * fastSpeed, Space.World);
         }
+        
+    }
+
+    public void destroyPillar()
+    {
+        goingToGround = true;
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Pillar")
-        {
-            Destroy(collision.gameObject);
-            Destroy(this.gameObject);
-        }
 
-        if (collision.gameObject.tag == "Player" && move) //Enemy damages player when in contact and in motion
-        {
-            Damagable damagableObject = collision.gameObject.GetComponent<Damagable>();
-            if (damagableObject != null)
-            {
-                //Debug.Log("Dealt Damage: " + damage);
-                damagableObject.takeHit(damage);
-            }
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Blade")
+        if (other.gameObject.tag == "Blade" || other.gameObject.tag == "Enemy")
         {
             Destroy(this.gameObject);
         }
@@ -83,15 +77,13 @@ public class Pillar : MonoBehaviour
         GameObject.Destroy(gameObject);
     }
 
-
-    public void activateMove(Vector3 _destination)
+    public IEnumerator PauseState(float seconds)
     {
-        move = true;
-        destination = _destination;
+        pausedState = true;
+        yield return new WaitForSeconds(seconds);
+        pausedState = false;
+        goingToGround = true;
     }
 
-    public void moveToPlayer(float moveDistance)
-    {
-        transform.position = Vector3.MoveTowards(transform.position, destination, moveDistance);
-    }
+
 }

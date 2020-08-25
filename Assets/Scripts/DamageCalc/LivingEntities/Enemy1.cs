@@ -4,7 +4,7 @@ using UnityEngine.AI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Enemy1 : LivingEntity
+public class Enemy1 : Enemy
 {
     private Enemy1BaseState currentState;
     public Enemy1BaseState CurrentState
@@ -67,7 +67,6 @@ public class Enemy1 : LivingEntity
             waypoints[i] = new Vector3(waypoints[i].x, transform.position.y, waypoints[i].z);
         }
         TransitionToState(PatrolState);
-        
     }
 
     // Update is called once per frame
@@ -96,7 +95,7 @@ public class Enemy1 : LivingEntity
     {
         currentState.FixedStateUpdate(this); //do action based on state
     }
-    public bool inTheRed()
+    public override bool inTheRed()
     {
         //based on how red spotlight is, return true
         if ((playerVisibleTimer / timeToSpotPlayer) > 0.75)
@@ -105,7 +104,6 @@ public class Enemy1 : LivingEntity
         }
         else
             return false;
-
     }
     public void changeSpeed(float changedSpeed)
     {

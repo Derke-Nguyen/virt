@@ -7,7 +7,7 @@ public class RippleSmashState : RippleBaseState
     Coroutine currentCoroutine;
     public override void EnterState(Ripple ripple)
     {
-        currentCoroutine = ripple.StartCoroutine(ripple.findSmashablePillars());
+        //currentCoroutine = ripple.StartCoroutine(ripple.findSmashablePillars());
     }
 
     public override void FixedStateUpdate(Ripple ripple)

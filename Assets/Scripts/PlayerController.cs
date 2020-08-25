@@ -41,11 +41,13 @@ public class PlayerController : MonoBehaviour
     float minDistance;
     int index;
     public bool canAssassinate;
-    public Vector3 targetPosition;
+    public Transform targetTransform;
     GameObject target;
     public TimeManager timeManager;
 
     public Transform CentralAxis;
+
+    public TrailController trailController;
 
     void Start()
     {
@@ -86,7 +88,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     public void FixedUpdate()
     {
-        if (!CurrentState.Equals(DashingState) && !CurrentState.Equals(MeleeState))
+        if (!CurrentState.Equals(DashingState))
         {
             Rigidbody.MovePosition(Rigidbody.position + velocity * Time.fixedDeltaTime);
         }
@@ -97,11 +99,11 @@ public class PlayerController : MonoBehaviour
     public void findNearestEnemy(Vector3 mousePoint)
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        minDistance = 50;
+        minDistance = 1000;
         index = -1;
         for (int i = 0; i < enemies.Length; ++i)
         {
-            if (enemies[i].GetComponent<Enemy1>().inTheRed())
+            if (enemies[i].GetComponent<Enemy>().inTheRed())
             {
                 if ((enemies[i].transform.position - mousePoint).magnitude < minDistance)
                 {
@@ -110,11 +112,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-        if (minDistance <= 20f && index != -1)
+        if (minDistance <= 1000f && index != -1)
         {
             canAssassinate = true;
             target = enemies[index];
-            targetPosition = enemies[index].transform.position;
+            targetTransform = enemies[index].transform;
         }
         else
         {
@@ -124,9 +126,27 @@ public class PlayerController : MonoBehaviour
     public void assassinate()
     {
         //timeManager.bulletTime();	
-        transform.position += (targetPosition - transform.position) * 1.25f;
-        GameObject.Destroy(target);
+        Vector3 dir = (targetTransform.position - transform.position).normalized;
+        transform.position = vectorDestination(targetTransform.position, dir, 5f);
+        //GameObject.Destroy(target);
     }
+
+    public Vector3 vectorDestination(Vector3 origin, Vector3 _direction, float distance)
+    {
+        Vector2 direction = new Vector2(_direction.x, _direction.z);
+        Vector2 unitVector;
+        if (direction.magnitude == 0)
+        {
+            unitVector = direction;
+        }
+        else
+        {
+            unitVector = direction / (direction.magnitude);
+        }
+        unitVector *= distance;
+        return (new Vector3(origin.x + unitVector.x, origin.y, origin.z + unitVector.y));
+    }
+
 
     public void setDirection(Vector3 _direction)
     {

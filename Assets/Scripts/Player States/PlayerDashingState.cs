@@ -7,9 +7,9 @@ public class PlayerDashingState : PlayerBaseState
 {
     Vector3 dashDirection; //Maps the direction of the dash
 
-    public float dashDuration = 0.2f; //Length of the dash in seconds per frame
+    public float dashDuration = 0.35f; //Length of the dash in seconds per frame
     public float dashTime; //Counter of dash length
-    public float dashSpeed = 20; //Dash speed
+    public float dashSpeed = 40; //Dash speed
 
     public bool dashFinished; //Checks if currently dashing, used to transition back to idle
     
