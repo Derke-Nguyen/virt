@@ -65,6 +65,7 @@ public class Ripple : Enemy
     public List<rippleProjectile> projectiles;
     public List<Laser> lasers;
     public List<ShockWave> shockwaves;
+    public List<Mine> mines;
 
     public rippleProjectile projectilePrefab;
     public Laser laserPrefab;
@@ -105,6 +106,8 @@ public class Ripple : Enemy
     public float lightRatio;
 
     public bool lightBladeActivated;
+
+    public bool noSpotLight;
     
     //float size;
     // Start is called before the first frame update
@@ -116,12 +119,14 @@ public class Ripple : Enemy
         projectiles = new List<rippleProjectile>();
         lasers = new List<Laser>();
         shockwaves = new List<ShockWave>();
+        mines = new List<Mine>();
         backstabDistance = 11f;
         backstabAngle = 92.3f;
         endPillar = false;
         isDark = false;
         pausedState = false;
         lightBladeActivated = false;
+        noSpotLight = false;
         pathfinder = GetComponent<NavMeshAgent>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         viewDistance = 15f;
@@ -157,9 +162,9 @@ public class Ripple : Enemy
         }
         else
         {
-            if (currentState != WideSwingState)
+            if (currentState != WideSwingState && !noSpotLight)
                 lightControl();
-            else
+            else if (!noSpotLight)
                 forcedLightControl(1f);
         }
 
@@ -183,11 +188,15 @@ public class Ripple : Enemy
 
     public void deactivateLight()
     {
+        noSpotLight = true;
+        lightRatio = 0;
+        playerVisibleTimer = 0;
         spotlight.enabled = false;
     }
 
     public void activateLight()
     {
+        noSpotLight = false;
         spotlight.enabled = true;
     }
 
@@ -340,16 +349,25 @@ public class Ripple : Enemy
 
     public void summonMines()
     {
+        mines.Clear();
         points = PoissonDiscSampling.GeneratePoints(10f, regionSize, rejectionSamples);
         foreach (Vector2 point in points)
         {
-            //Vector3 newMine = new Vector3(point.x - (50 - 7), -10, point.y - (50 - 7));
-            Instantiate(minePrefab, new Vector3(point.x - (50 - 7), 1, point.y - (50 - 7+5)), Quaternion.identity);
+            mines.Add(Instantiate(minePrefab, new Vector3(point.x - (70 - 7), 1, point.y - (50 - 7+5)), Quaternion.identity));
+        }
+    }
+
+    public void destroyMines()
+    {
+        foreach (Mine mine in mines)
+        {
+            mine.destroyMine();
         }
     }
 
     public IEnumerator SummonPillars()
     {
+        pillars.Clear();
         points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
         foreach (Vector2 point in points)
         {
@@ -413,7 +431,7 @@ public class Ripple : Enemy
         {
             pillarDetecter tempPill = pillars[0];
             pillars.RemoveAt(0);
-            //tempPill.destroy();
+            tempPill.destroyPillarDetecter();
         }
     }
     public IEnumerator summonLightBlades()
@@ -429,6 +447,7 @@ public class Ripple : Enemy
     }
     public void summonShockWaves()
     {
+        shockwaves.Clear();
         shockwaves.Add(Instantiate(shockWavePrefab, new Vector3(-66, 1, 45), Quaternion.identity));
         shockwaves.Add(Instantiate(shockWavePrefab, new Vector3(-66, 1, -45), Quaternion.identity));
         shockwaves.Add(Instantiate(shockWavePrefab, new Vector3(66, 1, 45), Quaternion.identity));

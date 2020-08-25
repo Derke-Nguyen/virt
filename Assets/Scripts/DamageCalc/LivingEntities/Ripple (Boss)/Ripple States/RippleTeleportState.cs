@@ -8,8 +8,9 @@ public class RippleTeleportState : RippleBaseState
     Coroutine pause;
     public override void EnterState(Ripple ripple)
     {
+        ripple.deactivateLight();
         teleportNum = (teleportNum % 5) + 1;
-        ripple.pausedState = true;
+        //ripple.pausedState = true;
         pause = ripple.StartCoroutine(ripple.PauseState(0.35f));
     }
 
@@ -52,6 +53,7 @@ public class RippleTeleportState : RippleBaseState
             }
             else
             {
+                ripple.activateLight();
                 ripple.TransitionToState(ripple.FollowState);
                 teleportNum = 0;
             }

@@ -54,6 +54,11 @@ public class Pillar : MonoBehaviour
         
     }
 
+    public void destroyPillar()
+    {
+        goingToGround = true;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
 

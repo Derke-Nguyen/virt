@@ -60,6 +60,13 @@ public class pillarDetecter : MonoBehaviour
         }
     }
 
+    public void destroyPillarDetecter()
+    {
+        if (pill)
+            pill.destroyPillar();
+        Destroy(this.gameObject);
+    }
+
     void updateCircle()
     {
         radius += 0.02f;

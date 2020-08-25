@@ -37,6 +37,11 @@ public class Mine : Enemy
     {
         //TODO
     }
+
+    public void destroyMine()
+    {
+        Destroy(this.gameObject);
+    }
     public override bool inTheRed()
     {
         lightRatio = (playerVisibleTimer / timeToSpotPlayer);

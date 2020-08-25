@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour
     public void findNearestEnemy(Vector3 mousePoint)
     {
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        minDistance = 50;
+        minDistance = 200;
         index = -1;
         for (int i = 0; i < enemies.Length; ++i)
         {

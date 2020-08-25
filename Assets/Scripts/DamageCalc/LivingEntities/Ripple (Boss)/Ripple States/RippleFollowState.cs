@@ -9,15 +9,16 @@ public class RippleFollowState : RippleBaseState
     //float moveCount;
     float enteredStateCount = 0;
     float movesInTheDark = 0;
+    bool isSwinging;
+    float swingCount;
     public override void EnterState(Ripple ripple)
     {
+        ripple.activateLight();
         //moveCount = 0;
         ++enteredStateCount;
         maxTimeSpentInState = 2f;
-        if (ripple.isDark)
-        {
-            ++movesInTheDark;
-        }
+        isSwinging = false;
+        swingCount = 0;
         currentCoroutine = ripple.StartCoroutine(ripple.UpdatePath()); // pathfinds towards player
     }
 
@@ -33,19 +34,18 @@ public class RippleFollowState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        //Debug.Log(enteredStateCount);
         maxTimeSpentInState -= Time.deltaTime;
         maxTimeSpentInState = Mathf.Clamp(maxTimeSpentInState, 0, 10);
-        if (ripple.isDark && movesInTheDark >= 5)
+        if (enteredStateCount % 9 == 0)
         {
-            ripple.turnOnLights();
-            ripple.destroyPillars();
+            if (!ripple.isDark)
+            {
+                ripple.StopAllCoroutines();
+                ripple.pauseNavMesh();
+                ripple.TransitionToState(ripple.DarkChaseState);
+            }
         }
-        else
-        {
-            movesInTheDark = 0;
-        }
-        if (enteredStateCount % 7 == 0)
+        else if (enteredStateCount % 6 == 0)
         {
             if (!ripple.isDark)
             {
@@ -54,22 +54,29 @@ public class RippleFollowState : RippleBaseState
                 ripple.TransitionToState(ripple.SummonState);
             }
         }
-        if (enteredStateCount % 3 == 0)
+        else if (enteredStateCount % 3 == 0)
         {
-            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 25f)
+            if (!ripple.isDark)
             {
                 ripple.StopAllCoroutines();
                 ripple.pauseNavMesh();
-                ripple.TransitionToState(ripple.DodgeState);
+                ripple.TransitionToState(ripple.WideSwingState);
             }
         }
-        if (maxTimeSpentInState == 0)
+        else if (ripple.previousState == ripple.WideSwingState)
         {
-            if (!ripple.isDark || ripple.isDark && (ripple.playerTransform.position - ripple.transform.position).magnitude < 15f)
+            ripple.StopAllCoroutines();
+            ripple.pauseNavMesh();
+            ripple.TransitionToState(ripple.LaserMineState);
+        }
+        else if (maxTimeSpentInState == 0)
+        {
+            if (!ripple.isDark)
             {
                 ripple.StopAllCoroutines();
                 ripple.pauseNavMesh();
-                ripple.TransitionToState(ripple.SwingState);
+                ripple.TransitionToState(ripple.TeleportState);
+                
             }
         }
         else if (ripple.playerCanBackStab() && enteredStateCount % 2 == 0)

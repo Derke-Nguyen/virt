@@ -14,6 +14,7 @@ public class RippleSwingState : RippleBaseState
     float rotationAmount;
     public override void EnterState(Ripple ripple)
     {
+        GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
         ripple.deactivateLight();
         startingPosition = ripple.transform.position;
         startingRotation = ripple.centralAxis.transform.rotation;
@@ -47,8 +48,7 @@ public class RippleSwingState : RippleBaseState
             }
             else
             {
-                //ripple.TransitionToState(ripple.LaserMineState);
-                ripple.TransitionToState(ripple.DarkChaseState);
+                ripple.TransitionToState(ripple.TeleportState);
             }
         }
         if (Mathf.Abs(ripple.transform.position.x - destination.x) <= 0.5f && Mathf.Abs(ripple.transform.position.z - destination.z) <= 0.5f)
@@ -56,9 +56,6 @@ public class RippleSwingState : RippleBaseState
             //rotationAmount >= 360
             ripple.centralAxis.transform.rotation = startingRotation;
             ripple.tracker.turnTrackerOff();
-            //ripple.TransitionToState(ripple.TeleportState);
-            //ripple.TransitionToState(ripple.WideSwingState);
-            //ripple.TransitionToState(ripple.LaserMineState);
             GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
             ripple.pauseNavMesh();
             ripple.StopAllCoroutines();
@@ -72,8 +69,7 @@ public class RippleSwingState : RippleBaseState
             }
             else
             {
-                //ripple.TransitionToState(ripple.LaserMineState);
-                ripple.TransitionToState(ripple.SummonState);
+                ripple.TransitionToState(ripple.TeleportState);
             }
         }
         else
@@ -91,8 +87,6 @@ public class RippleSwingState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        //Debug.Log("x" + Mathf.Abs(ripple.transform.position.x - destination.x));
-        //Debug.Log("z" + Mathf.Abs(ripple.transform.position.z - destination.z));
         
     }
 }

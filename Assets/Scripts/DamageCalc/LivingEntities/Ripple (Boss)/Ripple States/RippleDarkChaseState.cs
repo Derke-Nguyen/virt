@@ -8,8 +8,10 @@ public class RippleDarkChaseState : RippleBaseState
     List<Vector3> potentialDestinations = new List<Vector3>();
     int maxIndex;
     float maxDistance;
+    float enteredStateCount = 0;
     public override void EnterState(Ripple ripple)
     {
+        ++enteredStateCount;
         ripple.turnOffLights();
         GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
         ripple.deactivateLight();
@@ -49,11 +51,23 @@ public class RippleDarkChaseState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        if ((ripple.playerTransform.position - ripple.transform.position).magnitude <= 10f)
+        if (enteredStateCount == 3)
+        {
+            ripple.pathfinder.speed -= 5;
+            enteredStateCount = 0;
+            ripple.turnOnLights();
+            ripple.activateLight();
+            ripple.StopAllCoroutines();
+            ripple.pauseNavMesh();
+            ripple.TransitionToState(ripple.FollowState);
+        }
+        else if ((ripple.playerTransform.position - ripple.transform.position).magnitude <= 10f)
         {
             ripple.pathfinder.speed -= 5;
             ripple.StopAllCoroutines();
             ripple.pauseNavMesh();
+            //ripple.turnOnLights();
+            //ripple.activateLight();
             ripple.TransitionToState(ripple.TeleportState);
         }
     }
