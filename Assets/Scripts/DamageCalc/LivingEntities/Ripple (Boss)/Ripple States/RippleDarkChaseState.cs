@@ -13,7 +13,7 @@ public class RippleDarkChaseState : RippleBaseState
         ripple.turnOffLights();
         GameObject.Destroy(GameObject.FindGameObjectWithTag("Blade"));
         ripple.deactivateLight();
-        ripple.summon8Pillars();
+        //ripple.summon8Pillars();
         maxIndex = 0;
         maxDistance = 0;
         if (potentialDestinations.Count != 4)

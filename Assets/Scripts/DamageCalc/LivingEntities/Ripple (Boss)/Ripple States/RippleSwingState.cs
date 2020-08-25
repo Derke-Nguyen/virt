@@ -73,7 +73,7 @@ public class RippleSwingState : RippleBaseState
             else
             {
                 //ripple.TransitionToState(ripple.LaserMineState);
-                ripple.TransitionToState(ripple.DarkChaseState);
+                ripple.TransitionToState(ripple.SummonState);
             }
         }
         else

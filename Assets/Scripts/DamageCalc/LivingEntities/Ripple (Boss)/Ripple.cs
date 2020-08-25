@@ -60,15 +60,18 @@ public class Ripple : Enemy
     public NavMeshSurface surface;
 
     public Pillar pillarPrefab;
-    public List<Pillar> pillars;
+    public List<pillarDetecter> pillars;
     public List<Pillar> eightPillars;
     public List<rippleProjectile> projectiles;
     public List<Laser> lasers;
+    public List<ShockWave> shockwaves;
 
     public rippleProjectile projectilePrefab;
     public Laser laserPrefab;
     public Mine minePrefab;
     public LightBlade lightBladePrefab;
+    public pillarDetecter pillarDetecterPrefab;
+    public ShockWave shockWavePrefab;
 
     public float viewRadius;
     [Range(0, 360)]
@@ -76,8 +79,6 @@ public class Ripple : Enemy
 
     public LayerMask targetMask;
     public LayerMask obstacleMask;
-
-    public bool pillarsDone;
 
     public lightControl lightController;
 
@@ -110,13 +111,13 @@ public class Ripple : Enemy
     public override void Start()
     {
         base.Start();
-        pillars = new List<Pillar>();
+        pillars = new List<pillarDetecter>();
         eightPillars = new List<Pillar>();
         projectiles = new List<rippleProjectile>();
         lasers = new List<Laser>();
+        shockwaves = new List<ShockWave>();
         backstabDistance = 11f;
         backstabAngle = 92.3f;
-        pillarsDone = false;
         endPillar = false;
         isDark = false;
         pausedState = false;
@@ -310,13 +311,13 @@ public class Ripple : Enemy
 
     void OnDrawGizmos()
     {
+        //points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
         //Gizmos.DrawWireCube(regionSize / 2, regionSize);
         if (points != null)
         {
             foreach (Vector2 point in points)
             {
-                //Vector3 newCenter = new Vector3(points., 0, points.y);
-                //Gizmos.DrawSphere(new Vector3(point.x - (50 - 7), 0, point.y - (50 - 7)), displayRadius);
+                //Gizmos.DrawSphere(new Vector3(point.x - (70-7), 0, point.y - (50-7)), displayRadius);
             }
         }
     }
@@ -352,17 +353,11 @@ public class Ripple : Enemy
         points = PoissonDiscSampling.GeneratePoints(radius, regionSize, rejectionSamples);
         foreach (Vector2 point in points)
         {
-            Vector3 newPillar = new Vector3(point.x - (50 - 7), -10, point.y - (50 - 7));
-            if (newPillar.x >= -7 && newPillar.x <= 7 && newPillar.z >= -6 && newPillar.z <= 7)
-            {
-                continue;
-            }
-            Pillar pill = Instantiate(pillarPrefab, new Vector3(point.x - (50 - 7), -10, point.y - (50 - 7)), Quaternion.identity);
+            pillarDetecter pill = Instantiate(pillarDetecterPrefab, new Vector3(point.x - (70 - 7), 0, point.y - (50 - 7)), Quaternion.identity);
             pillars.Add(pill);
             yield return new WaitForSeconds(1f);
         }
         yield return new WaitForSeconds(2.5f);
-        pillarsDone = true;
     }
 
     public IEnumerator PauseState(float seconds)
@@ -416,9 +411,9 @@ public class Ripple : Enemy
     {
         while (pillars.Count > 0)
         {
-            Pillar tempPill = pillars[0];
+            pillarDetecter tempPill = pillars[0];
             pillars.RemoveAt(0);
-            tempPill.destroy();
+            //tempPill.destroy();
         }
     }
     public IEnumerator summonLightBlades()
@@ -432,77 +427,26 @@ public class Ripple : Enemy
         }
         lightBladeActivated = false;
     }
-
-    public IEnumerator findSmashablePillars()
+    public void summonShockWaves()
     {
-        while (true)
-        {
-            if (pillars.Count <= 6)
-            {
-                endPillar = true;
-                while(pillars.Count > 0)
-                {
-                    Pillar tempPill = pillars[0];
-                    pillars.RemoveAt(0);
-                    tempPill.destroy();
-                }
-                yield return new WaitForSeconds(5f);
-            }
-            float minDistance1 = (playerTransform.position - pillars[0].transform.position).magnitude;
-            float minDistance2 = (playerTransform.position - pillars[0].transform.position).magnitude;
-            int minIndex1 = 0;
-            int minIndex2 = 0;
-            for (int i = 1; i < pillars.Count; i++)
-            {
-                if (!pillars[i])
-                {
-                    if (i + 1 == pillars.Count)
-                        break;
-                    else
-                    {
-                        pillars.RemoveAt(i);
-                        --i;
-                        continue;
-                    }
-                }
-                float distance = (playerTransform.position - pillars[i].transform.position).magnitude;
-                if (distance < minDistance1)
-                {
-                    if (minDistance1 < minDistance2)
-                    {
-                        minDistance2 = minDistance1;
-                        minIndex2 = minIndex1;
-                    }
-                    minDistance1 = distance;
-                    minIndex1 = i;
-                }
-                else if (distance < minDistance2)
-                {
-                    if (minDistance2 < minDistance1)
-                    {
-                        minDistance1 = minDistance2;
-                        minIndex1 = minIndex2;
-                    }
-                    minDistance2 = distance;
-                    minIndex2 = i;
-                }
-            }
-            //Instead use raycast to all enemies in range and check if raycasts form 180 degrees maybe
-            float targetAngle1 = AngleInDeg(playerTransform.position, pillars[minIndex1].transform.position);
-            float targetAngle2 = AngleInDeg(playerTransform.position, pillars[minIndex2].transform.position);
-            //Debug.Log("1: " + targetAngle1);
-            //Debug.Log("2: " + targetAngle2);
-            if (minIndex1 != minIndex2 && Mathf.Abs((180-(targetAngle1 + targetAngle2))) < 15f)
-            {
-                pillars[minIndex1].activateMove(pillars[minIndex2].transform.position);
-                pillars[minIndex2].activateMove(pillars[minIndex1].transform.position);
-                Pillar temp = pillars[minIndex2];
-                pillars.RemoveAt(minIndex1);
-                pillars.Remove(temp);
-            }
-            yield return null;
-        }
+        shockwaves.Add(Instantiate(shockWavePrefab, new Vector3(-66, 1, 45), Quaternion.identity));
+        shockwaves.Add(Instantiate(shockWavePrefab, new Vector3(-66, 1, -45), Quaternion.identity));
+        shockwaves.Add(Instantiate(shockWavePrefab, new Vector3(66, 1, 45), Quaternion.identity));
+        shockwaves.Add(Instantiate(shockWavePrefab, new Vector3(66, 1, -45), Quaternion.identity));
     }
+
+    public bool noShockwaves()
+    {
+        for (int i = 0; i < shockwaves.Count; ++i)
+        {
+            if (shockwaves[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     //when finding vector3 desintation on a line with two Vector3 points
     public Vector3 vectorDestination(Vector3 origin, Vector3 _direction, float distance)

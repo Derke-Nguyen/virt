@@ -22,7 +22,11 @@ public class LightBlade : MonoBehaviour
     {
         if (moveForward)
         {
-            transform.Translate(transform.up * Time.deltaTime * 35f, Space.World);
+            if (Mathf.Abs(transform.position.x) >= 80f || Mathf.Abs(transform.position.z) >= 60f)
+            {
+                Destroy(this.gameObject);
+            }
+                transform.Translate(transform.up * Time.deltaTime * 35f, Space.World);
             //if ((playerTransform.position - transform.position).magnitude >= 20f)
             //{
             //   Destroy(this.gameObject);

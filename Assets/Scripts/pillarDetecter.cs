@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class test : MonoBehaviour
+public class pillarDetecter : MonoBehaviour
 {
     LineRenderer line;
     float lineWidth;
     float radius;
+    public Pillar prefabPillar;
+    Pillar pill;
+    bool waitForPillar;
+    bool hasSummoned;
     // Start is called before the first frame update
     void Start()
     {
-        radius = 1f;
+        waitForPillar = false;
+        hasSummoned = false;
+        radius = 0f;
         var segments = 360;
-        lineWidth = 1f;
+        lineWidth = 0.3f;
         line = GetComponent<LineRenderer>();
         line.useWorldSpace = false;
         line.startWidth = lineWidth;
@@ -34,7 +40,29 @@ public class test : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        radius += 0.1f;
+        if (hasSummoned && !pill)
+        {
+            //waitForPillar = false;
+        }
+        
+        if (!waitForPillar)
+        {
+            if (radius <= 5 )
+            {
+                updateCircle();
+            }
+            else
+            {
+                line.enabled = false;
+                waitForPillar = true;
+                StartCoroutine(SummonPillars());
+            }
+        }
+    }
+
+    void updateCircle()
+    {
+        radius += 0.02f;
         var segments = 360;
         var pointCount = segments + 1; // add extra point to make startpoint and endpoint the same to close the circle
         var points = new Vector3[pointCount];
@@ -46,5 +74,15 @@ public class test : MonoBehaviour
         }
 
         line.SetPositions(points);
+    }
+
+    public IEnumerator SummonPillars()
+    {
+        pill = Instantiate(prefabPillar, new Vector3(transform.position.x, -3, transform.position.z), Quaternion.identity, transform);
+        yield return new WaitForSeconds(11f);
+        radius = 0;
+        hasSummoned = true;
+        line.enabled = true;
+        waitForPillar = false;
     }
 }
