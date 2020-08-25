@@ -21,6 +21,7 @@ public class SceneTransition : MonoBehaviour
     public void FadeToLevel(int t_LevelIndex)
     {
         m_LevelToLoad = t_LevelIndex;
+        TitleScreen.LEVEL_PLAYED = t_LevelIndex;
         m_Anim.SetTrigger("FadeOut");
     }
 
