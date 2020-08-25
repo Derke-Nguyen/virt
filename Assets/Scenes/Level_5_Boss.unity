@@ -197,6 +197,12 @@ PrefabInstance:
       propertyPath: lightController
       value: 
       objectReference: {fileID: 693305585}
+    - target: {fileID: 6821159778364753968, guid: 6eb7e95366cc7794d8f415c7e476101f,
+        type: 3}
+      propertyPath: laserPrefab
+      value: 
+      objectReference: {fileID: 657977889892709759, guid: 798938dd339ef6c4d8ff3194c473c556,
+        type: 3}
     - target: {fileID: 6821159778364753975, guid: 6eb7e95366cc7794d8f415c7e476101f,
         type: 3}
       propertyPath: m_Name
