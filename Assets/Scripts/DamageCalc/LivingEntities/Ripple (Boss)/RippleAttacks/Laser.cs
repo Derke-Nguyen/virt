@@ -12,8 +12,8 @@ public class Laser : MonoBehaviour
     void Start()
     {
         laser = GetComponent<LineRenderer>();
-        laser.startWidth = 5f;
-        laser.endWidth = 5f;
+        laser.startWidth = 3f;
+        laser.endWidth = 3f;
     }
 
     // Update is called once per frame
