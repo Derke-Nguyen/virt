@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 20
-  player: {fileID: 4289807099134938946, guid: 2892b4d331240754885d44b92d23e86b, type: 3}
+  player: {fileID: 0}
   playerTransform: {fileID: 0}
   spotlight: {fileID: 4809745033536436197}
   viewMask:

@@ -8,7 +8,7 @@ public class ShockWave : Enemy
     float lineWidth;
     float radius;
 
-    public Player player;
+    GameObject player;
 
     public Transform playerTransform;
     public Light spotlight;
@@ -51,6 +51,8 @@ public class ShockWave : Enemy
         }
 
         line.SetPositions(points);
+
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -83,7 +85,7 @@ public class ShockWave : Enemy
             if (player.transform.position.y < 2)
             {
                 //Debug.Log("WE GOT HERE");
-                player.takeHit(damage);
+                player.GetComponent<Player>().takeHit(damage);
             }
         }
 
