@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    public LineRenderer laser;
+    float damage = 20;
+
+    LineRenderer laser;
+    public Vector3 offset = new Vector3(0, 1f, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -16,16 +19,19 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        laser.SetPosition(0, transform.position);
+        laser.SetPosition(0, transform.position - offset);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        if (Physics.Raycast(transform.position - offset, transform.forward, out hit))
         {
-            if (hit.collider)
+            if (hit.collider.GetComponent<Player>())
             {
-                laser.SetPosition(1, hit.point);
+                //Debug.Log("WE GOT HERE");
+                hit.collider.GetComponent<Player>().takeHit(damage);
             }
         }
         else
-            laser.SetPosition(1, transform.position + (transform.forward * 150));
+        {
+            laser.SetPosition(1, transform.position - offset + (transform.forward * 150));
+        }
     }
 }

@@ -138,4 +138,12 @@ public class ShockWave : Enemy
         base.takeHit(damage);
         Debug.Log(health);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Player>().takeHit(damage);
+        }
+    }
 }
