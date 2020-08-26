@@ -8,6 +8,8 @@ public class ShockWave : Enemy
     float lineWidth;
     float radius;
 
+    public Player player;
+
     public Transform playerTransform;
     public Light spotlight;
     Color originalSpotLightColor;
@@ -18,6 +20,8 @@ public class ShockWave : Enemy
     float viewDistance;
 
     public LayerMask viewMask;
+
+    float damage = 10;
 
     // Start is called before the first frame update
     public override void Start()
@@ -71,6 +75,16 @@ public class ShockWave : Enemy
         {
             var rad = Mathf.Deg2Rad * (i * 360f / segments);
             points[i] = new Vector3(Mathf.Sin(rad) * radius, 0.5f, Mathf.Cos(rad) * radius);
+        }
+
+        //Check every frame if player is within ring
+        if (Mathf.Abs(Vector3.Distance(this.transform.position, player.transform.position) - radius) < 1)
+        {
+            if (player.transform.position.y < 2)
+            {
+                //Debug.Log("WE GOT HERE");
+                player.takeHit(damage);
+            }
         }
 
         line.SetPositions(points);
