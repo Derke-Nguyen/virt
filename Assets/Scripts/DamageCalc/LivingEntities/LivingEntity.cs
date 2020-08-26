@@ -25,26 +25,11 @@ public class LivingEntity : MonoBehaviour, Damagable
                 SceneManager.LoadScene("Game Over"); //Transitions to game over when player dies
                 return;
             }
-            else if(this.tag == "Boss")
-            {
-                GameObject[] pillars = GameObject.FindGameObjectsWithTag("Pillar");
-                for(int i = 0; i < pillars.Length; ++i)
-                {
-                    GameObject.Destroy(pillars[i]);
-                }
-                GameObject[] projectiles = GameObject.FindGameObjectsWithTag("EnemyProjectile");
-                for(int i = 0; i < projectiles.Length; ++i)
-                {
-                    GameObject.Destroy(projectiles[i]);
-                }
-            }
             DIE(); //Dies when health reaches 0
         }
     }
 
-
-    //Note: Currently causes error when player dies since camera position is based on player
-    //Possible solution: transition to Game Over when player dies
+    //Marks object as dead and destroys it
     public void DIE()
     {
         dead = true;

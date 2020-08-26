@@ -28,6 +28,4 @@ public class Laser : MonoBehaviour
         else
             laser.SetPosition(1, transform.position + (transform.forward * 150));
     }
-
-
 }

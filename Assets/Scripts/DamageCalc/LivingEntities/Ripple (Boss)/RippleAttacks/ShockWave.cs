@@ -8,14 +8,17 @@ public class ShockWave : Enemy
     float lineWidth;
     float radius;
 
-    public float lightRatio;
-    float timeToSpotPlayer = 1f;
-    public float playerVisibleTimer;
+    public Transform playerTransform;
     public Light spotlight;
     Color originalSpotLightColor;
-    public Transform playerTransform;
-    public float viewDistance;
+
+    float lightRatio;
+    float timeToSpotPlayer = 1f;
+    float playerVisibleTimer;
+    float viewDistance;
+
     public LayerMask viewMask;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -112,5 +115,11 @@ public class ShockWave : Enemy
             }
         }
         return false;
+    }
+
+    public override void takeHit(float damage)
+    {
+        base.takeHit(damage);
+        Debug.Log(health);
     }
 }
