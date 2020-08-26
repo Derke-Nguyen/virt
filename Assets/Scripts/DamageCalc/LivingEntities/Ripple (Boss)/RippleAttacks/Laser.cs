@@ -10,7 +10,7 @@ public class Laser : MonoBehaviour
     {
         laser = GetComponent<LineRenderer>();
         laser.startWidth = 5f;
-        laser.SetWidth(3f, 3f);
+        laser.endWidth = 5f;
     }
 
     // Update is called once per frame
@@ -28,4 +28,6 @@ public class Laser : MonoBehaviour
         else
             laser.SetPosition(1, transform.position + (transform.forward * 150));
     }
+
+
 }
