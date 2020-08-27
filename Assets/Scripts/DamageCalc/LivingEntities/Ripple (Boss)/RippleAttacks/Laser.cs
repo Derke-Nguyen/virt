@@ -14,12 +14,12 @@ public class Laser : MonoBehaviour
         laser = GetComponent<LineRenderer>();
         laser.startWidth = 3f;
         laser.endWidth = 3f;
+        laser.SetPosition(0, transform.position - offset);
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        laser.SetPosition(0, transform.position - offset);
         RaycastHit hit;
         if (Physics.Raycast(transform.position - offset, transform.forward, out hit))
         {
@@ -29,9 +29,6 @@ public class Laser : MonoBehaviour
                 hit.collider.GetComponent<Player>().takeHit(damage);
             }
         }
-        else
-        {
-            laser.SetPosition(1, transform.position - offset + (transform.forward * 150));
-        }
+        laser.SetPosition(1, transform.position - offset + (transform.forward * 150));
     }
 }
