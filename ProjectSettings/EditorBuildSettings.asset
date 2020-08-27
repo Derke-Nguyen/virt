@@ -24,6 +24,9 @@ EditorBuildSettings:
     path: Assets/Scenes/SiweiTestScene.unity
     guid: 1f130cb409953f441b774ff062925d6b
   - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: 2fb2e78b1f825e14982d7fecd0ed7222
+  - enabled: 1
     path: Assets/Scenes/Game Over.unity
     guid: 58ec56828cae0064980cd92260550b5e
   m_configObjects: {}
