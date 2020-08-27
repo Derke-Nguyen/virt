@@ -26,7 +26,7 @@ public class SwordCollider : MonoBehaviour
             Damagable damagableObject = other.GetComponent<Damagable>(); //Deals damage by calling takeHit on other object
             if(damagableObject != null)
             {
-                Debug.Log(other.gameObject.name + " was damaged");
+                //Debug.Log(other.gameObject.name + " was damaged");
                 //Debug.Log("Current Damage: " + damage);
                 damagableObject.takeHit(damage);
             }

@@ -79,7 +79,7 @@ public class RippleFollowState : RippleBaseState
             {
                 ripple.StopAllCoroutines();
                 ripple.pauseNavMesh();
-                ripple.TransitionToState(ripple.TeleportState);
+                ripple.TransitionToState(ripple.LaserMineState);
                 
             }
         }

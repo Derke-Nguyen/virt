@@ -12,7 +12,7 @@ public class Mine : Enemy
     public Transform playerTransform;
     public float viewDistance;
     public LayerMask viewMask;
-    public int damage = 3;
+    public int damage = 10;
     // Start is called before the first frame update
     public override void Start()
     {
@@ -49,7 +49,10 @@ public class Mine : Enemy
 
     public void destroyMine()
     {
-        GameObject.Destroy(gameObject);
+        if (gameObject)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
     public override bool inTheRed()
     {
