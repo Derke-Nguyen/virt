@@ -436,9 +436,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 3.2616043
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.628103, z: 0}
 --- !u!114 &4289807099134939064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,7 +477,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 50
   speed: 8
-  invincibility: 0
   timeManager: {fileID: 0}
   Health: {fileID: 237895425935797331, guid: d11c9b010ce6e9247bd2172a7780fc56, type: 3}
 --- !u!54 &4289807099134938947

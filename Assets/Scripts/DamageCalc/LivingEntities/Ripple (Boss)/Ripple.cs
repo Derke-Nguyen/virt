@@ -372,7 +372,7 @@ public class Ripple : Enemy
         {
             pillarDetecter pill = Instantiate(pillarDetecterPrefab, new Vector3(point.x - (70 - 7), 0, point.y - (50 - 7)), Quaternion.identity);
             pillars.Add(pill);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.7f);
         }
         yield return new WaitForSeconds(2.5f);
     }

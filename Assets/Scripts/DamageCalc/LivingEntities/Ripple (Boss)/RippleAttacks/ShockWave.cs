@@ -68,7 +68,7 @@ public class ShockWave : Enemy
         {
             radius = 0;
         }
-        radius += 0.03f;
+        radius += 0.075f;
         var segments = 360;
         var pointCount = segments + 1; // add extra point to make startpoint and endpoint the same to close the circle
         var points = new Vector3[pointCount];

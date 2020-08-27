@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 public class PlayerController : MonoBehaviour
 {
+    public lightControl mainLight;
+
     Rigidbody playerRigidBody;
     public Rigidbody Rigidbody
     {
@@ -54,12 +57,22 @@ public class PlayerController : MonoBehaviour
         playerRigidBody = GetComponent<Rigidbody>();
         dashTime = startDashTime;
         canAssassinate = false;
+        GetComponentInChildren<Light>().enabled = false;
 
         TransitionToState(IdleState);
     }
 
     private void Update()
     {
+        if (mainLight && !mainLight.GetComponentInChildren<Light>().enabled)
+        {
+            Debug.Log("WE GOT HERE");
+            GetComponentInChildren<Light>().enabled = true;
+        }
+        else
+        {
+            GetComponentInChildren<Light>().enabled = false;
+        }
         currentState.Update(this);
     }
 

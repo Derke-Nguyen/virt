@@ -7,7 +7,6 @@ public class Laser : MonoBehaviour
     float damage = 20;
 
     LineRenderer laser;
-    public Vector3 offset = new Vector3(0, 1f, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -19,19 +18,19 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        laser.SetPosition(0, transform.position - offset);
+        laser.SetPosition(0, transform.position);
         RaycastHit hit;
-        if (Physics.Raycast(transform.position - offset, transform.forward, out hit))
+        if (Physics.Raycast(transform.position, transform.forward, out hit))
         {
-            if (hit.collider.GetComponent<Player>())
+            if (hit.collider.tag == "Player")
             {
-                //Debug.Log("WE GOT HERE");
+                laser.SetPosition(1, hit.point);
                 hit.collider.GetComponent<Player>().takeHit(damage);
             }
         }
         else
         {
-            laser.SetPosition(1, transform.position - offset + (transform.forward * 150));
+            laser.SetPosition(1, transform.position + (transform.forward * 100));
         }
     }
 }
