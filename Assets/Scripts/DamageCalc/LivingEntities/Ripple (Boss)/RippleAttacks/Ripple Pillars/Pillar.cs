@@ -6,12 +6,13 @@ using UnityEngine.AI;
 
 public class Pillar : MonoBehaviour
 {
-    float speed;
-    float amount;
+    //float speed;
+    //float amount;
+    //float followSpeed;
+    //float maxTimeSpentInState;
     float fastSpeed;
-    float followSpeed;
     Vector3 destination = Vector3.one;
-    float maxTimeSpentInState;
+    
 
     public LayerMask collisionMask;
 
@@ -22,11 +23,13 @@ public class Pillar : MonoBehaviour
     //public NavMeshSurface surface;
     void Start()
     {
-        speed = 2;
-        amount = 1f;
+        //speed = 2;
+        //amount = 1f;
+        //followSpeed = 7;
+        //maxTimeSpentInState = 5f;
+
+
         fastSpeed = 2.5f;
-        followSpeed = 7;
-        maxTimeSpentInState = 5f;
         pausedState = false;
         goingToGround = false;
         //surface.BuildNavMesh();

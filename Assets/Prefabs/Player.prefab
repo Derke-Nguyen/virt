@@ -479,7 +479,7 @@ MonoBehaviour:
   speed: 8
   invincibility: 0
   timeManager: {fileID: 0}
-  Health: {fileID: 2044941419}
+  Health: {fileID: 237895425935797331, guid: d11c9b010ce6e9247bd2172a7780fc56, type: 3}
 --- !u!54 &4289807099134938947
 Rigidbody:
   m_ObjectHideFlags: 0

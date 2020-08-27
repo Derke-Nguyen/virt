@@ -8,14 +8,21 @@ public class ShockWave : Enemy
     float lineWidth;
     float radius;
 
-    public float lightRatio;
-    float timeToSpotPlayer = 1f;
-    public float playerVisibleTimer;
+    GameObject player;
+
+    public Transform playerTransform;
     public Light spotlight;
     Color originalSpotLightColor;
-    public Transform playerTransform;
-    public float viewDistance;
+
+    float lightRatio;
+    float timeToSpotPlayer = 1f;
+    float playerVisibleTimer;
+    float viewDistance;
+
     public LayerMask viewMask;
+
+    float damage = 10;
+
     // Start is called before the first frame update
     public override void Start()
     {
@@ -44,6 +51,8 @@ public class ShockWave : Enemy
         }
 
         line.SetPositions(points);
+
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -68,6 +77,16 @@ public class ShockWave : Enemy
         {
             var rad = Mathf.Deg2Rad * (i * 360f / segments);
             points[i] = new Vector3(Mathf.Sin(rad) * radius, 0.5f, Mathf.Cos(rad) * radius);
+        }
+
+        //Check every frame if player is within ring
+        if (Mathf.Abs(Vector3.Distance(this.transform.position, player.transform.position) - radius) < 1)
+        {
+            if (player.transform.position.y < 2)
+            {
+                //Debug.Log("WE GOT HERE");
+                player.GetComponent<Player>().takeHit(damage);
+            }
         }
 
         line.SetPositions(points);
@@ -112,5 +131,19 @@ public class ShockWave : Enemy
             }
         }
         return false;
+    }
+
+    public override void takeHit(float damage)
+    {
+        base.takeHit(damage);
+        Debug.Log(health);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<Player>().takeHit(damage);
+        }
     }
 }

@@ -136,7 +136,6 @@ public class Ripple : Enemy
 
         //size = 5f;
         
-        
         //TODO Change starting state
         currentState = FollowState;
         TransitionToState(FollowState);

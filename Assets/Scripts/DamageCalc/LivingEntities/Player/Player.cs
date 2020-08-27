@@ -8,7 +8,7 @@ public class Player : LivingEntity
 {
     public float speed = 8;
 
-    public float invincibility = 0; //Tracks if the player has mercy invincibility
+    float invincibility = 0; //Tracks if the player has mercy invincibility
     float invincibilityTime = 1.2f;
     int flickerTimes = 5;
     float flickOn = 0.2f;
@@ -89,7 +89,8 @@ public class Player : LivingEntity
             return;
         }
         base.takeHit(damage);
-        Health.value = health / startingHealth; //Changes proportion of healthbar that is green
+        Health.value = health / startingHealth; //Changes proportion of healthbar that is blue
+        Debug.Log(Health.value);
         invincibility = invincibilityTime;
         StartCoroutine(Blink(flickerTimes, flickOn, flickOff)); //Start flicker Coroutine
     }

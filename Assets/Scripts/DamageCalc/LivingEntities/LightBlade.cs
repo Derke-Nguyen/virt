@@ -6,8 +6,11 @@ public class LightBlade : MonoBehaviour
 {
     float rotationAmount;
     Vector3 direction;
-    public Transform playerTransform;
+    Transform playerTransform;
     bool moveForward;
+
+    float damage = 15;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,6 +53,14 @@ public class LightBlade : MonoBehaviour
         {
             transform.Rotate(Vector3.up * Time.deltaTime * -360, Space.World);
             rotationAmount += Time.deltaTime * 360;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Player")
+        {
+            other.gameObject.GetComponent<Player>().takeHit(damage);
         }
     }
 }

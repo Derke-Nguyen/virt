@@ -11,7 +11,7 @@ public class moveTracker : MonoBehaviour
         tracker = GetComponent<LineRenderer>();
         tracker.useWorldSpace = true;
         tracker.startWidth = 5f;
-        tracker.SetWidth(3f, 3f);
+        tracker.endWidth = 3f;
     }
 
     // Update is called once per frame
