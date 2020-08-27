@@ -174,8 +174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 0.5
   height: 1.98
-  boxCount: 5
-  widthScale: 1.54
+  boxCount: 4
+  widthScale: 3
   capTop: 0
   capBottom: 0
   alwaysDrawGizmo: 0

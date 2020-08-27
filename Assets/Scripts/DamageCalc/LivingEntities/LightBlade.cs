@@ -39,7 +39,7 @@ public class LightBlade : MonoBehaviour
         {
             Vector3 dirToPlayer = playerTransform.position - transform.position;
             float angle = Vector3.Angle(transform.up, dirToPlayer);
-            if (angle < 10f)
+            if (angle < 3f)
             {
                 moveForward = true;
             }

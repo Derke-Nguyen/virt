@@ -29,7 +29,7 @@ public class Pillar : MonoBehaviour
         //maxTimeSpentInState = 5f;
 
 
-        fastSpeed = 2.5f;
+        fastSpeed = 3f;
         pausedState = false;
         goingToGround = false;
         //surface.BuildNavMesh();

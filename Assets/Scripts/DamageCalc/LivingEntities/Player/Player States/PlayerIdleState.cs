@@ -38,12 +38,12 @@ public class PlayerIdleState : PlayerBaseState
     //Checks for input in order to change state
     public override void Update(PlayerController player)
     {
-        if (Input.GetKeyDown(KeyCode.Space)) //Jumps when space is pressed
-        {
-            player.Rigidbody.AddForce(Vector3.up * 500);
-            player.TransitionToState(player.JumpingState);
-        }
-        else if (Input.GetMouseButton(1)) //Dashes when right mouse button is pressed
+        //if (Input.GetKeyDown(KeyCode.Space)) //Jumps when space is pressed
+        //{
+        //    player.Rigidbody.AddForce(Vector3.up * 500);
+        //    player.TransitionToState(player.JumpingState);
+        //}
+        if (Input.GetMouseButton(1)) //Dashes when right mouse button is pressed
         {
             //Debug.Log(dashCD);
             if (dashCD <= 0)
@@ -52,7 +52,7 @@ public class PlayerIdleState : PlayerBaseState
                 player.TransitionToState(player.DashingState);
             }
         }
-        else if (player.canAssassinate && Input.GetMouseButton(0))
+        else if (player.canAssassinate && Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (assassinateCD <= 0)
             {
