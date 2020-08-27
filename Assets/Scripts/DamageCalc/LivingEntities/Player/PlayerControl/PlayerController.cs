@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     {
         if (mainLight && !mainLight.GetComponentInChildren<Light>().enabled)
         {
-            Debug.Log("WE GOT HERE");
+            //Debug.Log("WE GOT HERE");
             GetComponentInChildren<Light>().enabled = true;
         }
         else

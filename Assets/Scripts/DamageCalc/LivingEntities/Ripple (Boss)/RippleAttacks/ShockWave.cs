@@ -21,7 +21,7 @@ public class ShockWave : Enemy
 
     public LayerMask viewMask;
 
-    float damage = 10;
+    float damage = 5;
 
     // Start is called before the first frame update
     public override void Start()

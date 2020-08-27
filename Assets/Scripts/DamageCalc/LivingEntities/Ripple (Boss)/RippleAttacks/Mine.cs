@@ -37,7 +37,7 @@ public class Mine : Enemy
     public void explode()
     {
         //TODO
-        if (Vector3.Distance(transform.position, playerTransform.position) < viewDistance)
+        if (Vector3.Distance(transform.position, playerTransform.position) < viewDistance - 4)
         {
             if (!Physics.Linecast(transform.position, playerTransform.position, viewMask))
             {
@@ -49,7 +49,7 @@ public class Mine : Enemy
 
     public void destroyMine()
     {
-        Destroy(this.gameObject);
+        GameObject.Destroy(gameObject);
     }
     public override bool inTheRed()
     {

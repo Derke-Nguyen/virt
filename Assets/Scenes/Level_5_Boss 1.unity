@@ -217,6 +217,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ripple
       objectReference: {fileID: 0}
+    - target: {fileID: 6821159778364753975, guid: 6eb7e95366cc7794d8f415c7e476101f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eb7e95366cc7794d8f415c7e476101f, type: 3}
 --- !u!1 &394196579
@@ -1169,7 +1174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5133a47197306a5449717f2d64141702, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DistanceFromTarget: 15
+  m_DistanceFromTarget: 50
   m_Yaw: 0
   m_Pitch: 50
 --- !u!1 &1416206599
