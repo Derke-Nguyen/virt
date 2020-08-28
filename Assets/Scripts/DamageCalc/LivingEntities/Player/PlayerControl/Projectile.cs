@@ -8,7 +8,8 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed = 8f;//speed
-    float damage = 5;
+    float damage = 0.5f;
+    float lifespan = 5f;
 
     private Vector3 direction;//direciton
 
@@ -26,6 +27,11 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         transform.position += direction * speed * Time.deltaTime;//moves bullet
+        lifespan -= Time.deltaTime;
+        if(lifespan <= 0)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,7 +39,7 @@ public class Projectile : MonoBehaviour
         if(other.gameObject.tag == "Enemy")
         {
             other.gameObject.GetComponent<Damagable>().takeHit(damage);
+            GameObject.Destroy(gameObject);
         }
-        GameObject.Destroy(gameObject);
     }
 }
