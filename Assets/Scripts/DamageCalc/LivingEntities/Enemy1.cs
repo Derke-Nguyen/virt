@@ -206,7 +206,7 @@ public class Enemy1 : Enemy
             unpausedSpeed = pathfinder.velocity;
 
             //if enemy1 arrives at target waypoint, set the destination to the next waypoint	
-            if (transform.position.x == targetWayPoint.x && transform.position.z == targetWayPoint.z)
+            if (Mathf.Abs(transform.position.x - targetWayPoint.x) < 0.00001f && Mathf.Abs(transform.position.z - targetWayPoint.z) < 0.00001f)
             {
                 //Debug.Log("Works");
                 targetWayPointIndex = (targetWayPointIndex + 1) % waypoints.Length;
