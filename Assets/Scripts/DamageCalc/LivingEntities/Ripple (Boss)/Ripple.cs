@@ -360,7 +360,10 @@ public class Ripple : Enemy
     {
         foreach (Mine mine in mines)
         {
-            mine.destroyMine();
+            if (mine)
+            {
+                mine.destroyMine();
+            }
         }
     }
 

@@ -12,7 +12,7 @@ public class Mine : Enemy
     public Transform playerTransform;
     public float viewDistance;
     public LayerMask viewMask;
-    public int damage = 3;
+    public int damage = 10;
     // Start is called before the first frame update
     public override void Start()
     {
@@ -37,7 +37,7 @@ public class Mine : Enemy
     public void explode()
     {
         //TODO
-        if (Vector3.Distance(transform.position, playerTransform.position) < viewDistance)
+        if (Vector3.Distance(transform.position, playerTransform.position) < viewDistance - 4)
         {
             if (!Physics.Linecast(transform.position, playerTransform.position, viewMask))
             {
@@ -49,7 +49,10 @@ public class Mine : Enemy
 
     public void destroyMine()
     {
-        Destroy(this.gameObject);
+        if (gameObject)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
     public override bool inTheRed()
     {

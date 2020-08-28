@@ -90,7 +90,7 @@ public class Player : LivingEntity
         }
         base.takeHit(damage);
         Health.value = health / startingHealth; //Changes proportion of healthbar that is blue
-        Debug.Log(Health.value);
+        //Debug.Log(Health.value);
         invincibility = invincibilityTime;
         StartCoroutine(Blink(flickerTimes, flickOn, flickOff)); //Start flicker Coroutine
     }

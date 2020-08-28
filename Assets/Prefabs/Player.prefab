@@ -451,8 +451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74369ec2a885e7a47911ac68243ce56b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SmokePrefab: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  mainLight: {fileID: 0}
+  SmokePrefab: {fileID: 4150654853018147905, guid: d0f41bb164f3ed745b19b9ed364c78d5,
+    type: 3}
+  bulletPrefab: {fileID: 70451649309311860, guid: 7ddf0bab89545164a904a301263af030,
+    type: 3}
   velocity: {x: 0, y: 0, z: 0}
   dashSpeed: 10
   startDashTime: 1

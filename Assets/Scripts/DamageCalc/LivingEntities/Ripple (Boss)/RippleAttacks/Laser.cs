@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Laser : MonoBehaviour
 {
-    float damage = 20;
+    float damage = 10;
 
     LineRenderer laser;
     public Vector3 offset = new Vector3(0, 1f, 0);

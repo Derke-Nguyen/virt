@@ -88,7 +88,7 @@ public class PlayerIdleState : PlayerBaseState
         {
             player.TransitionToState(player.SmokeState);
         }
-        else if (Input.GetKeyDown("q"))
+        else if (Input.GetKeyDown(KeyCode.Space))
         {
             player.TransitionToState(player.RangedState);
         }
