@@ -11,10 +11,15 @@ public class PlayerRangedState : PlayerBaseState
     {
         bulletprefab = player.GetComponent<PlayerController>().bulletPrefab;//gets prefab from playercontroller
 
-        Vector3 spawnbulletloc = new Vector3(player.transform.position.x + 1, player.transform.position.y, player.transform.position.z + 1);//sets spawn location to player
+        Vector3 playerPos = player.transform.position;
+        Vector3 playerDirection = player.transform.forward;
+        Quaternion playerRotation = player.transform.rotation;
+        float spawnDistance = 1;
+
+        Vector3 spawnbulletloc = playerPos + playerDirection * spawnDistance;
 
         GameObject clone = Object.Instantiate(bulletprefab, spawnbulletloc, Quaternion.identity);//creates clone
-        clone.GetComponent<Projectile>().Setup(player.transform.forward);//sends direction of player to Projectile
+        clone.GetComponent<Projectile>().Setup(playerDirection);//sends direction of player to Projectile
 
         player.TransitionToState(player.IdleState);//goes back to idle
     }
