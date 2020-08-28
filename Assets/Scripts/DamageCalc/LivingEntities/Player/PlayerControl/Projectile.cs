@@ -28,12 +28,11 @@ public class Projectile : MonoBehaviour
         transform.position += direction * speed * Time.deltaTime;//moves bullet
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("WE GOT HERE");
-        if(collision.gameObject.tag == "Enemy")
+        if(other.gameObject.tag == "Enemy")
         {
-            collision.gameObject.GetComponent<Damagable>().takeHit(damage);
+            other.gameObject.GetComponent<Damagable>().takeHit(damage);
         }
         GameObject.Destroy(gameObject);
     }
