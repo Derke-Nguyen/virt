@@ -30,7 +30,7 @@ public class RippleSummonState : RippleBaseState
 
     public override void Update(Ripple ripple)
     {
-        if (ripple.noShockwaves() /*|| Input.GetKeyDown(KeyCode.Space)*/)
+        if (ripple.noShockwaves())
         {
             ripple.StopAllCoroutines();
             ripple.destroyPillars();
